@@ -7,9 +7,6 @@ export type NguoiDungDocument = HydratedDocument<NguoiDung>;
 @Schema({ timestamps: true })
 export class NguoiDung {
   @Prop()
-  maNguoiDung: string;
-
-  @Prop()
   tenNguoiDung: string;
 
   @Prop()

@@ -1,9 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { NguoiDungService } from './nguoi-dung.service';
 import { CreateNguoiDungDto } from './dto/create-nguoi-dung.dto';
 import { UpdateNguoiDungDto } from './dto/update-nguoi-dung.dto';
 
-@Controller('nguoi-dung')
+@Controller('nguoidung')
 export class NguoiDungController {
   constructor(private readonly nguoiDungService: NguoiDungService) {}
 
@@ -22,13 +30,13 @@ export class NguoiDungController {
     return this.nguoiDungService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateNguoiDungDto: UpdateNguoiDungDto) {
-    return this.nguoiDungService.update(+id, updateNguoiDungDto);
+  @Patch()
+  update(@Body() updateNguoiDungDto: UpdateNguoiDungDto) {
+    return this.nguoiDungService.update(updateNguoiDungDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.nguoiDungService.remove(+id);
+    return this.nguoiDungService.remove(id);
   }
 }

@@ -1,4 +1,19 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateNguoiDungDto } from './create-nguoi-dung.dto';
+import { IsMongoId, IsNotEmpty, IsOptional } from 'class-validator';
 
-export class UpdateNguoiDungDto extends PartialType(CreateNguoiDungDto) {}
+export class UpdateNguoiDungDto {
+  @IsMongoId({ message: '_id không hợp lệ' })
+  @IsNotEmpty({ message: '_id không được để trống' })
+  _id: string;
+
+  @IsOptional()
+  tenNguoiDung: string;
+
+  @IsOptional()
+  ngaySinh: Date;
+
+  @IsOptional()
+  diaChi: string;
+
+  @IsOptional()
+  soDienThoai: string;
+}

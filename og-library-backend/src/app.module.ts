@@ -13,6 +13,7 @@ import { NguoiDungModule } from './modules/nguoi-dung/nguoi-dung.module';
 import { MuonTraModule } from './modules/muon-tra/muon-tra.module';
 import { ChiTietMuonTraModule } from './modules/chi-tiet-muon-tra/chi-tiet-muon-tra.module';
 import { PhieuPhatModule } from './modules/phieu-phat/phieu-phat.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { PhieuPhatModule } from './modules/phieu-phat/phieu-phat.module';
       }),
       inject: [ConfigService],
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
