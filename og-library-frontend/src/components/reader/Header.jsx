@@ -79,7 +79,7 @@ const Header = () => {
                     </button>
 
                     <button
-                        onClick={() => navigate("/login")}
+                        onClick={() => navigate("/register")}
                         className="px-4 py-1 rounded-lg bg-gray-300 hover:bg-gray-400"
                     >
                         Đăng ký

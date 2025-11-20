@@ -1,11 +1,15 @@
 import HomePage from "../pages/HomePage.jsx";
-import AuthPage from "../pages/AuthPage.jsx";
 import Dashboard from "../pages/Dashboard.jsx";
 import LoansPage from "../pages/LoansPage.jsx";
 import LibPage from "../pages/LibPage.jsx";
+import LoginPage from "../pages/auth/LoginPage.jsx";
+import RegisterPage from "../pages/auth/RegisterPage.jsx";
+import VerifyAccountPage from "../pages/auth/VerifyAccountPage.jsx";
 
 export const authenticateRoutes = [
-    {path: "/login" , component: AuthPage},
+    {path: "/login" , component: LoginPage},
+    {path: "/register" , component: RegisterPage},
+    {path: `/verify/:id` , component: VerifyAccountPage},
 ]
 
 export const readerRoutes = [

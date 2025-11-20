@@ -2,6 +2,11 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { NguoiDungService } from '../modules/nguoi-dung/nguoi-dung.service';
 import { comparePasswordHelper } from '../helpers/utils';
 import { JwtService } from '@nestjs/jwt';
+import {
+  CodeAuthDto,
+  CreateAuthDto,
+  ResendOTPAuthDto,
+} from './dto/create-auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -31,5 +36,17 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign(payload),
     };
+  }
+
+  async handleRegister(registerDto: CreateAuthDto) {
+    return await this.nguoiDungService.handleRegister(registerDto);
+  }
+
+  async handleActive(codeAuthDto: CodeAuthDto) {
+    return await this.nguoiDungService.handleActive(codeAuthDto);
+  }
+
+  async handleResendOTP(resendOTPAuthDto: ResendOTPAuthDto) {
+    return await this.nguoiDungService.handleResendOTP(resendOTPAuthDto);
   }
 }

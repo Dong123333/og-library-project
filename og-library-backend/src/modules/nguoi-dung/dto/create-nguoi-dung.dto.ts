@@ -3,7 +3,7 @@ import { VaiTro } from '../../vai-tro/schemas/vai-tro.schema';
 
 export class CreateNguoiDungDto {
   @IsNotEmpty({ message: 'Ten nguoi dung khong duoc de trong' })
-  tenNguoiDung: string;
+  hoVaTen: string;
 
   @IsNotEmpty({ message: 'Email khong duoc de trong' })
   @IsEmail({}, { message: 'Email khong dung dinh dang' })

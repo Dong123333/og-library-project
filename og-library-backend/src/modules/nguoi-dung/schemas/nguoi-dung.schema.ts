@@ -7,7 +7,7 @@ export type NguoiDungDocument = HydratedDocument<NguoiDung>;
 @Schema({ timestamps: true })
 export class NguoiDung {
   @Prop()
-  tenNguoiDung: string;
+  hoVaTen: string;
 
   @Prop()
   ngaySinh: Date;
@@ -23,6 +23,15 @@ export class NguoiDung {
 
   @Prop()
   matKhau: string;
+
+  @Prop({ default: false })
+  trangThai: boolean;
+
+  @Prop()
+  maOTP: string;
+
+  @Prop()
+  thoiHanOTP: Date;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'VaiTro' })
   maVaiTro: VaiTro;
