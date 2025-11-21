@@ -14,6 +14,7 @@ const VerifyAccountPage = () => {
     const email = location.state?.email;
     const [timeLeft, setTimeLeft] = useState(0);
     const [api, contextHolder] = notification.useNotification();
+    const [form] = Form.useForm();
 
     useEffect(() => {
         if (!email) {
@@ -43,6 +44,7 @@ const VerifyAccountPage = () => {
                     message: "Xác thực thành công! 🎉",
                     description: "Tài khoản của bạn đã được kích hoạt. Vui lòng đăng nhập."
                 });
+                form.resetFields();
                 navigate('/login');
             }
         } catch (error) {
@@ -50,6 +52,7 @@ const VerifyAccountPage = () => {
                 message: "Xác thực thất bại",
                 description: error.message || "Mã OTP không đúng hoặc đã hết hạn."
             });
+            form.resetFields();
 
         }
         setLoading(false);
@@ -57,8 +60,11 @@ const VerifyAccountPage = () => {
 
     const handleResendOtp = async () => {
         try {
-            await axios.post('auth/resend-otp', {_id: id});
-            api.success("Đã gửi lại mã OTP mới vào email của bạn.");
+            await axios.post('auth/resend-otp', {email});
+            api.success({
+                message: "Gửi lại thành công! 🎉",
+                description: "Đã gửi lại mã OTP mới vào email của bạn."
+            });
             setTimeLeft(60);
         } catch (error) {
             api.error("Gửi lại thất bại. Vui lòng thử lại sau.");
@@ -77,6 +83,7 @@ const VerifyAccountPage = () => {
             </div>
 
             <Form
+                form={form}
                 name="otp_form"
                 onFinish={onFinish}
                 layout="vertical"

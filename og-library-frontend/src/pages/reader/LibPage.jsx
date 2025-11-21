@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {ArrowRightOutlined, SearchOutlined, ShoppingCartOutlined} from "@ant-design/icons";
 import {Button, Card, Empty, Input, Modal, Select, Tag} from "antd";
 import Meta from "antd/es/card/Meta.js";
-import {usePage} from "../context/NavContext.jsx";
+import {usePage} from "../../context/NavContext.jsx";
 import {Navigate, useNavigate} from "react-router-dom";
 
 const mockBooks = [

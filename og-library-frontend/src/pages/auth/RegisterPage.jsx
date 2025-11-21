@@ -20,7 +20,6 @@ const RegisterPage = () => {
                     email: values.email,
                     matKhau: values.password,
                 }
-
             );
             if (res) {
                 api.success({

@@ -3,9 +3,9 @@ import { NguoiDungService } from '../modules/nguoi-dung/nguoi-dung.service';
 import { comparePasswordHelper } from '../helpers/utils';
 import { JwtService } from '@nestjs/jwt';
 import {
+  ChangePasswordAuthDto,
   CodeAuthDto,
   CreateAuthDto,
-  ResendOTPAuthDto,
 } from './dto/create-auth.dto';
 
 @Injectable()
@@ -31,9 +31,16 @@ export class AuthService {
     return user;
   }
 
-  async login (user:any) {
-    const payload = { username: user.email, sub: user._id };
+  async login(user: any) {
+    const roleName = user.maVaiTro?.tenVaiTro || 'reader';
+    const payload = { username: user.email, sub: user._id, role: roleName, fullName: user.hoVaTen };
     return {
+      user: {
+        _id: user._id,
+        email: user.email,
+        fullName: user.hoVaTen,
+        role: roleName,
+      },
       access_token: this.jwtService.sign(payload),
     };
   }
@@ -46,7 +53,17 @@ export class AuthService {
     return await this.nguoiDungService.handleActive(codeAuthDto);
   }
 
-  async handleResendOTP(resendOTPAuthDto: ResendOTPAuthDto) {
-    return await this.nguoiDungService.handleResendOTP(resendOTPAuthDto);
+  async handleResendOTP(email: string) {
+    return await this.nguoiDungService.handleResendOTP(email);
+  }
+
+  async handleRetryPassword(email: string) {
+    return await this.nguoiDungService.handleRetryPassword(email);
+  }
+
+  async handleChangePassword(changePasswordAuthDto: ChangePasswordAuthDto) {
+    return await this.nguoiDungService.handleChangePassword(
+      changePasswordAuthDto,
+    );
   }
 }

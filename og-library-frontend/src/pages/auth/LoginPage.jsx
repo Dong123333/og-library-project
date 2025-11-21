@@ -1,15 +1,81 @@
-import React, { useState } from 'react';
-import { Form, Input, Button, Checkbox, Divider } from 'antd';
+import React, {useEffect, useState} from 'react';
+import {Form, Input, Button, Checkbox, Divider, notification} from 'antd';
 import { LockOutlined, GoogleOutlined, FacebookFilled, MailOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import AuthLayout from "../../layouts/auth/index.jsx";
+import axios from "../../services/axios.customize";
+import VerifyAccountModal from "./VerifyAccountModal.jsx";
+import {useAuth} from "../../context/AuthContext.jsx";
+
 const LoginPage = () => {
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [email, setEmail] = useState("");
+    const [userId, setUserId] = useState("");
+    const { loginContext } = useAuth();
+    const [api, contextHolder] = notification.useNotification();
+    const [form] = Form.useForm();
 
-    const onFinish = (values) => {
-        console.log('Login Success:', values);
+    useEffect(() => {
+        const savedEmail = localStorage.getItem('remembered_email');
+        if (savedEmail) {
+            form.setFieldsValue({
+                email: savedEmail,
+                remember: true
+            });
+        }
+    }, [form]);
+
+    const onFinish = async (values) => {
         setLoading(true);
-        // Gọi API login tại đây
+        try {
+            const res = await axios.post('auth/login',
+                {
+                    email: values.email,
+                    matKhau: values.password,
+                }
+            );
+            if (res) {
+                if (values.remember) {
+                    localStorage.setItem('access_token', res.access_token);
+                    localStorage.setItem('remembered_email', values.email);
+                } else {
+                    sessionStorage.setItem('access_token', res.access_token);
+                    localStorage.removeItem('remembered_email');
+                }
+                loginContext(res.user);
+
+                api.success({
+                    message: "Đăng nhập thành công!",
+                    description: "Đang chuyển trang...",
+                    duration: 2
+                });
+
+                const role = res.user.role;
+                if (role === 'admin') {
+                    navigate('/admin');
+                } else {
+                    navigate('/');
+                }
+            }
+        } catch (error) {
+            api.error({
+                message: "Đăng nhập thất bại",
+                description: error.message,
+                placement: 'topRight',
+            });
+            if (error.statusCode === 400) {
+                setEmail(values.email);
+                setIsModalOpen(true);
+                const res = await axios.post('/auth/resend-otp', { email: values.email });
+                if (res) {
+                    setUserId(res._id)
+                }
+            }
+        }
+        setLoading(false);
+
     };
 
     return (
@@ -17,7 +83,15 @@ const LoginPage = () => {
             title="Chào mừng trở lại! 👋"
             subtitle="Vui lòng nhập thông tin để đăng nhập."
         >
+            {contextHolder}
+            <VerifyAccountModal
+                isModalOpen={isModalOpen}
+                setIsModalOpen={setIsModalOpen}
+                email={email}
+                userId={userId}
+            />
             <Form
+                form={form}
                 name="login_form"
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
@@ -48,7 +122,7 @@ const LoginPage = () => {
                     <Form.Item name="remember" valuePropName="checked" noStyle>
                         <Checkbox>Ghi nhớ đăng nhập</Checkbox>
                     </Form.Item>
-                    <a href="#" className="text-blue-600 hover:underline text-sm font-medium">Quên mật khẩu?</a>
+                    <a href="/forgot-password" className="text-blue-600 hover:underline text-sm font-medium">Quên mật khẩu?</a>
                 </div>
 
                 {/* Nút Submit */}

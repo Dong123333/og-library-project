@@ -1,4 +1,4 @@
-import { IsMongoId, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsMongoId, IsNotEmpty } from 'class-validator';
 
 export class CreateAuthDto {
   @IsNotEmpty({ message: 'Email không được để trống' })
@@ -19,8 +19,17 @@ export class CodeAuthDto {
   maOTP: string;
 }
 
-export class ResendOTPAuthDto {
-  @IsNotEmpty({ message: '_id không được để trống' })
-  @IsMongoId({ message: '_id người dùng không hợp lệ' })
-  _id: string;
+export class ChangePasswordAuthDto {
+  @IsNotEmpty({ message: 'Mã OTP không được để trống' })
+  maOTP: string;
+
+  @IsNotEmpty({ message: 'Email không được để trống' })
+  @IsEmail({}, { message: 'Email không đúng định dạng' })
+  email: string;
+
+  @IsNotEmpty({ message: 'Mật khẩu không được để trống' })
+  matKhau: string;
+
+  @IsNotEmpty({ message: 'Xác nhận mật khẩu không được để trống' })
+  xacNhanMatKhau: string;
 }

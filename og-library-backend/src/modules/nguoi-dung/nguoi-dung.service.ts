@@ -11,9 +11,9 @@ import mongoose, { Model } from 'mongoose';
 import { hashPasswordHelper } from '../../helpers/utils';
 import { VaiTro } from '../vai-tro/schemas/vai-tro.schema';
 import {
+  ChangePasswordAuthDto,
   CodeAuthDto,
   CreateAuthDto,
-  ResendOTPAuthDto,
 } from '../../auth/dto/create-auth.dto';
 import * as crypto from 'crypto';
 import dayjs from 'dayjs';
@@ -70,7 +70,7 @@ export class NguoiDungService {
   }
 
   async findByEmail(email: string) {
-    return await this.nguoiDungModel.findOne({ email });
+    return await this.nguoiDungModel.findOne({ email }).populate('maVaiTro');
   }
 
   async update(updateNguoiDungDto: UpdateNguoiDungDto) {
@@ -154,28 +154,25 @@ export class NguoiDungService {
     }
   }
 
-  async handleResendOTP(resendOTPAuthDto: ResendOTPAuthDto) {
-    const user = await this.nguoiDungModel.findOne({
-      _id: resendOTPAuthDto._id,
-    });
+  async handleResendOTP(email: string) {
+    const user = await this.nguoiDungModel.findOne({ email });
     if (!user) {
-      throw new BadRequestException('Không tìm thấy người dùng với ID này');
+      throw new BadRequestException('Tài khoản không tồn tại');
     }
 
     if (user.trangThai) {
       throw new BadRequestException('Tài khoản này đã xác thực rồi!');
     }
 
-    const email = user.email;
-
     const maOTP = crypto.randomInt(100000, 1000000).toString();
 
-    // 4. Lưu OTP vào bảng Otp (Vẫn lưu theo Key là Email để khớp với logic Verify)
     await this.nguoiDungModel.findOneAndUpdate(
-      { email }, // Tìm theo email
+      { email },
       {
-        maOTP: maOTP,
-        thoiHanOTP: dayjs().add(5, 'minutes'),
+        $set: {
+          maOTP: maOTP,
+          thoiHanOTP: dayjs().add(5, 'minutes'),
+        },
       },
       { upsert: true, new: true },
     );
@@ -191,6 +188,67 @@ export class NguoiDungService {
       },
     });
 
-    return { message: 'Đã gửi lại mã OTP thành công' };
+    return { _id: user._id };
+  }
+
+  async handleRetryPassword(email: string) {
+    const user = await this.nguoiDungModel.findOne({ email });
+    if (!user) {
+      throw new BadRequestException('Tài khoản không tồn tại');
+    }
+
+    const maOTP = crypto.randomInt(100000, 1000000).toString();
+
+    await this.nguoiDungModel.findOneAndUpdate(
+      { email },
+      {
+        $set: {
+          maOTP: maOTP,
+          thoiHanOTP: dayjs().add(5, 'minutes'),
+        },
+      },
+      { upsert: true, new: true },
+    );
+
+    this.mailerService.sendMail({
+      to: user.email,
+      from: '"Thư viện Olive Gallery" <no-reply@olivegallery.com>',
+      subject: 'Change password your account at Olive Gallery',
+      template: 'register',
+      context: {
+        name: user?.hoVaTen ?? user?.email,
+        activationCode: maOTP,
+      },
+    });
+
+    return { _id: user._id };
+  }
+
+  async handleChangePassword(changePasswordAuthDto: ChangePasswordAuthDto) {
+    if (
+      changePasswordAuthDto.xacNhanMatKhau !== changePasswordAuthDto.matKhau
+    ) {
+      throw new BadRequestException('Mật khẩu/Xác nhận mật khẩu không khớp');
+    }
+    const user = await this.nguoiDungModel.findOne({
+      email: changePasswordAuthDto.email,
+    });
+    if (!user) {
+      throw new BadRequestException('Tài khoản không tồn tại');
+    }
+
+    const isBeforeCheck = dayjs().isBefore(user.thoiHanOTP);
+
+    if (isBeforeCheck) {
+      const newPassword = await hashPasswordHelper(
+        changePasswordAuthDto.matKhau,
+      );
+      await this.nguoiDungModel.findOneAndUpdate(
+        { _id: user._id },
+        { matKhau: newPassword },
+        { upsert: true, new: true },
+      );
+    }
+    return { isBeforeCheck };
   }
 }

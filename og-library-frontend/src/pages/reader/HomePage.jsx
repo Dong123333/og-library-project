@@ -2,7 +2,7 @@ import {  Button, Collapse, } from 'antd';
 import { ReadOutlined, SafetyCertificateOutlined, ArrowRightOutlined, CalendarOutlined } from '@ant-design/icons';
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
-import {usePage} from "../context/NavContext.jsx";
+import {usePage} from "../../context/NavContext.jsx";
 
 const { Panel } = Collapse;
 

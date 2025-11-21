@@ -1,13 +1,13 @@
 import { Controller, Post, UseGuards, Req, Get, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './passport/local-auth.guard';
-import { JwtAuthGuard } from './passport/jwt-auth.guard';
 import { Public } from '../decorator/customize';
 import {
+  ChangePasswordAuthDto,
   CodeAuthDto,
   CreateAuthDto,
-  ResendOTPAuthDto,
 } from './dto/create-auth.dto';
+import { JwtAuthGuard } from './passport/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -34,13 +34,25 @@ export class AuthController {
 
   @Post('resend-otp')
   @Public()
-  resendOTP(@Body() resendOTPAuthDto: ResendOTPAuthDto) {
-    return this.authService.handleResendOTP(resendOTPAuthDto);
+  resendOTP(@Body('email') email: string) {
+    return this.authService.handleResendOTP(email);
   }
 
-  // @UseGuards(JwtAuthGuard)
-  // @Get('profile')
-  // getProfile(@Req() req) {
-  //   return req.user;
-  // }
+  @Post('retry-password')
+  @Public()
+  retryPassword(@Body('email') email: string) {
+    return this.authService.handleRetryPassword(email);
+  }
+
+  @Post('change-password')
+  @Public()
+  changePassword(@Body() changePasswordAuthDto: ChangePasswordAuthDto) {
+    return this.authService.handleChangePassword(changePasswordAuthDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('profile')
+  getProfile(@Req() req) {
+    return req.user;
+  }
 }

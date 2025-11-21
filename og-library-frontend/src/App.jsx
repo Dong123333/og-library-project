@@ -1,46 +1,29 @@
 // App.jsx
-import {Fragment, useEffect, useState} from "react";
-import {authenticateRoutes, readerRoutes, adminRoutes} from "./routes/index.jsx";
+import {Fragment} from "react";
+import {adminRoutes, publicRoutes, privateRoutes} from "./routes/index.jsx";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ReaderLayout from "./layouts/reader/index.jsx";
 import AdminLayout from "./layouts/admin/index.jsx";
 import {PageProvider} from "./context/NavContext.jsx";
-import HomePage from "./pages/HomePage.jsx";
+import {AdminRoute, ProtectedRoute} from "./routes/PrivateRoute.jsx";
+import ScrollToTop from "./components/ScrollToTop.jsx";
 
 const DefaultLayout = ({ children }) => <>{children}</>;
 
 const App = () => {
-    const [role, setRole] = useState("");
-    useEffect(() => {
-        const savedRole = localStorage.getItem("role");
-        if (savedRole && savedRole !== role) {
-            setRole(savedRole);
-        }
-    }, []);
-
-    let routes = [];
-
-    if (!role) {
-        // guest
-        routes = [
-            { path: "/", component: HomePage, layout: ReaderLayout },
-            ...authenticateRoutes.map(r => ({ ...r, layout: null }))
-        ];
-    } else if (role === "admin") {
-        routes = adminRoutes.map(r => ({ ...r, layout: AdminLayout }));
-    } else if (role === "reader") {
-        routes = readerRoutes.map(r => ({ ...r, layout: ReaderLayout }));
-    }
+    // const { user } = useContext(AuthContext);
 
     return (
-        <>
-            <PageProvider>
+        <PageProvider>
             <Router>
+                <ScrollToTop />
                 <div className="App">
                     <Routes>
-                        {routes.map((route, index) => {
+                        {publicRoutes.map((route, index) => {
                             const Page = route.component;
-                            const Layout = route.layout ? route.layout : DefaultLayout;
+                            let Layout = DefaultLayout;
+                            if (route.layout === null) Layout = Fragment;
+                            else if (route.layout) Layout = route.layout;
+
                             return (
                                 <Route
                                     key={index}
@@ -53,11 +36,49 @@ const App = () => {
                                 />
                             );
                         })}
+
+                        {privateRoutes.map((route, index) => {
+                            const Page = route.component;
+                            const Layout = route.layout || DefaultLayout;
+
+                            return (
+                                <Route
+                                    key={index}
+                                    path={route.path}
+                                    element={
+                                        <ProtectedRoute> {/* Bọc bảo vệ */}
+                                            <Layout>
+                                                <Page />
+                                            </Layout>
+                                        </ProtectedRoute>
+                                    }
+                                />
+                            );
+                        })}
+
+                        {adminRoutes.map((route, index) => {
+                            const Page = route.component;
+                            const Layout = route.layout || AdminLayout;
+
+                            return (
+                                <Route
+                                    key={index}
+                                    path={route.path}
+                                    element={
+                                        <AdminRoute>
+                                            <Layout>
+                                                <Page />
+                                            </Layout>
+                                        </AdminRoute>
+                                    }
+                                />
+                            );
+                        })}
+
                     </Routes>
                 </div>
             </Router>
-            </PageProvider>
-        </>
+        </PageProvider>
 
     );
 
