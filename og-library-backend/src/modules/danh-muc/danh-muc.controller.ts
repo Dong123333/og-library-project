@@ -11,7 +11,7 @@ import { DanhMucService } from './danh-muc.service';
 import { CreateDanhMucDto } from './dto/create-danh-muc.dto';
 import { UpdateDanhMucDto } from './dto/update-danh-muc.dto';
 
-@Controller('danhmuc')
+@Controller('danh-muc')
 export class DanhMucController {
   constructor(private readonly danhMucService: DanhMucService) {}
 
@@ -27,16 +27,16 @@ export class DanhMucController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.danhMucService.findOne(+id);
+    return this.danhMucService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateDanhMucDto: UpdateDanhMucDto) {
-    return this.danhMucService.update(+id, updateDanhMucDto);
+    return this.danhMucService.update(id, updateDanhMucDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.danhMucService.remove(+id);
+    return this.danhMucService.remove(id);
   }
 }

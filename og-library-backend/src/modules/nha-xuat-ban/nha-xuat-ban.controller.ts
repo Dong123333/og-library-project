@@ -19,16 +19,19 @@ export class NhaXuatBanController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.nhaXuatBanService.findOne(+id);
+    return this.nhaXuatBanService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateNhaXuatBanDto: UpdateNhaXuatBanDto) {
-    return this.nhaXuatBanService.update(+id, updateNhaXuatBanDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateNhaXuatBanDto: UpdateNhaXuatBanDto,
+  ) {
+    return this.nhaXuatBanService.update(id, updateNhaXuatBanDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.nhaXuatBanService.remove(+id);
+    return this.nhaXuatBanService.remove(id);
   }
 }

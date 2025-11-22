@@ -6,9 +6,6 @@ export type DanhMucDocument = HydratedDocument<DanhMuc>;
 @Schema({ timestamps: true })
 export class DanhMuc {
   @Prop()
-  maDanhMuc: string;
-
-  @Prop()
   tenDanhMuc: string;
 
   @Prop()

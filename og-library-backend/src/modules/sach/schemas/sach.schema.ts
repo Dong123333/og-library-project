@@ -9,16 +9,13 @@ export type SachDocument = HydratedDocument<Sach>;
 @Schema({ timestamps: true })
 export class Sach {
   @Prop()
-  maSach: string;
-
-  @Prop()
   tenSach: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'DanhMuc' })
   maDanhMuc: DanhMuc;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'TacGia' })
-  maTacGia: TacGia;
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TacGia' }] })
+  maTacGia: TacGia[];
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'NhaXuatBan' })
   maNhaXuatBan: NhaXuatBan;
@@ -27,7 +24,7 @@ export class Sach {
   namXuatBan: string;
 
   @Prop()
-  soLuong: string;
+  soLuong: number;
 
   @Prop()
   hinhAnh: string;

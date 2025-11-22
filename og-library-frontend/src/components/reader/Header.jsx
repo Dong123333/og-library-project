@@ -42,7 +42,7 @@ const Header = () => {
             navigate(`/login`);
         } else {
             setActivePage('library');
-            navigate(`/lib`);
+            navigate(`/library`);
         }
 
     };
@@ -71,7 +71,7 @@ const Header = () => {
                         onClick={handleClickLib}
                         className={activePage === 'library' ? 'bg-blue-100 text-blue-700 font-semibold border-none' : 'text-gray-600'}
                     >
-                        Thư viện số
+                        Thư viện sách
                     </Button>
                 </nav>
             </div>

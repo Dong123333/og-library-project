@@ -1,5 +1,6 @@
 import { Table, Tag} from "antd";
-import React from "react";
+import React, {useEffect} from "react";
+import {usePage} from "../../context/NavContext.jsx";
 
 const myLoans = [
     { key: '1', book: 'Nhà Giả Kim', borrowDate: '2023-10-15', dueDate: '2023-10-29', returnDate: null, status: 'DangMuon' },
@@ -10,6 +11,10 @@ const myFines = [
 ];
 
 const LoansPage = () => {
+const { setActivePage } = usePage();
+    useEffect(() => {
+        setActivePage("");
+    })
     return (
 
 

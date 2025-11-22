@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
 import { CreateNhaXuatBanDto } from './dto/create-nha-xuat-ban.dto';
 import { UpdateNhaXuatBanDto } from './dto/update-nha-xuat-ban.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { NhaXuatBan } from './schemas/nha-xuat-ban.schema';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class NhaXuatBanService {
-  create(createNhaXuatBanDto: CreateNhaXuatBanDto) {
-    return 'This action adds a new nhaXuatBan';
+  constructor(
+    @InjectModel(NhaXuatBan.name) private nhaXuatBanModel: Model<NhaXuatBan>,
+  ) {}
+
+  async create(createNhaXuatBanDto: CreateNhaXuatBanDto) {
+    return await this.nhaXuatBanModel.create(createNhaXuatBanDto);
   }
 
-  findAll() {
-    return `This action returns all nhaXuatBan`;
+  async findAll() {
+    return await this.nhaXuatBanModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} nhaXuatBan`;
+  async findOne(id: string) {
+    return await this.nhaXuatBanModel.findById(id);
   }
 
-  update(id: number, updateNhaXuatBanDto: UpdateNhaXuatBanDto) {
-    return `This action updates a #${id} nhaXuatBan`;
+  async update(id: string, updateNhaXuatBanDto: UpdateNhaXuatBanDto) {
+    return await this.nhaXuatBanModel.findByIdAndUpdate(id, updateNhaXuatBanDto, { new: true });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} nhaXuatBan`;
+  async remove(id: string) {
+    return await this.nhaXuatBanModel.findByIdAndDelete(id);
   }
 }

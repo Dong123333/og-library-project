@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { Layout, Menu, theme } from 'antd';
-import { DashboardOutlined, UserOutlined, BookOutlined, DatabaseOutlined } from '@ant-design/icons';
+import {
+    DashboardOutlined,
+    UserOutlined,
+    BookOutlined,
+    DatabaseOutlined,
+    AppstoreOutlined,
+    TeamOutlined, BankOutlined
+} from '@ant-design/icons';
 import { Link, useLocation, Outlet } from 'react-router-dom';
 import AdminHeader from "../../components/admin/Header.jsx";
 
@@ -15,7 +22,7 @@ const AdminLayout = ({ children }) => {
     } = theme.useToken();
 
     return (
-        <Layout className="min-h-screen">
+        <Layout style={{ height: '100vh', overflow: 'hidden' }}>
             <Sider
                 trigger={null}
                 collapsible
@@ -31,7 +38,6 @@ const AdminLayout = ({ children }) => {
                     zIndex: 20
                 }}
             >
-                {/* Logo Admin */}
                 <div className="h-16 flex items-center justify-center text-white font-bold text-xl border-b border-gray-700 bg-[#002140]">
                     {collapsed ? 'OG' : 'OLIVE GALLERY'}
                 </div>
@@ -39,22 +45,49 @@ const AdminLayout = ({ children }) => {
                     theme="dark"
                     mode="inline"
                     defaultSelectedKeys={[location.pathname]}
+                    defaultOpenKeys={['catalog']}
+
                     items={[
                         {
                             key: '/admin',
                             icon: <DashboardOutlined />,
                             label: <Link to="/admin">Dashboard</Link>,
                         },
+
                         {
                             key: '/admin/users',
                             icon: <UserOutlined />,
                             label: <Link to="/admin/users">Quản lý Người dùng</Link>,
                         },
+
                         {
-                            key: '/admin/books',
+                            key: 'catalog',
                             icon: <BookOutlined />,
-                            label: <Link to="/admin/books">Quản lý Sách</Link>,
+                            label: 'Quản lý Kho Sách',
+                            children: [
+                                {
+                                    key: '/admin/books',
+                                    icon: <BookOutlined />,
+                                    label: <Link to="/admin/books">Sách</Link>,
+                                },
+                                {
+                                    key: '/admin/categories',
+                                    icon: <AppstoreOutlined />,
+                                    label: <Link to="/admin/categories">Danh Mục</Link>,
+                                },
+                                {
+                                    key: '/admin/authors',
+                                    icon: <TeamOutlined />,
+                                    label: <Link to="/admin/authors">Tác giả</Link>,
+                                },
+                                {
+                                    key: '/admin/publishers',
+                                    icon: <BankOutlined />,
+                                    label: <Link to="/admin/publishers">Nhà xuất bản</Link>,
+                                },
+                            ]
                         },
+
                         {
                             key: '/admin/loans',
                             icon: <DatabaseOutlined />,
@@ -63,7 +96,13 @@ const AdminLayout = ({ children }) => {
                     ]}
                 />
             </Sider>
-            <Layout style={{ marginLeft: collapsed ? 80 : 250, transition: 'all 0.2s' }}>
+            <Layout style={{
+                marginLeft: collapsed ? 80 : 250,
+                transition: 'all 0.2s',
+                minHeight: '100vh',
+                display: 'flex',
+                flexDirection: 'column'
+            }}>
                 <AdminHeader collapsed={collapsed} setCollapsed={setCollapsed} />
                 <Content
                     style={{

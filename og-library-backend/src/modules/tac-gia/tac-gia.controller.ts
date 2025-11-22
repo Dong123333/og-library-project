@@ -19,16 +19,16 @@ export class TacGiaController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.tacGiaService.findOne(+id);
+    return this.tacGiaService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTacGiaDto: UpdateTacGiaDto) {
-    return this.tacGiaService.update(+id, updateTacGiaDto);
+    return this.tacGiaService.update(id, updateTacGiaDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.tacGiaService.remove(+id);
+    return this.tacGiaService.remove(id);
   }
 }

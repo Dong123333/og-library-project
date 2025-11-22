@@ -11,7 +11,7 @@ import { NguoiDungService } from './nguoi-dung.service';
 import { CreateNguoiDungDto } from './dto/create-nguoi-dung.dto';
 import { UpdateNguoiDungDto } from './dto/update-nguoi-dung.dto';
 
-@Controller('nguoidung')
+@Controller('nguoi-dung')
 export class NguoiDungController {
   constructor(private readonly nguoiDungService: NguoiDungService) {}
 

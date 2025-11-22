@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
 import { CreateDanhMucDto } from './dto/create-danh-muc.dto';
 import { UpdateDanhMucDto } from './dto/update-danh-muc.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { DanhMuc } from './schemas/danh-muc.schema';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class DanhMucService {
-  create(createDanhMucDto: CreateDanhMucDto) {
-    return 'This action adds a new danhMuc';
+  constructor(
+    @InjectModel(DanhMuc.name) private danhMucModel: Model<DanhMuc>,
+  ) {}
+
+  async create(createDanhMucDto: CreateDanhMucDto) {
+    return await this.danhMucModel.create(createDanhMucDto);
   }
 
-  findAll() {
-    return `This action returns all danhMuc`;
+  async findAll() {
+    return await this.danhMucModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} danhMuc`;
+  async findOne(id: string) {
+    return await this.danhMucModel.findById(id);
   }
 
-  update(id: number, updateDanhMucDto: UpdateDanhMucDto) {
-    return `This action updates a #${id} danhMuc`;
+  async update(id: string, updateDanhMucDto: UpdateDanhMucDto) {
+    return await this.danhMucModel.findByIdAndUpdate(id, updateDanhMucDto, { new: true });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} danhMuc`;
+  async remove(id: string) {
+    return await this.danhMucModel.findByIdAndDelete(id);
   }
 }

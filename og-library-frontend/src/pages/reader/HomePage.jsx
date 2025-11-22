@@ -29,7 +29,7 @@ const HomePage = () => {
         setActivePage("home");
     }, [setActivePage]);
     const handleClick = () => {
-        navigate('/lib');
+        navigate('/library');
     }
     return (
         <>

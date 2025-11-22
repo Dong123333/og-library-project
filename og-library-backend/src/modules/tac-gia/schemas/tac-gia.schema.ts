@@ -6,19 +6,16 @@ export type TacGiaDocument = HydratedDocument<TacGia>;
 @Schema({ timestamps: true })
 export class TacGia {
   @Prop()
-  maTacGia: string;
-
-  @Prop()
   tenTacGia: string;
 
   @Prop()
   quocTich: string;
 
   @Prop()
-  ngaySinh: Date;
+  namSinh: number;
 
   @Prop()
-  ngayMat: Date;
+  namMat: number;
 
   @Prop()
   tieuSu: string;
