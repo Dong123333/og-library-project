@@ -3,12 +3,8 @@ import { Layout, Menu, theme } from 'antd';
 import {
     DashboardOutlined,
     UserOutlined,
-    BookOutlined,
-    DatabaseOutlined,
-    AppstoreOutlined,
-    TeamOutlined, BankOutlined
 } from '@ant-design/icons';
-import { Link, useLocation, Outlet } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import AdminHeader from "../../components/admin/Header.jsx";
 
 const { Sider, Content } = Layout;
@@ -45,7 +41,6 @@ const AdminLayout = ({ children }) => {
                     theme="dark"
                     mode="inline"
                     defaultSelectedKeys={[location.pathname]}
-                    defaultOpenKeys={['catalog']}
 
                     items={[
                         {
@@ -58,40 +53,6 @@ const AdminLayout = ({ children }) => {
                             key: '/admin/users',
                             icon: <UserOutlined />,
                             label: <Link to="/admin/users">Quản lý Người dùng</Link>,
-                        },
-
-                        {
-                            key: 'catalog',
-                            icon: <BookOutlined />,
-                            label: 'Quản lý Kho Sách',
-                            children: [
-                                {
-                                    key: '/admin/books',
-                                    icon: <BookOutlined />,
-                                    label: <Link to="/admin/books">Sách</Link>,
-                                },
-                                {
-                                    key: '/admin/categories',
-                                    icon: <AppstoreOutlined />,
-                                    label: <Link to="/admin/categories">Danh Mục</Link>,
-                                },
-                                {
-                                    key: '/admin/authors',
-                                    icon: <TeamOutlined />,
-                                    label: <Link to="/admin/authors">Tác giả</Link>,
-                                },
-                                {
-                                    key: '/admin/publishers',
-                                    icon: <BankOutlined />,
-                                    label: <Link to="/admin/publishers">Nhà xuất bản</Link>,
-                                },
-                            ]
-                        },
-
-                        {
-                            key: '/admin/loans',
-                            icon: <DatabaseOutlined />,
-                            label: <Link to="/admin/loans">Quản lý Mượn/Trả</Link>,
                         },
                     ]}
                 />

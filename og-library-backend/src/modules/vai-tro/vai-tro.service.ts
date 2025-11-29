@@ -1,26 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { CreateVaiTroDto } from './dto/create-vai-tro.dto';
-import { UpdateVaiTroDto } from './dto/update-vai-tro.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { VaiTro } from './schemas/vai-tro.schema';
 
 @Injectable()
 export class VaiTroService {
-  create(createVaiTroDto: CreateVaiTroDto) {
-    return 'This action adds a new vaiTro';
-  }
+  constructor(@InjectModel(VaiTro.name) private vaiTroModel: Model<VaiTro>) {}
 
-  findAll() {
-    return `This action returns all vaiTro`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} vaiTro`;
-  }
-
-  update(id: number, updateVaiTroDto: UpdateVaiTroDto) {
-    return `This action updates a #${id} vaiTro`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} vaiTro`;
+  async findAll() {
+    return await this.vaiTroModel.find().exec();
   }
 }

@@ -4,6 +4,7 @@ import { LocalAuthGuard } from './passport/local-auth.guard';
 import { Public } from '../decorator/customize';
 import {
   ChangePasswordAuthDto,
+  ChangePasswordProfileAuthDto,
   CodeAuthDto,
   CreateAuthDto,
 } from './dto/create-auth.dto';
@@ -51,8 +52,20 @@ export class AuthController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Post('change-password-profile')
+  changePasswordProfile(
+    @Req() req,
+    @Body() changePasswordProfileAuthDto: ChangePasswordProfileAuthDto,
+  ) {
+    return this.authService.handleChangePasswordProfile(
+      req.user.email,
+      changePasswordProfileAuthDto,
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Req() req) {
-    return req.user;
+    return this.authService.findOne(req.user._id);
   }
 }

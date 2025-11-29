@@ -18,6 +18,10 @@ import { JwtAuthGuard } from './auth/passport/jwt-auth.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { PaymentModule } from './payment/payment.module';
+import { ThongBaoModule } from './modules/thong-bao/thong-bao.module';
+import { ChatbotModule } from './chatbot/chatbot.module';
 
 @Module({
   imports: [
@@ -32,6 +36,9 @@ import { MailerModule } from '@nestjs-modules/mailer';
     ChiTietMuonTraModule,
     PhieuPhatModule,
     AuthModule,
+    DashboardModule,
+    PaymentModule,
+    ThongBaoModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -69,6 +76,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
       }),
       inject: [ConfigService],
     }),
+    ChatbotModule,
   ],
   controllers: [AppController],
   providers: [

@@ -52,11 +52,13 @@ const LoginPage = () => {
                     duration: 2
                 });
 
-                const role = res.user.role;
-                if (role === 'admin') {
-                    navigate('/admin');
-                } else {
+                const role = res.user.maVaiTro;
+                if (role === 'VT001') {
                     navigate('/');
+                } else if (role === 'VT002') {
+                    navigate('/librarian');
+                } else if (role === 'VT003') {
+                    navigate('/admin');
                 }
             }
         } catch (error) {
@@ -65,7 +67,7 @@ const LoginPage = () => {
                 description: error.message,
                 placement: 'topRight',
             });
-            if (error.statusCode === 400) {
+            if (error.statusCode === 412) {
                 setEmail(values.email);
                 setIsModalOpen(true);
                 const res = await axios.post('/auth/resend-otp', { email: values.email });
@@ -98,7 +100,6 @@ const LoginPage = () => {
                 layout="vertical"
                 size="large"
             >
-                {/* Trường Email (Khuyên dùng Email thay vì Phone để khớp Backend) */}
                 <Form.Item
                     name="email"
                     rules={[
@@ -109,7 +110,6 @@ const LoginPage = () => {
                     <Input prefix={<MailOutlined className="text-gray-400" />} placeholder="Email" />
                 </Form.Item>
 
-                {/* Trường Password */}
                 <Form.Item
                     name="password"
                     rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}
@@ -117,7 +117,6 @@ const LoginPage = () => {
                     <Input.Password prefix={<LockOutlined className="text-gray-400" />} placeholder="Mật khẩu" />
                 </Form.Item>
 
-                {/* Remember & Forgot Password */}
                 <div className="flex justify-between items-center mb-4">
                     <Form.Item name="remember" valuePropName="checked" noStyle>
                         <Checkbox>Ghi nhớ đăng nhập</Checkbox>
@@ -125,7 +124,6 @@ const LoginPage = () => {
                     <a href="/forgot-password" className="text-blue-600 hover:underline text-sm font-medium">Quên mật khẩu?</a>
                 </div>
 
-                {/* Nút Submit */}
                 <Form.Item>
                     <Button
                         type="primary"
@@ -138,14 +136,12 @@ const LoginPage = () => {
                 </Form.Item>
             </Form>
 
-            {/* Social Login */}
             <Divider plain><span className="text-gray-400 text-xs uppercase">Hoặc tiếp tục với</span></Divider>
             <div className="grid grid-cols-2 gap-4 mb-8">
                 <Button icon={<GoogleOutlined />} className="h-10 flex items-center justify-center font-medium">Google</Button>
                 <Button icon={<FacebookFilled className="text-blue-600" />} className="h-10 flex items-center justify-center font-medium">Facebook</Button>
             </div>
 
-            {/* Link chuyển trang */}
             <div className="text-center text-gray-600">
                 Chưa có tài khoản?{' '}
                 <Link to="/register" className="text-blue-600 font-bold hover:underline">

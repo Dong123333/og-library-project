@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Form, Input, Button, message, notification} from 'antd';
+import {Form, Input, Button, notification} from 'antd';
 import { MailOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import { useNavigate, Link } from 'react-router-dom';
 import AuthLayout from "../../layouts/auth/index.jsx";

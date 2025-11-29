@@ -5,6 +5,12 @@ import { Sach } from '../../sach/schemas/sach.schema';
 
 export type ChiTietMuonTraDocument = HydratedDocument<ChiTietMuonTra>;
 
+export enum TrangThaiSach {
+  DANG_MUON = 0,
+  DA_TRA = 1,
+  MAT_OR_HONG = 2,
+}
+
 @Schema({ timestamps: true })
 export class ChiTietMuonTra {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'MuonTra' })
@@ -17,10 +23,17 @@ export class ChiTietMuonTra {
   soLuongMuon: number;
 
   @Prop()
-  ngayTra: Date;
+  soLuongDaTra: number;
 
   @Prop()
+  ngayHenTra: Date;
+
+  @Prop()
+  ngayTra: Date;
+
+  @Prop({ type: Number, enum: TrangThaiSach, default: TrangThaiSach.DANG_MUON })
   tinhTrang: number;
 }
 
-export const ChiTietMuonTraSchema = SchemaFactory.createForClass(ChiTietMuonTra);
+export const ChiTietMuonTraSchema =
+  SchemaFactory.createForClass(ChiTietMuonTra);

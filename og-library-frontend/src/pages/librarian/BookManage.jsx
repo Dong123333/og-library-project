@@ -3,8 +3,8 @@ import {
     Table, Button, Modal, Form, Input, Select, InputNumber, Space, message, Popconfirm, Image, Row, Col,
     Pagination
 } from 'antd';
-import {EditOutlined, DeleteOutlined, PlusOutlined, UploadOutlined, PictureOutlined} from '@ant-design/icons';
-import axios from "../../services/axios.customize";
+import {EditOutlined, DeleteOutlined, PlusOutlined, UploadOutlined} from '@ant-design/icons';
+import axios from "../../services/axios.customize.jsx";
 
 const BookManage = () => {
     const [listBook, setListBook] = useState([]);
@@ -88,6 +88,7 @@ const BookManage = () => {
             formData.append("maNhaXuatBan", values.maNhaXuatBan);
             formData.append("soLuong", values.soLuong);
             formData.append("namXuatBan", values.namXuatBan);
+            formData.append("giaTien", values.giaTien);
             if (rawFile) {
                 formData.append("hinhAnh", rawFile);
             }
@@ -123,6 +124,7 @@ const BookManage = () => {
             maDanhMuc: record.maDanhMuc?._id,
             maNhaXuatBan: record.maNhaXuatBan?._id,
             namXuatBan: record.namXuatBan,
+            giaTien: record.giaTien,
         });
         setIsModalOpen(true);
     };
@@ -188,6 +190,10 @@ const BookManage = () => {
         {
             title: 'SL',
             dataIndex: 'soLuong',
+        },
+        {
+            title: 'Giá tiền',
+            dataIndex: 'giaTien',
         },
         {
             title: 'Hành động',
@@ -380,8 +386,24 @@ const BookManage = () => {
                                     </Form.Item>
                                 </Col>
                                 <Col span={12}>
-                                    <Form.Item name="namXuatBan" label="Năm xuất bản">
-                                        <Input placeholder="VD: 2024" />
+                                    <Form.Item name="namXuatBan" label="Năm xuất bản" rules={[
+                                        {
+                                            validator: (_, value) => {
+                                                if (typeof value !== 'number') {
+                                                    return Promise.reject(new Error('Năm xuất bản phải là số'));
+                                                }
+                                                if (!value || (value >= 1000 && value <= 9999)) {
+                                                    return Promise.resolve();
+                                                }
+                                                return Promise.reject(new Error('Năm xuất bản phải từ 1000 đến 9999'));
+                                            },
+                                        },
+                                    ]}>
+                                        <InputNumber
+                                            placeholder="VD: 2024"
+                                            style={{ width: '100%' }}
+                                            controls={false}
+                                        />
                                     </Form.Item>
                                 </Col>
                             </Row>
@@ -394,6 +416,22 @@ const BookManage = () => {
                                         rules={[{ required: true, message: 'Nhập số lượng' }]}
                                     >
                                         <InputNumber className="w-full" min={0} />
+                                    </Form.Item>
+                                </Col>
+                                <Col span={12}>
+                                    <Form.Item
+                                        name="giaTien"
+                                        label="Giá tiền (VNĐ)"
+                                        rules={[{ required: true, message: 'Nhập giá tiền' }]}
+                                    >
+                                        <InputNumber
+                                            style={{ width: '100%' }}
+                                            min={0}
+                                            step={1000}
+                                            formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                            parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                                            addonAfter="₫"
+                                        />
                                     </Form.Item>
                                 </Col>
                             </Row>

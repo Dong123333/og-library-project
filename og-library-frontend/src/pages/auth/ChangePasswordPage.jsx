@@ -25,7 +25,6 @@ const ChangePasswordPage = () => {
                 message: "Đổi mật khẩu thành công!",
                 description: "Vui lòng đăng nhập lại."
             });
-            // localStorage.removeItem("access_token");
             window.location.href = "/login";
 
         } catch (error) {
@@ -41,8 +40,6 @@ const ChangePasswordPage = () => {
         >
             {contextHolder}
             <Form form={form} layout="vertical" onFinish={onFinish} size="large">
-
-                {/* 1. Khu vực lấy mã OTP */}
                 <div className="mb-6 rounded-lg flex justify-between items-center">
                     <div>
                         <p className="font-semibold text-gray-700">Bước 1: Nhập mã xác thực</p>
@@ -60,10 +57,7 @@ const ChangePasswordPage = () => {
                         maxLength={6}
                     />
                 </Form.Item>
-
                 <Divider />
-
-                {/* 3. Mật khẩu mới */}
                 <p className="font-semibold text-gray-700 mb-2">Bước 2: Thiết lập mật khẩu mới</p>
 
                 <Form.Item

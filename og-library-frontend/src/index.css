@@ -6,11 +6,44 @@ body, html, #root {
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    overflow: hidden; /* Ẩn thanh cuộn của trình duyệt gốc để dùng thanh cuộn của Layout */
+    overflow: hidden;
 }
 
-/* 2. Đảm bảo font chữ đẹp */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
+}
+
+.ant-carousel .slick-dots {
+    z-index: 20 !important;
+    bottom: 30px !important;
+}
+
+.ant-carousel .slick-dots li {
+    width: 8px !important;
+    height: 8px !important;
+    margin: 0 8px !important;
+}
+
+.ant-carousel .slick-dots li button {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 50% !important;
+    background: #ffffff !important;
+    opacity: 0.4 !important;
+    border: none !important;
+    transition: all 0.3s ease;
+}
+
+.ant-carousel .slick-dots li.slick-active {
+    width: 8px !important;
+    height: 8px !important;
+    border-radius: 50% !important;
+}
+
+.ant-carousel .slick-dots li.slick-active button {
+    background: #ffffff !important;
+    opacity: 1 !important;
+    transform: scale(1.3);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }

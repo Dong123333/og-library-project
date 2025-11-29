@@ -10,6 +10,7 @@ import {
 import { DanhMucService } from './danh-muc.service';
 import { CreateDanhMucDto } from './dto/create-danh-muc.dto';
 import { UpdateDanhMucDto } from './dto/update-danh-muc.dto';
+import { Public } from '../../decorator/customize';
 
 @Controller('danh-muc')
 export class DanhMucController {
@@ -21,11 +22,13 @@ export class DanhMucController {
   }
 
   @Get()
+  @Public()
   findAll() {
     return this.danhMucService.findAll();
   }
 
   @Get(':id')
+  @Public()
   findOne(@Param('id') id: string) {
     return this.danhMucService.findOne(id);
   }

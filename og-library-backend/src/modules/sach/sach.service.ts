@@ -77,8 +77,13 @@ export class SachService {
     };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} sach`;
+  async findOne(id: string) {
+    return await this.sachModel
+      .findById(id)
+      .populate('maTacGia', 'tenTacGia')
+      .populate('maDanhMuc', 'tenDanhMuc')
+      .populate('maNhaXuatBan', 'tenNhaXuatBan')
+      .exec();
   }
 
   async update(

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Button, Modal, Form, Input, Space, message, Popconfirm } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
-import axios from "../../services/axios.customize";
+import axios from "../../services/axios.customize.jsx";
 
 const PublisherManage = () => {
     const [listData, setListData] = useState([]);
@@ -57,7 +57,6 @@ const PublisherManage = () => {
         }
     };
 
-    // 3. Xử lý nút Sửa
     const handleEdit = (record) => {
         setEditingItem(record);
         form.setFieldsValue({
@@ -67,7 +66,6 @@ const PublisherManage = () => {
         setIsModalOpen(true);
     };
 
-    // 4. Xử lý nút Xóa
     const handleDelete = async (id) => {
         try {
             await axios.delete(`/nha-xuat-ban/${id}`);

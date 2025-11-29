@@ -4,7 +4,7 @@ import {useNavigate, useLocation, useParams} from 'react-router-dom';
 import AuthLayout from "../../layouts/auth/index.jsx";
 import axios from "../../services/axios.customize.jsx";
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 const VerifyAccountPage = () => {
     const [loading, setLoading] = useState(false);
@@ -96,7 +96,6 @@ const VerifyAccountPage = () => {
                         { len: 6, message: 'Mã OTP phải có đúng 6 ký tự!' }
                     ]}
                 >
-                    {/* Ant Design Input.OTP (Yêu cầu antd >= 5.14) */}
                     <Input.OTP length={6} size="large" />
                 </Form.Item>
 

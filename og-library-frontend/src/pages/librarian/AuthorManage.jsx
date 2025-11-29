@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Button, Modal, Form, Input, Space, message, Popconfirm, DatePicker, Row, Col } from 'antd';
+import { Table, Button, Modal, Form, Input, Space, message, Popconfirm, Row, Col } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
-import axios from "../../services/axios.customize";
+import axios from "../../services/axios.customize.jsx";
 
 const AuthorManage = () => {
     const [listData, setListData] = useState([]);
@@ -13,7 +13,6 @@ const AuthorManage = () => {
     const [messageApi, contextHolder] = message.useMessage();
     const [totalAuthors, setTotalAuthors] = useState(0);
 
-    // 1. Load dữ liệu
     useEffect(() => {
         fetchData();
     }, []);
@@ -65,7 +64,6 @@ const AuthorManage = () => {
         setIsModalOpen(true);
     };
 
-    // 4. Xử lý nút Xóa
     const handleDelete = async (id) => {
         try {
             await axios.delete(`/tac-gia/${id}`);
@@ -154,7 +152,7 @@ const AuthorManage = () => {
         >
             {contextHolder}
             <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold">Quản Lý Tác giả</h2>
+                <h2 className="text-2xl font-bold">Quản Lý Tác Giả</h2>
                 <Button
                     type="primary"
                     icon={<PlusOutlined />}

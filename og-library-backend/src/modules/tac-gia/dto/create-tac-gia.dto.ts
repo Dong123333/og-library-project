@@ -10,12 +10,20 @@ export class CreateTacGiaDto {
 
   @IsOptional()
   @IsNumber()
-  @Transform(({ value }) => parseInt(value))
+  @Transform(({ value }) => {
+    if (!value) return null;
+    const parsed = parseInt(value);
+    return isNaN(parsed) ? null : parsed;
+  })
   namSinh: number;
 
   @IsOptional()
   @IsNumber()
-  @Transform(({ value }) => parseInt(value))
+  @Transform(({ value }) => {
+    if (!value) return null;
+    const parsed = parseInt(value);
+    return isNaN(parsed) ? null : parsed;
+  })
   namMat: number;
 
   @IsOptional()

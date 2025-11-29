@@ -4,6 +4,12 @@ import { VaiTro } from '../../vai-tro/schemas/vai-tro.schema';
 
 export type NguoiDungDocument = HydratedDocument<NguoiDung>;
 
+export enum TrangThaiNguoiDung {
+  CHUA_KICH_HOAT = 0,
+  DANG_HOAT_DONG = 1,
+  BI_KHOA = 2,
+}
+
 @Schema({ timestamps: true })
 export class NguoiDung {
   @Prop()
@@ -24,8 +30,8 @@ export class NguoiDung {
   @Prop()
   matKhau: string;
 
-  @Prop({ default: false })
-  trangThai: boolean;
+  @Prop({ default: TrangThaiNguoiDung.DANG_HOAT_DONG })
+  trangThai: number;
 
   @Prop()
   maOTP: string;

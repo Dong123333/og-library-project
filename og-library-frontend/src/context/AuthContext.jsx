@@ -2,15 +2,21 @@ import React, {createContext, useState, useEffect, useContext} from 'react';
 import { Spin } from 'antd';
 import axios from "../services/axios.customize";
 
+const defaultUser = {
+    _id: "",
+    hoVaTen: "",
+    email: "",
+    ngaySinh: "",
+    soDienThoai: "",
+    diaChi: "",
+    avatar: "",
+    maVaiTro: null
+};
+
 const AuthContext = createContext({
     isAuthenticated: false,
     isLoading: true,
-    user: {
-        username: "",
-        fullName: "",
-        role: "",
-        _id: ""
-    },
+    user: defaultUser,
     setUser: () => {},
     logout: () => {}
 });
@@ -20,12 +26,7 @@ export const useAuth = () => {
 }
 
 export const AuthWrapper = ({ children }) => {
-    const [user, setUser] = useState({
-        username: "",
-        fullName: "",
-        role: "",
-        _id: ""
-    });
+    const [user, setUser] = useState(defaultUser);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -36,7 +37,7 @@ export const AuthWrapper = ({ children }) => {
 
     const loginContext = (userData) => {
         setUser(userData);
-        setIsAuthenticated(true); // <--- QUAN TRỌNG: Bật cờ này lên thì Header mới đổi
+        setIsAuthenticated(true);
     };
 
     const fetchAccount = async () => {
@@ -48,13 +49,14 @@ export const AuthWrapper = ({ children }) => {
         }
         try {
             const res = await axios.get('auth/profile');
-            if (res) {
-                setUser(res);
+            const userData = res.user || res;
+            if (userData && userData._id) {
+                setUser(userData);
                 setIsAuthenticated(true);
             }
         } catch (error) {
             localStorage.removeItem("access_token");
-            setUser({ username: "", fullName: "", role: "", _id: "" });
+            setUser(defaultUser);
             setIsAuthenticated(false);
         }
 
@@ -63,7 +65,7 @@ export const AuthWrapper = ({ children }) => {
 
     const logout = () => {
         localStorage.removeItem("access_token");
-        setUser({ username: "", fullName: "", role: "", _id: "" });
+        setUser(defaultUser);
         setIsAuthenticated(false);
         window.location.href = '/login';
     };
@@ -72,6 +74,7 @@ export const AuthWrapper = ({ children }) => {
         <AuthContext.Provider value={{
             isAuthenticated,
             user,
+            setUser,
             loginContext,
             isLoading,
             logout

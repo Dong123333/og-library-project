@@ -1,19 +1,21 @@
 import logo from "../../assets/images/logo.png";
 import {Avatar, Badge, Button, Dropdown, Menu, Space} from "antd";
 import {
-    BellOutlined,
     BookOutlined,
     HistoryOutlined,
     HomeOutlined,
-    LogoutOutlined,
+    LogoutOutlined, ShoppingCartOutlined,
     UserOutlined
 } from "@ant-design/icons";
 import {Link, useNavigate} from "react-router-dom";
 import {usePage} from "../../context/NavContext.jsx";
 import {useAuth} from "../../context/AuthContext.jsx";
+import {useBookcase} from "../../context/BookcaseContext.jsx";
+import NotificationBell from "../NotificationBell.jsx";
 
 const Header = () => {
     const {activePage, setActivePage} = usePage();
+    const { Bookcase } = useBookcase();
     const navigate = useNavigate();
     const { isAuthenticated, user, logout } = useAuth();
 
@@ -23,7 +25,7 @@ const Header = () => {
                 <Link to="/profile">Hồ sơ cá nhân</Link>
             </Menu.Item>
             <Menu.Item key="loans" icon={<HistoryOutlined />}>
-                <Link to="/loans">Lịch sử mượn sách</Link>
+                <Link to="/loans">Lịch sử mượn trả</Link>
             </Menu.Item>
             <Menu.Divider />
             <Menu.Item key="logout" icon={<LogoutOutlined />} danger onClick={logout}>
@@ -38,13 +40,8 @@ const Header = () => {
     };
 
     const handleClickLib = () => {
-        if (!isAuthenticated) {
-            navigate(`/login`);
-        } else {
-            setActivePage('library');
-            navigate(`/library`);
-        }
-
+        setActivePage('library');
+        navigate(`/library`);
     };
 
     return (
@@ -55,7 +52,6 @@ const Header = () => {
                     <span className="text-xl font-bold text-gray-800 hidden md:block">Olive Gallery</span>
                 </div>
 
-                {/* Menu điều hướng */}
                 <nav className="hidden md:flex gap-1">
                     <Button
                         type={activePage === 'home' ? 'primary' : 'text'}
@@ -77,9 +73,15 @@ const Header = () => {
             </div>
 
             <div className="flex items-center gap-6">
-                {isAuthenticated && ( <Badge count={2} size="small">
-                    <BellOutlined className="text-xl text-gray-500 cursor-pointer hover:text-blue-600" />
-                </Badge>)}
+                {isAuthenticated && (
+                    <Badge count={Bookcase.length} showZero>
+                        <Button
+                            icon={<ShoppingCartOutlined style={{ fontSize: '24px' }} />}
+                            type="text"
+                            onClick={() => navigate('/bookcase')}
+                        />
+                    </Badge>
+                )}
 
                 {!isAuthenticated ? ( <div className="flex gap-3">
                     <button
@@ -95,17 +97,19 @@ const Header = () => {
                     >
                         Đăng ký
                     </button>
-                </div>) : (<Dropdown overlay={userMenu} trigger={['click']} placement="bottomRight">
-                    <Space className="cursor-pointer hover:bg-gray-100 py-1 px-2 rounded transition">
-                        <Avatar icon={<UserOutlined />} style={{ backgroundColor: '#1890ff' }} />
-                        <span className="hidden md:block font-medium text-gray-700">
-                                {user.fullName}
-                            </span>
-                    </Space>
-                </Dropdown>)}
-
-
-
+                </div>) : (
+                    <div className="flex items-center gap-4 h-full">
+                        <NotificationBell />
+                        <Dropdown overlay={userMenu} trigger={['click']} placement="bottomRight">
+                            <Space className="cursor-pointer hover:bg-gray-100 p-2 rounded transition">
+                                <Avatar icon={<UserOutlined />} style={{ backgroundColor: '#1890ff' }} />
+                                <span className="hidden md:block font-medium text-gray-700">
+                                    {user.hoVaTen}
+                                </span>
+                            </Space>
+                        </Dropdown>
+                    </div>
+                )}
             </div>
         </header>
     )

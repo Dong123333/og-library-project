@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Button, Avatar, Dropdown, Badge, Space, theme, Menu } from 'antd';
+import { Layout, Button, Avatar, Dropdown, Badge, Space, theme } from 'antd';
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
@@ -27,12 +27,6 @@ const AdminHeader = ({ collapsed, setCollapsed }) => {
     const menuItems = [
         {
             key: '1',
-            icon: <UserOutlined />,
-            label: 'Hồ sơ Admin',
-            onClick: () => navigate('/profile') // Hoặc trang profile admin
-        },
-        {
-            key: '2',
             icon: <SettingOutlined />,
             label: 'Cài đặt hệ thống',
         },
@@ -40,7 +34,7 @@ const AdminHeader = ({ collapsed, setCollapsed }) => {
             type: 'divider',
         },
         {
-            key: '3',
+            key: '2',
             icon: <LogoutOutlined />,
             label: 'Đăng xuất',
             danger: true,
@@ -87,8 +81,8 @@ const AdminHeader = ({ collapsed, setCollapsed }) => {
                         </div>
 
                         <div className="hidden md:flex flex-col items-end leading-tight">
-                            <span className="font-bold text-gray-700 text-sm">
-                                {user?.fullName || user?.email || "Admin"}
+                            <span className="font-bold text-gray-700 text-sm mb-1">
+                                {user?.hoVaTen || user?.email || "Admin"}
                             </span>
                             <span className="text-[10px] text-gray-400 uppercase font-bold tracking-wider">
                                 Administrator

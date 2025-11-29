@@ -1,5 +1,6 @@
 import Header from "../../components/reader/Header.jsx";
 import Footer from "../../components/reader/Footer.jsx";
+import Chatbot from "../../components/Chatbot.jsx";
 
 const ReaderLayout = ({children}) => {
     return (
@@ -8,6 +9,7 @@ const ReaderLayout = ({children}) => {
             <div className="p-4 md:p-8 max-w-7xl mx-auto min-h-screen">
                 {children}
             </div>
+            <Chatbot />
             <Footer />
         </div>
     )

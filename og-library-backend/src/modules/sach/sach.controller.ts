@@ -14,6 +14,7 @@ import { SachService } from './sach.service';
 import { CreateSachDto } from './dto/create-sach.dto';
 import { UpdateSachDto } from './dto/update-sach.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { Public } from '../../decorator/customize';
 
 @Controller('sach')
 export class SachController {
@@ -29,6 +30,7 @@ export class SachController {
   }
 
   @Get()
+  @Public()
   findAll(
     @Query('page') currentPage: string,
     @Query('limit') limit: string,
@@ -38,8 +40,9 @@ export class SachController {
   }
 
   @Get(':id')
+  @Public()
   findOne(@Param('id') id: string) {
-    return this.sachService.findOne(+id);
+    return this.sachService.findOne(id);
   }
 
   @Patch(':id')

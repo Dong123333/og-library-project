@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { NguoiDungService } from './nguoi-dung.service';
 import { CreateNguoiDungDto } from './dto/create-nguoi-dung.dto';
@@ -21,18 +22,29 @@ export class NguoiDungController {
   }
 
   @Get()
-  findAll() {
-    return this.nguoiDungService.findAll();
+  findAll(
+    @Query('page') currentPage: string,
+    @Query('limit') limit: string,
+    @Query() query: string,
+  ) {
+    return this.nguoiDungService.findAll(
+      +currentPage || 1,
+      +limit || 10,
+      query,
+    );
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.nguoiDungService.findOne(+id);
+    return this.nguoiDungService.findOne(id);
   }
 
-  @Patch()
-  update(@Body() updateNguoiDungDto: UpdateNguoiDungDto) {
-    return this.nguoiDungService.update(updateNguoiDungDto);
+  @Patch(':id')
+  update(
+    @Param('id') id: string,
+    @Body() updateNguoiDungDto: UpdateNguoiDungDto,
+  ) {
+    return this.nguoiDungService.update(id, updateNguoiDungDto);
   }
 
   @Delete(':id')

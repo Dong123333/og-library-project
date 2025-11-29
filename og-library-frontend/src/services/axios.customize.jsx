@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const apiUrl = import.meta.env.VITE_BACK_END_API_URL;
+
 const instance = axios.create({
-    baseURL: "http://localhost:8080/api/v1",
+    baseURL: `${apiUrl}/api/v1`,
 });
 
 instance.interceptors.request.use(function (config) {

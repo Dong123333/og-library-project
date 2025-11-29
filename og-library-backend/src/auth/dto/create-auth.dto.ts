@@ -33,3 +33,14 @@ export class ChangePasswordAuthDto {
   @IsNotEmpty({ message: 'Xác nhận mật khẩu không được để trống' })
   xacNhanMatKhau: string;
 }
+
+export class ChangePasswordProfileAuthDto {
+  @IsNotEmpty({ message: 'Mật khẩu cũ không được để trống' })
+  matKhauCu: string;
+
+  @IsNotEmpty({ message: 'Mật khẩu mới không được để trống' })
+  matKhauMoi: string;
+
+  @IsNotEmpty({ message: 'Xác nhận mật khẩu mới không được để trống' })
+  xacNhanMatKhauMoi: string;
+}

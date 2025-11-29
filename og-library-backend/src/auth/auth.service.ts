@@ -4,6 +4,7 @@ import { comparePasswordHelper } from '../helpers/utils';
 import { JwtService } from '@nestjs/jwt';
 import {
   ChangePasswordAuthDto,
+  ChangePasswordProfileAuthDto,
   CodeAuthDto,
   CreateAuthDto,
 } from './dto/create-auth.dto';
@@ -32,14 +33,14 @@ export class AuthService {
   }
 
   async login(user: any) {
-    const roleName = user.maVaiTro?.tenVaiTro || 'reader';
-    const payload = { username: user.email, sub: user._id, role: roleName, fullName: user.hoVaTen };
+    const roleCode = user.maVaiTro?.maVaiTro;
+    const payload = { email: user.email, sub: user._id, maVaiTro: roleCode, hoVaTen: user.hoVaTen };
     return {
       user: {
         _id: user._id,
         email: user.email,
-        fullName: user.hoVaTen,
-        role: roleName,
+        hoVaTen: user.hoVaTen,
+        maVaiTro: roleCode,
       },
       access_token: this.jwtService.sign(payload),
     };
@@ -65,5 +66,19 @@ export class AuthService {
     return await this.nguoiDungService.handleChangePassword(
       changePasswordAuthDto,
     );
+  }
+
+  async handleChangePasswordProfile(
+    email: string,
+    changePasswordProfileAuthDto: ChangePasswordProfileAuthDto,
+  ) {
+    return await this.nguoiDungService.handleChangePasswordProfile(
+      email,
+      changePasswordProfileAuthDto,
+    );
+  }
+
+  async findOne(id: string) {
+    return await this.nguoiDungService.findOne(id);
   }
 }

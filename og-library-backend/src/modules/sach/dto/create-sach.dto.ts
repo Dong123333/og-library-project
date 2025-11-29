@@ -23,11 +23,14 @@ export class CreateSachDto {
   maNhaXuatBan: string;
 
   @IsOptional()
-  namXuatBan: string;
+  namXuatBan: number;
 
   @IsOptional()
   soLuong: number;
 
   @IsOptional()
   hinhAnh: string;
+
+  @IsOptional()
+  giaTien: number;
 }

@@ -8,9 +8,6 @@ export type PhieuPhatDocument = HydratedDocument<PhieuPhat>;
 
 @Schema({ timestamps: true })
 export class PhieuPhat {
-  @Prop()
-  maPhieuPhat: string;
-
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'MuonTra' })
   maMuonTra: MuonTra;
 
@@ -29,8 +26,8 @@ export class PhieuPhat {
   @Prop()
   ngayLap: Date;
 
-  @Prop()
-  trangThai: number;
+  @Prop({ default: false })
+  trangThai: boolean;
 }
 
 export const PhieuPhatSchema = SchemaFactory.createForClass(PhieuPhat);

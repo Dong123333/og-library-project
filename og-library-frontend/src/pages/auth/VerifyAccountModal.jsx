@@ -16,7 +16,7 @@ const VerifyAccountModal = ({ isModalOpen, setIsModalOpen, email, userId }) => {
 
     useEffect(() => {
         if (isModalOpen) {
-            form.resetFields(); // Xóa sạch dữ liệu cũ
+            form.resetFields();
         }
     }, [isModalOpen, form]);
 

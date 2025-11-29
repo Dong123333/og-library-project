@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {Table, Button, Modal, Form, Input, Space, message, Popconfirm, Statistic} from 'antd';
-import {EditOutlined, DeleteOutlined, PlusOutlined, AppstoreOutlined} from '@ant-design/icons';
-import axios from "../../services/axios.customize";
+import {Table, Button, Modal, Form, Input, Space, message, Popconfirm} from 'antd';
+import {EditOutlined, DeleteOutlined, PlusOutlined} from '@ant-design/icons';
+import axios from "../../services/axios.customize.jsx";
 
 const CategoryManage = () => {
     const [listData, setListData] = useState([]);
@@ -34,7 +34,6 @@ const CategoryManage = () => {
     const handleSave = async (values) => {
         try {
             if (editingItem) {
-                // --- LOGIC SỬA ---
                 await axios.patch(`/danh-muc/${editingItem._id}`, {
                     tenDanhMuc: values.tenDanhMuc,
                     moTa: values.moTa,
@@ -48,7 +47,6 @@ const CategoryManage = () => {
                 messageApi.success("Thêm mới thành công!");
             }
 
-            // Reset và tải lại bảng
             setIsModalOpen(false);
             form.resetFields();
             setEditingItem(null);
@@ -58,7 +56,6 @@ const CategoryManage = () => {
         }
     };
 
-    // 3. Xử lý nút Sửa
     const handleEdit = (record) => {
         setEditingItem(record);
         form.setFieldsValue({
@@ -68,7 +65,6 @@ const CategoryManage = () => {
         setIsModalOpen(true);
     };
 
-    // 4. Xử lý nút Xóa
     const handleDelete = async (id) => {
         try {
             await axios.delete(`/danh-muc/${id}`);

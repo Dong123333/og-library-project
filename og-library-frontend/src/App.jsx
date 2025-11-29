@@ -1,17 +1,14 @@
-// App.jsx
 import {Fragment} from "react";
-import {adminRoutes, publicRoutes, privateRoutes} from "./routes/index.jsx";
+import {adminRoutes, publicRoutes, privateRoutes, librarianRoutes} from "./routes/index.jsx";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AdminLayout from "./layouts/admin/index.jsx";
 import {PageProvider} from "./context/NavContext.jsx";
-import {AdminRoute, ProtectedRoute} from "./routes/PrivateRoute.jsx";
+import {AdminRoute, LibrarianRoute, ProtectedRoute} from "./routes/PrivateRoute.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 
 const DefaultLayout = ({ children }) => <>{children}</>;
 
 const App = () => {
-    // const { user } = useContext(AuthContext);
-
     return (
         <PageProvider>
             <Router>
@@ -46,7 +43,7 @@ const App = () => {
                                     key={index}
                                     path={route.path}
                                     element={
-                                        <ProtectedRoute> {/* Bọc bảo vệ */}
+                                        <ProtectedRoute>
                                             <Layout>
                                                 <Page />
                                             </Layout>
@@ -75,14 +72,31 @@ const App = () => {
                             );
                         })}
 
+                        {librarianRoutes.map((route, index) => {
+                            const Page = route.component;
+                            const Layout = route.layout || AdminLayout;
+
+                            return (
+                                <Route
+                                    key={index}
+                                    path={route.path}
+                                    element={
+                                        <LibrarianRoute>
+                                            <Layout>
+                                                <Page />
+                                            </Layout>
+                                        </LibrarianRoute>
+                                    }
+                                />
+                            );
+                        })}
+
                     </Routes>
                 </div>
             </Router>
         </PageProvider>
 
     );
-
-
 };
 
 export default App;

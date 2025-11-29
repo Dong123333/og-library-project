@@ -21,13 +21,16 @@ export class Sach {
   maNhaXuatBan: NhaXuatBan;
 
   @Prop()
-  namXuatBan: string;
+  namXuatBan: number;
 
   @Prop()
   soLuong: number;
 
   @Prop()
   hinhAnh: string;
+
+  @Prop({ default: 0 })
+  giaTien: number;
 }
 
 export const SachSchema = SchemaFactory.createForClass(Sach);
