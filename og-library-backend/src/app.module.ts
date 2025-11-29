@@ -53,22 +53,19 @@ import { ChatbotModule } from './chatbot/chatbot.module';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         transport: {
-          host: 'smtp.gmail.com',
-          port: 465,
-          // ignoreTLS: true,
-          secure: true,
+          host: 'smtp.sendgrid.net',
+          port: 587,
           auth: {
-            user: configService.get<string>('MAIL_USER'),
-            pass: configService.get<string>('MAIL_PASSWORD'),
+            user: 'apikey',
+            pass: configService.get<string>('SENDGRID_API_KEY'),
           },
         },
         defaults: {
-          from: '"No Reply" <no-reply@localhost>',
+          from: '"Olive Gallery" <hobadong7777777@gmail.com>',
         },
-        // preview: true,
         template: {
           dir: process.cwd() + '/src/mail/templates/',
-          adapter: new HandlebarsAdapter(), // or new PugAdapter() or new EjsAdapter()
+          adapter: new HandlebarsAdapter(),
           options: {
             strict: true,
           },
