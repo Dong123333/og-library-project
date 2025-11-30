@@ -1,4 +1,4 @@
-import { Injectable, UploadedFile } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit, UploadedFile } from '@nestjs/common';
 import { CreateSachDto } from './dto/create-sach.dto';
 import { UpdateSachDto } from './dto/update-sach.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -7,13 +7,164 @@ import { Sach } from './schemas/sach.schema';
 import aqp from 'api-query-params';
 import { convertToRegex } from '../../helpers/regex.util';
 import { CloudinaryService } from '../../cloudinary/cloudinary.service';
+import { DanhMuc } from '../danh-muc/schemas/danh-muc.schema';
+import { TacGia } from '../tac-gia/schemas/tac-gia.schema';
+import { NhaXuatBan } from '../nha-xuat-ban/schemas/nha-xuat-ban.schema';
+import * as fs from 'fs';
+import * as path from 'path';
 
 @Injectable()
-export class SachService {
+export class SachService implements OnModuleInit {
   constructor(
     @InjectModel(Sach.name) private sachModel: Model<Sach>,
+    @InjectModel(DanhMuc.name) private danhMucModel: Model<DanhMuc>,
+    @InjectModel(TacGia.name) private tacGiaModel: Model<TacGia>,
+    @InjectModel(NhaXuatBan.name) private nhaXuatBanModel: Model<NhaXuatBan>,
     private readonly cloudinaryService: CloudinaryService,
   ) {}
+
+  async onModuleInit() {
+    await this.seedCategories();
+    await this.seedAuthors();
+    await this.seedPublishers();
+    await this.seedBooks();
+  }
+
+  async seedCategories() {
+    const count = await this.danhMucModel.countDocuments();
+    const filePath = path.join(
+      process.cwd(),
+      'dist',
+      'src',
+      'modules',
+      'sach',
+      'seed',
+      'danhmuc.json',
+    );
+    const rawData = fs.readFileSync(filePath, 'utf8');
+    const data = JSON.parse(rawData);
+    if (count === 0) {
+      await this.danhMucModel.insertMany(data);
+    }
+  }
+
+  async seedAuthors() {
+    const count = await this.tacGiaModel.countDocuments();
+    const filePath = path.join(
+      process.cwd(),
+      'dist',
+      'src',
+      'modules',
+      'sach',
+      'seed',
+      'tacgia.json',
+    );
+    const rawData = fs.readFileSync(filePath, 'utf8');
+    const data = JSON.parse(rawData);
+    if (count === 0) {
+      await this.tacGiaModel.insertMany(data);
+    }
+  }
+
+  async seedPublishers() {
+    const count = await this.nhaXuatBanModel.countDocuments();
+    const filePath = path.join(
+      process.cwd(),
+      'dist',
+      'src',
+      'modules',
+      'sach',
+      'seed',
+      'nhaxuatban.json',
+    );
+    const rawData = fs.readFileSync(filePath, 'utf8');
+    const data = JSON.parse(rawData);
+    if (count === 0) {
+      await this.nhaXuatBanModel.insertMany(data);
+    }
+  }
+
+  async seedBooks() {
+    const count = await this.sachModel.countDocuments();
+    if (count === 0) {
+      const basePath = path.join(
+        process.cwd(),
+        'dist',
+        'src',
+        'modules',
+        'sach',
+        'seed',
+      );
+
+      const rawCat = fs.readFileSync(
+        path.join(basePath, 'danhmuc.json'),
+        'utf8',
+      );
+      const rawAuth = fs.readFileSync(
+        path.join(basePath, 'tacgia.json'),
+        'utf8',
+      );
+      const rawPub = fs.readFileSync(
+        path.join(basePath, 'nhaxuatban.json'),
+        'utf8',
+      );
+      const rawBooks = fs.readFileSync(
+        path.join(basePath, 'sach.json'),
+        'utf8',
+      );
+
+      const categoriesJson = JSON.parse(rawCat);
+      const authorsJson = JSON.parse(rawAuth);
+      const publishersJson = JSON.parse(rawPub);
+      const booksJson = JSON.parse(rawBooks);
+
+      const categoriesDB = await this.danhMucModel.find();
+      const authorsDB = await this.tacGiaModel.find();
+      const publishersDB = await this.nhaXuatBanModel.find();
+
+      const catIdToName = {};
+      categoriesJson.forEach(c => catIdToName[c.id] = c.tenDanhMuc);
+
+      const authIdToName = {};
+      authorsJson.forEach(a => authIdToName[a.id] = a.tenTacGia);
+
+      const pubIdToName = {};
+      publishersJson.forEach(p => pubIdToName[p.id] = p.tenNhaXuatBan);
+
+      const nameToRealId_Cat = {};
+      categoriesDB.forEach((c) => (nameToRealId_Cat[c.tenDanhMuc] = c._id));
+
+      const nameToRealId_Auth = {};
+      authorsDB.forEach((a) => (nameToRealId_Auth[a.tenTacGia] = a._id));
+
+      const nameToRealId_Pub = {};
+      publishersDB.forEach((p) => (nameToRealId_Pub[p.tenNhaXuatBan] = p._id));
+
+      const finalBooks = booksJson.map(book => {
+        const catName = catIdToName[book.maDanhMuc];
+        const realCatId = nameToRealId_Cat[catName];
+
+        const pubName = pubIdToName[book.maNhaXuatBan];
+        const realPubId = nameToRealId_Pub[pubName];
+
+        const realAuthorIds = book.maTacGia.map(fakeId => {
+            const authName = authIdToName[fakeId];
+            return nameToRealId_Auth[authName];
+        }).filter(id => id);
+
+        return {
+          ...book,
+          maDanhMuc: realCatId,
+          maNhaXuatBan: realPubId,
+          maTacGia: realAuthorIds,
+        };
+      });
+
+      await this.sachModel.insertMany(finalBooks);
+      console.log(`✅ Đã seed thành công ${finalBooks.length} cuốn sách!`);
+    }
+  }
+
   async create(
     createSachDto: CreateSachDto,
     @UploadedFile() file: Express.Multer.File,

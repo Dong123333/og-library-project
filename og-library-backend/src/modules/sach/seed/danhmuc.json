@@ -1,0 +1,47 @@
+[
+    {
+      "id": 1,
+      "tenDanhMuc": "Văn học Việt Nam",
+      "moTa": "Tiểu thuyết, truyện ngắn, hồi ký tác giả Việt Nam"
+    },
+    {
+      "id": 2,
+      "tenDanhMuc": "Văn học nước ngoài",
+      "moTa": "Tác phẩm kinh điển thế giới dịch tiếng Việt"
+    },
+    {
+      "id": 3,
+      "tenDanhMuc": "Tiểu thuyết",
+      "moTa": "Tiểu thuyết dài Việt Nam + quốc tế, phân loại theo thể loại"
+    },
+    {
+      "id": 4,
+      "tenDanhMuc": "Thiếu nhi",
+      "moTa": "Truyện tranh, sách tô màu, truyện cổ tích cho trẻ em"
+    },
+    {
+      "id": 5,
+      "tenDanhMuc": "Tâm lý - Kỹ năng sống",
+      "moTa": "Self-help, phát triển bản thân, giao tiếp"
+    },
+    {
+      "id": 6,
+      "tenDanhMuc": "Kinh tế - Kinh doanh",
+      "moTa": "Kinh doanh, đầu tư, quản trị"
+    },
+    {
+      "id": 7,
+      "tenDanhMuc": "Lịch sử",
+      "moTa": "Lịch sử Việt Nam + thế giới, tiểu sử nhân vật lịch sử"
+    },
+    {
+      "id": 8,
+      "tenDanhMuc": "Khoa học",
+      "moTa": "Khoa học phổ thông, vật lý, sinh học, vũ trụ"
+    },
+    {
+      "id": 9,
+      "tenDanhMuc": "Truyện ngắn",
+      "moTa": "Tuyển tập truyện ngắn Việt Nam (Nguyễn Quang Sáng, Kim Lân, Nguyễn Minh Châu)"
+    }
+]

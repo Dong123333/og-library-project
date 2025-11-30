@@ -19,15 +19,15 @@ import {
 } from '../../auth/dto/create-auth.dto';
 import * as crypto from 'crypto';
 import dayjs from 'dayjs';
-import { MailerService } from '@nestjs-modules/mailer';
 import aqp from 'api-query-params';
+import { MailService } from '../../mail/mail.service';
 
 @Injectable()
 export class NguoiDungService implements OnModuleInit {
   constructor(
     @InjectModel(NguoiDung.name) private nguoiDungModel: Model<NguoiDung>,
     @InjectModel(VaiTro.name) private vaiTroModel: Model<VaiTro>,
-    private readonly mailerService: MailerService,
+    private mailService: MailService,
   ) {}
 
   async onModuleInit() {
@@ -200,20 +200,15 @@ export class NguoiDungService implements OnModuleInit {
       maVaiTro: readerRole._id,
     });
 
-    this.mailerService.sendMail({
-      to: user.email,
-      from: '"Thư viện Olive Gallery" <no-reply@olivegallery.com>',
-      subject: 'Activate your account at Olive Gallery',
-      template: 'register',
-      context: {
-        name: user?.hoVaTen ?? user?.email,
-        activationCode: maOTP,
-      },
-    });
+    this.mailService.sendUserConfirmation(
+      user.email,
+      'Activate your account at Olive Gallery',
+      user?.hoVaTen ?? user?.email,
+      maOTP,
+    );
 
     return {
       _id: user._id,
-      code: user.maOTP,
     };
   }
 
@@ -260,16 +255,12 @@ export class NguoiDungService implements OnModuleInit {
       { upsert: true, new: true },
     );
 
-    this.mailerService.sendMail({
-      to: user.email,
-      from: '"Thư viện Olive Gallery" <no-reply@olivegallery.com>',
-      subject: 'Resend OTP',
-      template: 'register',
-      context: {
-        name: user?.hoVaTen ?? user?.email,
-        activationCode: maOTP,
-      },
-    });
+    this.mailService.sendUserConfirmation(
+      user.email,
+      'Resend OTP',
+      user?.hoVaTen ?? user?.email,
+      maOTP,
+    );
 
     return { _id: user._id };
   }
@@ -293,16 +284,12 @@ export class NguoiDungService implements OnModuleInit {
       { upsert: true, new: true },
     );
 
-    this.mailerService.sendMail({
-      to: user.email,
-      from: '"Thư viện Olive Gallery" <no-reply@olivegallery.com>',
-      subject: 'Change password your account at Olive Gallery',
-      template: 'register',
-      context: {
-        name: user?.hoVaTen ?? user?.email,
-        activationCode: maOTP,
-      },
-    });
+    this.mailService.sendUserConfirmation(
+      user.email,
+      'Change password your account at Olive Gallery',
+      user?.hoVaTen ?? user?.email,
+      maOTP,
+    );
 
     return { _id: user._id };
   }

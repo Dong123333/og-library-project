@@ -4,6 +4,7 @@ import { NguoiDungController } from './nguoi-dung.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { NguoiDung, NguoiDungSchema } from './schemas/nguoi-dung.schema';
 import { VaiTro, VaiTroSchema } from '../vai-tro/schemas/vai-tro.schema';
+import { MailModule } from '../../mail/mail.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { VaiTro, VaiTroSchema } from '../vai-tro/schemas/vai-tro.schema';
       { name: NguoiDung.name, schema: NguoiDungSchema },
       { name: VaiTro.name, schema: VaiTroSchema },
     ]),
+    MailModule,
   ],
   controllers: [NguoiDungController],
   providers: [NguoiDungService],

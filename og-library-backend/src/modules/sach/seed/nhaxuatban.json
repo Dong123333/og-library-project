@@ -1,0 +1,62 @@
+[
+    {
+      "id": 1,
+      "tenNhaXuatBan": "Nhà xuất bản Kim Đồng",
+      "diaChi": "55 Quang Trung, Hà Nội, Việt Nam"
+    },
+    {
+      "id": 2,
+      "tenNhaXuatBan": "Nhà xuất bản Trẻ",
+      "diaChi": "116 Nguyễn Thị Minh Khai, Q3, TP.HCM, Việt Nam"
+    },
+    {
+      "id": 3,
+      "tenNhaXuatBan": "Nhà xuất bản Giáo dục",
+      "diaChi": "81 Trần Hưng Đạo, Hoàn Kiếm, Hà Nội, Việt Nam"
+    },
+    {
+      "id": 4,
+      "tenNhaXuatBan": "Nhà xuất bản Tổng hợp TP.HCM",
+      "diaChi": "62 Nguyễn Thị Minh Khai, Q1, TP.HCM, Việt Nam"
+    },
+    {
+      "id": 5,
+      "tenNhaXuatBan": "Nhà xuất bản Hội Nhà Văn",
+      "diaChi": "65 Nguyễn Du, Hai Bà Trưng, Hà Nội, Việt Nam"
+    },
+    {
+      "id": 6,
+      "tenNhaXuatBan": "Nhà xuất bản Lao Động",
+      "diaChi": "175 Giảng Võ, Đống Đa, Hà Nội, Việt Nam"
+    },
+    {
+      "id": 7,
+      "tenNhaXuatBan": "Nhà xuất bản Tri Thức",
+      "diaChi": "Hà Nội, Việt Nam"
+    },
+    {
+      "id": 8,
+      "tenNhaXuatBan": "Nhà xuất bản Phụ nữ",
+      "diaChi": "39 Hàng Chuối, Hai Bà Trưng, Hà Nội, Việt Nam"
+    },
+    {
+      "id": 9,
+      "tenNhaXuatBan": "Nhà xuất bản Văn học",
+      "diaChi": "Hà Nội, Việt Nam"
+    },
+    {
+      "id": 10,
+      "tenNhaXuatBan": "Penguin Random House",
+      "diaChi": "New York, USA"
+    },
+    {
+      "id": 11,
+      "tenNhaXuatBan": "HarperCollins",
+      "diaChi": "London, UK"
+    },
+    {
+      "id": 12,
+      "tenNhaXuatBan": "Gallimard",
+      "diaChi": "Paris, France"
+    }
+]

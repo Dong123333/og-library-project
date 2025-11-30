@@ -1,0 +1,245 @@
+[
+    {
+      "id": 1,
+      "tenTacGia": "Nguyễn Nhật Ánh",
+      "quocTich": "Việt Nam",
+      "namSinh": 1954,
+      "namMat": null,
+      "tieuSu": "Nhà văn thiếu nhi nổi tiếng nhất Việt Nam. Bút danh: Chu Đình Ngạn, Đông Phương Sóc, Anh Bồ Câu.",
+      "butDanh": "Chu Đình Ngạn, Đông Phương Sóc, Anh Bồ Câu, Lê Duy Cật"
+    },
+    {
+      "id": 2,
+      "tenTacGia": "Nam Cao",
+      "quocTich": "Việt Nam",
+      "namSinh": 1915,
+      "namMat": 1951,
+      "tieuSu": "Nhà văn hiện thực phê phán. Tác phẩm tiêu biểu: Chí Phèo, Lão Hạc.",
+      "butDanh": "Vũ Trọng Phụng"
+    },
+    {
+      "id": 3,
+      "tenTacGia": "Nguyễn Du",
+      "quocTich": "Việt Nam",
+      "namSinh": 1765,
+      "namMat": 1820,
+      "tieuSu": "Đại thi hào dân tộc. Tác giả Truyện Kiều bất hủ.",
+      "butDanh": ""
+    },
+    {
+      "id": 4,
+      "tenTacGia": "Nguyễn Ngọc Tư",
+      "quocTich": "Việt Nam",
+      "namSinh": 1976,
+      "namMat": null,
+      "tieuSu": "Nhà văn Cà Mau. Nổi tiếng với truyện ngắn miền Tây.",
+      "butDanh": ""
+    },
+    {
+      "id": 5,
+      "tenTacGia": "Tô Hoài",
+      "quocTich": "Việt Nam",
+      "namSinh": 1920,
+      "namMat": 2014,
+      "tieuSu": "Tác giả Dế Mèn phiêu lưu ký. Giải thưởng Hồ Chí Minh.",
+      "butDanh": "Tô Germani"
+    },
+    {
+      "id": 6,
+      "tenTacGia": "Kim Lân",
+      "quocTich": "Việt Nam",
+      "namSinh": 1920,
+      "namMat": 2008,
+      "tieuSu": "Người nông dân của văn học Việt Nam. Vợ nhặt.",
+      "butDanh": ""
+    },
+    {
+      "id": 7,
+      "tenTacGia": "Nguyễn Quang Sáng",
+      "quocTich": "Việt Nam",
+      "namSinh": 1932,
+      "namMat": 2012,
+      "tieuSu": "Chiến tranh Nhân dân. Chiếc lược ngà.",
+      "butDanh": ""
+    },
+    {
+      "id": 8,
+      "tenTacGia": "Nguyễn Minh Châu",
+      "quocTich": "Việt Nam",
+      "namSinh": 1930,
+      "namMat": 1989,
+      "tieuSu": "Người mở đường đổi mới văn học. Bến quê.",
+      "butDanh": ""
+    },
+    {
+      "id": 9,
+      "tenTacGia": "Bảo Ninh",
+      "quocTich": "Việt Nam",
+      "namSinh": 1952,
+      "namMat": null,
+      "tieuSu": "Giải thưởng ASEAN. Nỗi buồn chiến tranh.",
+      "butDanh": ""
+    },
+    {
+      "id": 10,
+      "tenTacGia": "Nguyễn Huy Thiệp",
+      "quocTich": "Việt Nam",
+      "namSinh": 1950,
+      "namMat": 2021,
+      "tieuSu": "Tướng về hưu gây tranh cãi lớn văn đàn.",
+      "butDanh": ""
+    },
+    {
+      "id": 11,
+      "tenTacGia": "Phạm Thị Hoài",
+      "quocTich": "Việt Nam",
+      "namSinh": 1960,
+      "namMat": null,
+      "tieuSu": "Nhà văn nữ tiên phong đổi mới. Thiên đường mù.",
+      "butDanh": ""
+    },
+    {
+      "id": 12,
+      "tenTacGia": "Nguyễn Bình Phương",
+      "quocTich": "Việt Nam",
+      "namSinh": 1965,
+      "namMat": null,
+      "tieuSu": "Nhà văn bí ẩn. Những ngôi sao xa xôi.",
+      "butDanh": ""
+    },
+    {
+      "id": 13,
+      "tenTacGia": "Gào",
+      "quocTich": "Việt Nam",
+      "namSinh": 1988,
+      "namMat": null,
+      "tieuSu": "Thế hệ 8X. Cánh đồng bất tận.",
+      "butDanh": "Nguyễn Ngọc Tư"
+    },
+    {
+      "id": 14,
+      "tenTacGia": "Nguyễn Ngọc Thạch",
+      "quocTich": "Việt Nam",
+      "namSinh": 1985,
+      "namMat": null,
+      "tieuSu": "Tác giả trẻ. Chuyện tình cuối mùa thu.",
+      "butDanh": ""
+    },
+    {
+      "id": 15,
+      "tenTacGia": "J.K. Rowling",
+      "quocTich": "UK",
+      "namSinh": 1965,
+      "namMat": null,
+      "tieuSu": "Tác giả Harry Potter giàu nhất văn học.",
+      "butDanh": "Robert Galbraith"
+    },
+    {
+      "id": 16,
+      "tenTacGia": "J.R.R. Tolkien",
+      "quocTich": "UK",
+      "namSinh": 1892,
+      "namMat": 1973,
+      "tieuSu": "Cha đẻ thể loại Fantasy hiện đại. Tác giả Chúa Nhẫn, Hobbit.",
+      "butDanh": ""
+    },
+    {
+      "id": 17,
+      "tenTacGia": "Gabriel García Márquez",
+      "quocTich": "Colombia",
+      "namSinh": 1927,
+      "namMat": 2014,
+      "tieuSu": "Nobel Văn học 1982. Cha đẻ chủ nghĩa Hiện thực huyền ảo.",
+      "butDanh": "Gabo"
+    },
+    {
+      "id": 18,
+      "tenTacGia": "Haruki Murakami",
+      "quocTich": "Japan",
+      "namSinh": 1949,
+      "namMat": null,
+      "tieuSu": "Hiện tượng văn học Nhật. Norwegian Wood, Kafka bên bờ biển.",
+      "butDanh": ""
+    },
+    {
+      "id": 19,
+      "tenTacGia": "Jane Austen",
+      "quocTich": "UK",
+      "namSinh": 1775,
+      "namMat": 1817,
+      "tieuSu": "Nữ văn hào Anh. Tác giả Kiêu hãnh và Định kiến.",
+      "butDanh": "A Lady"
+    },
+    {
+      "id": 20,
+      "tenTacGia": "George Orwell",
+      "quocTich": "UK",
+      "namSinh": 1903,
+      "namMat": 1950,
+      "tieuSu": "1984, Animal Farm. Phê phán độc tài, tổng thống cực quyền.",
+      "butDanh": "Eric Arthur Blair"
+    },
+    {
+      "id": 21,
+      "tenTacGia": "Agatha Christie",
+      "quocTich": "UK",
+      "namSinh": 1890,
+      "namMat": 1976,
+      "tieuSu": "Nữ hoàng trinh thám. Hercule Poirot, Miss Marple.",
+      "butDanh": "Mary Westmacott"
+    },
+    {
+      "id": 22,
+      "tenTacGia": "Stephen King",
+      "quocTich": "USA",
+      "namSinh": 1947,
+      "namMat": null,
+      "tieuSu": "Vua kinh dị. The Shining, IT. Bán 400 triệu bản.",
+      "butDanh": "Richard Bachman"
+    },
+    {
+      "id": 23,
+      "tenTacGia": "Ernest Hemingway",
+      "quocTich": "USA",
+      "namSinh": 1899,
+      "namMat": 1961,
+      "tieuSu": "Nobel 1954. Người già và biển cả. Phong cách băng giá.",
+      "butDanh": ""
+    },
+    {
+      "id": 24,
+      "tenTacGia": "Victor Hugo",
+      "quocTich": "France",
+      "namSinh": 1802,
+      "namMat": 1885,
+      "tieuSu": "Những người khốn khổ, Nhà thờ Đức Bà Paris.",
+      "butDanh": ""
+    },
+    {
+      "id": 25,
+      "tenTacGia": "Yuval Noah Harari",
+      "quocTich": "Israel",
+      "namSinh": 1976,
+      "namMat": null,
+      "tieuSu": "Sapiens, Homo Deus. Sử gia bán chạy nhất thế kỷ 21.",
+      "butDanh": ""
+    },
+    {
+      "id": 26,
+      "tenTacGia": "Malala Yousafzai",
+      "quocTich": "Pakistan",
+      "namSinh": 1997,
+      "namMat": null,
+      "tieuSu": "Nobel Hòa bình trẻ nhất 2014. Tôi là Malala.",
+      "butDanh": ""
+    },
+    {
+      "id": 27,
+      "tenTacGia": "Daniel Kahneman",
+      "quocTich": "Israel",
+      "namSinh": 1934,
+      "namMat": 2024,
+      "tieuSu": "Nobel Kinh tế 2002. Tâm lý học hành vi. Thinking Fast Slow.",
+      "butDanh": ""
+    }
+]
