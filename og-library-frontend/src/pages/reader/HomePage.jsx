@@ -56,13 +56,13 @@ const banners = [
     },
     {
         id: 2,
-        image: "https://images.unsplash.com/photo-1568667256549-094345857637?q=80&w=2000&auto=format&fit=crop",
+        image: "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764591202/sach1_ladcop.avif",
         title: "Không gian đọc sách hiện đại",
         desc: "Trải nghiệm mượn trả sách nhanh chóng, tiện lợi chỉ với vài cú click."
     },
     {
         id: 3,
-        image: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=2370&auto=format&fit=crop",
+        image: "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764591248/sach2_cgg0tb.avif",
         title: "Kết nối cộng đồng yêu sách",
         desc: "Nơi gặp gỡ, chia sẻ và lan tỏa văn hóa đọc đến mọi người."
     }

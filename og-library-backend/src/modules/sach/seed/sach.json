@@ -1,23 +1,23 @@
 [
     {
-      "tenSach": "Truyện Kiều - Bản in quý",
+      "tenSach": "Truyện Kiều - Bản cổ nhất",
       "maDanhMuc": 1,
       "maTacGia": [3],
       "maNhaXuatBan": 1,
       "namXuatBan": 2018,
       "soLuong": 847,
       "giaTien": 285000,
-      "hinhAnh": "https://via.placeholder.com/200x300/FF6B6B/FFFFFF?text=Truyen+Kieu"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764510277/truyenkieubaninquy_fzfye4.webp"
     },
     {
-      "tenSach": "Chí Phèo - Tập hợp tác phẩm",
+      "tenSach": "Chí Phèo - Tập truyện ngắn",
       "maDanhMuc": 1,
       "maTacGia": [2,6],
       "maNhaXuatBan": 2,
       "namXuatBan": 2020,
       "soLuong": 1256,
       "giaTien": 156000,
-      "hinhAnh": "https://via.placeholder.com/200x300/4ECDC4/FFFFFF?text=Chi+Pheo"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1763832890/olive-gallery-books/premkfr07x2q4d9wi65a.webp"
     },
     {
       "tenSach": "Harry Potter và Hòn đá Phù thủy",
@@ -27,7 +27,7 @@
       "namXuatBan": 1997,
       "soLuong": 2345,
       "giaTien": 320000,
-      "hinhAnh": "https://via.placeholder.com/200x300/45B7D1/FFFFFF?text=Harry+Potter+1"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1763832387/olive-gallery-books/gwg76hawvjlzuzrwi31y.jpg"
     },
     {
       "tenSach": "Dế Mèn phiêu lưu ký",
@@ -37,7 +37,7 @@
       "namXuatBan": 1941,
       "soLuong": 1890,
       "giaTien": 98000,
-      "hinhAnh": "https://via.placeholder.com/200x300/96CEB4/FFFFFF?text=De+Men"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1763832370/olive-gallery-books/ophyorsr4isbtyw2ucm7.jpg"
     },
     {
       "tenSach": "Sapiens - Lược sử loài người",
@@ -47,7 +47,7 @@
       "namXuatBan": 2011,
       "soLuong": 4567,
       "giaTien": 428000,
-      "hinhAnh": "https://via.placeholder.com/200x300/F9CA24/000000?text=Sapiens"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1763832837/olive-gallery-books/t2vdmepp887xscsynlw9.webp"
     },
     {
       "tenSach": "Mắt biếc",
@@ -57,7 +57,7 @@
       "namXuatBan": 1990,
       "soLuong": 7890,
       "giaTien": 145000,
-      "hinhAnh": "https://via.placeholder.com/200x300/C44569/FFFFFF?text=Mat+biec"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764510485/matbiec_v8mppk.jpg"
     },
     {
       "tenSach": "1984 - Bản dịch mới",
@@ -67,7 +67,7 @@
       "namXuatBan": 1949,
       "soLuong": 2341,
       "giaTien": 198000,
-      "hinhAnh": "https://via.placeholder.com/200x300/2C3E50/FFFFFF?text=1984"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1763832816/olive-gallery-books/aj35d9ilq2a1iljdgtcs.webp"
     },
     {
       "tenSach": "Nhật ký Đặng Thùy Trâm",
@@ -77,7 +77,7 @@
       "namXuatBan": 2005,
       "soLuong": 5678,
       "giaTien": 125000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E74C3C/FFFFFF?text=Dang+Thuy+Tram"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764510610/nhatkydangthuytram_sinf73.jpg"
     },
     {
       "tenSach": "Người giàu có nhất thành Babylon",
@@ -87,17 +87,7 @@
       "namXuatBan": 1926,
       "soLuong": 8901,
       "giaTien": 165000,
-      "hinhAnh": "https://via.placeholder.com/200x300/F39C12/FFFFFF?text=Babylon"
-    },
-    {
-      "tenSach": "Vua truyện tranh",
-      "maDanhMuc": 1,
-      "maTacGia": [1],
-      "maNhaXuatBan": 1,
-      "namXuatBan": 2010,
-      "soLuong": 3456,
-      "giaTien": 178000,
-      "hinhAnh": "https://via.placeholder.com/200x300/9B59B6/FFFFFF?text=Vua+Truyen+Tranh"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764510711/nguoigiauconhatthanhbabylon_vvhyzk.jpg"
     },
     {
       "tenSach": "Kafka bên bờ biển",
@@ -107,7 +97,7 @@
       "namXuatBan": 2002,
       "soLuong": 1234,
       "giaTien": 245000,
-      "hinhAnh": "https://via.placeholder.com/200x300/1ABC9C/FFFFFF?text=Kafka"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764510862/kafkabenbobien_hitrrs.jpg"
     },
     {
       "tenSach": "Cánh đồng bất tận",
@@ -117,9 +107,8 @@
       "namXuatBan": 2005,
       "soLuong": 6789,
       "giaTien": 112000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E67E22/FFFFFF?text=Canh+Dong"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764510980/canhdongbattan_bhr5ux.jpg"
     },
-  
     {
       "tenSach": "Tôi thấy hoa vàng trên cỏ xanh",
       "maDanhMuc": 1,
@@ -128,7 +117,7 @@
       "namXuatBan": 2010,
       "soLuong": 4321,
       "giaTien": 168000,
-      "hinhAnh": "https://via.placeholder.com/200x300/3498DB/FFFFFF?text=Hoa+Vang"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764511062/toithayhoavangtrencoxanh_va3amt.jpg"
     },
     {
       "tenSach": "The Lord of the Rings - Chúa Nhẫn",
@@ -138,7 +127,7 @@
       "namXuatBan": 1954,
       "soLuong": 2987,
       "giaTien": 395000,
-      "hinhAnh": "https://via.placeholder.com/200x300/8E44AD/FFFFFF?text=Lord+Rings"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764511230/chuanhan_pnwwh4.jpg"
     },
     {
       "tenSach": "Nỗi buồn chiến tranh",
@@ -148,7 +137,7 @@
       "namXuatBan": 1991,
       "soLuong": 1567,
       "giaTien": 189000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E91E63/FFFFFF?text=Noi+Buon"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764511351/noibuonchientranh_lps306.jpg"
     },
     {
       "tenSach": "Đắc nhân tâm",
@@ -158,17 +147,7 @@
       "namXuatBan": 1936,
       "soLuong": 7654,
       "giaTien": 142000,
-      "hinhAnh": "https://via.placeholder.com/200x300/F1C40F/000000?text=Dac+Nhan+Tam"
-    },
-    {
-      "tenSach": "Một lít sữa - Tập truyện ngắn",
-      "maDanhMuc": 9,
-      "maTacGia": [4,10],
-      "maNhaXuatBan": 8,
-      "namXuatBan": 2000,
-      "soLuong": 2345,
-      "giaTien": 135000,
-      "hinhAnh": "https://via.placeholder.com/200x300/17A589/FFFFFF?text=Mot+Lit+Sua"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1763832452/olive-gallery-books/zyc7juvws1xsfhhzf4nl.webp"
     },
     {
       "tenSach": "Pride and Prejudice - Kiêu hãnh và Định kiến",
@@ -178,7 +157,7 @@
       "namXuatBan": 1813,
       "soLuong": 3892,
       "giaTien": 215000,
-      "hinhAnh": "https://via.placeholder.com/200x300/ECF0F1/2C3E50?text=Pride+Prejudice"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764511546/kieuhanhvadinhkien_rvmb8f.jpg"
     },
     {
       "tenSach": "Cho tôi xin một vé đi tuổi thơ",
@@ -188,7 +167,7 @@
       "namXuatBan": 2008,
       "soLuong": 5432,
       "giaTien": 162000,
-      "hinhAnh": "https://via.placeholder.com/200x300/27AE60/FFFFFF?text=Ve+Tuoi+Tho"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764511677/chotoi1vedituoitho_ykztiv.jpg"
     },
     {
       "tenSach": "Nhà giả kim",
@@ -198,7 +177,7 @@
       "namXuatBan": 1988,
       "soLuong": 6789,
       "giaTien": 187000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E67E22/FFFFFF?text=Nha+Gia+Kim"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1763832795/olive-gallery-books/r9eqsnzpphb8mhzyowz6.jpg"
     },
     {
       "tenSach": "Vợ chồng A Phủ",
@@ -208,7 +187,7 @@
       "namXuatBan": 1952,
       "soLuong": 2345,
       "giaTien": 89000,
-      "hinhAnh": "https://via.placeholder.com/200x300/8B4513/FFFFFF?text=Vo+Chong+APhu"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764511894/vochongaphu_l0enka.jpg"
     },
     {
       "tenSach": "Bố già - The Godfather",
@@ -218,17 +197,7 @@
       "namXuatBan": 1969,
       "soLuong": 4567,
       "giaTien": 278000,
-      "hinhAnh": "https://via.placeholder.com/200x300/34495E/FFFFFF?text=Bo+Gia"
-    },
-    {
-      "tenSach": "Thiên đường mất rồi - tuyển tập",
-      "maDanhMuc": 9,
-      "maTacGia": [10,12],
-      "maNhaXuatBan": 5,
-      "namXuatBan": 2005,
-      "soLuong": 1234,
-      "giaTien": 145000,
-      "hinhAnh": "https://via.placeholder.com/200x300/D35400/FFFFFF?text=Thien+Duong"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1763832956/olive-gallery-books/fhqn2zjt1er85xn05gud.jpg"
     },
     {
       "tenSach": "To Kill a Mockingbird - Giết con chim nhại",
@@ -238,7 +207,7 @@
       "namXuatBan": 1960,
       "soLuong": 5678,
       "giaTien": 235000,
-      "hinhAnh": "https://via.placeholder.com/200x300/16A085/FFFFFF?text=Mockingbird"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764512061/gietconchimnhai_kbxssl.webp"
     },
   
     {
@@ -249,7 +218,7 @@
       "namXuatBan": 2011,
       "soLuong": 3456,
       "giaTien": 428000,
-      "hinhAnh": "https://via.placeholder.com/200x300/3498DB/FFFFFF?text=Thinking+Fast"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764512168/tuduynhanhvacham_rkandj.jpg"
     },
     {
       "tenSach": "Đất rừng phương Nam",
@@ -259,7 +228,7 @@
       "namXuatBan": 1957,
       "soLuong": 6789,
       "giaTien": 134000,
-      "hinhAnh": "https://via.placeholder.com/200x300/27AE60/FFFFFF?text=Dat+Rung"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764512271/datrungphuongnam_tkqkyt.jpg"
     },
     {
       "tenSach": "Hành trình về phương Đông",
@@ -269,7 +238,7 @@
       "namXuatBan": 1972,
       "soLuong": 8901,
       "giaTien": 156000,
-      "hinhAnh": "https://via.placeholder.com/200x300/F39C12/FFFFFF?text=Hanh+Trinh"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764512459/hanhtrinhvephuongdong_medymz.jpg"
     },
     {
       "tenSach": "Một trăm năm cô đơn",
@@ -279,40 +248,29 @@
       "namXuatBan": 1967,
       "soLuong": 2345,
       "giaTien": 312000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E91E63/FFFFFF?text=100+Nam+Co+Don"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764512537/1tramnamcodon_pwy1uy.jpg"
     },
     {
-      "tenSach": "Lão Hạc - Tuyển tập",
+      "tenSach": "Lão Hạc",
       "maDanhMuc": 9,
-      "maTacGia": [2,7],
+      "maTacGia": [2],
       "maNhaXuatBan": 4,
       "namXuatBan": 2015,
       "soLuong": 4567,
       "giaTien": 109000,
-      "hinhAnh": "https://via.placeholder.com/200x300/9B59B6/FFFFFF?text=Lao+Hac"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764512736/laohac_xd03pk.png"
     },
     {
-      "tenSach": "The Alchemist - Nhà giả kim",
-      "maDanhMuc": 3,
-      "maTacGia": [22],
-      "maNhaXuatBan": 10,
-      "namXuatBan": 1988,
-      "soLuong": 7654,
-      "giaTien": 187000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E67E22/FFFFFF?text=Alchemist"
-    },
-    {
-      "tenSach": "Tắt Đèn - Ngô Tất Tố",
+      "tenSach": "Tắt Đèn",
       "maDanhMuc": 1,
       "maTacGia": [2],
       "maNhaXuatBan": 9,
       "namXuatBan": 1939,
       "soLuong": 3210,
       "giaTien": 105000,
-      "hinhAnh": "https://via.placeholder.com/200x300/34495E/FFFFFF?text=Tat+Den"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1763832847/olive-gallery-books/f7q1jfifkh4r2lv48vqw.png"
     },
     {
-      "maSach": 32,
       "tenSach": "Norwegian Wood - Rừng Na Uy",
       "maDanhMuc": 2,
       "maTacGia": [18],
@@ -320,21 +278,9 @@
       "namXuatBan": 1987,
       "soLuong": 4567,
       "giaTien": 267000,
-      "hinhAnh": "https://via.placeholder.com/200x300/2ECC71/FFFFFF?text=Rung+Na+Uy"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764512888/rungnauy_wkmooj.jpg"
     },
     {
-      "maSach": 33,
-      "tenSach": "Xích đu - Nguyễn Nhật Ánh",
-      "maDanhMuc": 1,
-      "maTacGia": [1],
-      "maNhaXuatBan": 2,
-      "namXuatBan": 2015,
-      "soLuong": 7890,
-      "giaTien": 152000,
-      "hinhAnh": "https://via.placeholder.com/200x300/1ABC9C/FFFFFF?text=Xich+Du"
-    },
-    {
-      "maSach": 34,
       "tenSach": "Atomic Habits",
       "maDanhMuc": 5,
       "maTacGia": [27],
@@ -342,44 +288,29 @@
       "namXuatBan": 2018,
       "soLuong": 5432,
       "giaTien": 298000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E74C3C/FFFFFF?text=Atomic+Habits"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764513055/atomichabits_jdmrcy.jpg"
     },
     {
-      "maSach": 35,
-      "tenSach": "Vợ nhặt - Tuyển tập",
+      "tenSach": "Vợ nhặt",
       "maDanhMuc": 9,
       "maTacGia": [6,8],
       "maNhaXuatBan": 5,
       "namXuatBan": 2019,
       "soLuong": 2345,
       "giaTien": 123000,
-      "hinhAnh": "https://via.placeholder.com/200x300/F39C12/FFFFFF?text=Vo+Nhac"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764513200/vonhat_ou2wyi.webp"
     },
     {
-      "maSach": 36,
-      "tenSach": "Dune - Hành tinh cát",
-      "maDanhMuc": 3,
-      "maTacGia": [22],
-      "maNhaXuatBan": 10,
-      "namXuatBan": 1965,
-      "soLuong": 3876,
-      "giaTien": 345000,
-      "hinhAnh": "https://via.placeholder.com/200x300/9B59B6/FFFFFF?text=Dune"
-    },
-  
-    {
-      "maSach": 37,
       "tenSach": "Tuổi trẻ đáng giá bao nhiêu",
       "maDanhMuc": 5,
-      "maTacGia": [13],
+      "maTacGia": [29],
       "maNhaXuatBan": 8,
       "namXuatBan": 2015,
       "soLuong": 8765,
       "giaTien": 135000,
-      "hinhAnh": "https://via.placeholder.com/200x300/FF9FF3/000000?text=Tuoi+Tre"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764513357/tuoitredanggiabaonhieu_fgwla1.jpg"
     },
     {
-      "maSach": 38,
       "tenSach": "Les Misérables - Những người khốn khổ",
       "maDanhMuc": 2,
       "maTacGia": [24],
@@ -387,10 +318,9 @@
       "namXuatBan": 1862,
       "soLuong": 2987,
       "giaTien": 356000,
-      "hinhAnh": "https://via.placeholder.com/200x300/8E44AD/FFFFFF?text=Les+Miserables"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764513457/nhungnguoikhonkho_ub3ypg.jpg"
     },
     {
-      "maSach": 39,
       "tenSach": "Tôi là Bêtô",
       "maDanhMuc": 1,
       "maTacGia": [1],
@@ -398,10 +328,9 @@
       "namXuatBan": 2012,
       "soLuong": 6543,
       "giaTien": 148000,
-      "hinhAnh": "https://via.placeholder.com/200x300/2C3E50/FFFFFF?text=Toi+La+Beto"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764513553/toilabeto_mwj25b.jpg"
     },
     {
-      "maSach": 40,
       "tenSach": "Rich Dad Poor Dad",
       "maDanhMuc": 6,
       "maTacGia": [27],
@@ -409,21 +338,9 @@
       "namXuatBan": 1997,
       "soLuong": 4321,
       "giaTien": 256000,
-      "hinhAnh": "https://via.placeholder.com/200x300/27AE60/FFFFFF?text=Rich+Dad"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764513621/richdadpoordad_ahisur.webp"
     },
     {
-      "maSach": 41,
-      "tenSach": "Bên thềm hoang vắng - Tuyển tập",
-      "maDanhMuc": 9,
-      "maTacGia": [11,14],
-      "maNhaXuatBan": 7,
-      "namXuatBan": 2008,
-      "soLuong": 1987,
-      "giaTien": 167000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E67E22/FFFFFF?text=Ben+Them"
-    },
-    {
-      "maSach": 42,
       "tenSach": "Brave New World",
       "maDanhMuc": 2,
       "maTacGia": [20],
@@ -431,22 +348,19 @@
       "namXuatBan": 1932,
       "soLuong": 5678,
       "giaTien": 223000,
-      "hinhAnh": "https://via.placeholder.com/200x300/F1C40F/000000?text=Brave+New+World"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764513746/bravenewworld_wtwfet.webp"
     },
-  
     {
-      "maSach": 43,
-      "tenSach": "Bạn đắt giá triệu đô",
+      "tenSach": "Hình ảnh của bạn đắt giá triệu đô",
       "maDanhMuc": 5,
       "maTacGia": [13],
       "maNhaXuatBan": 8,
       "namXuatBan": 2017,
       "soLuong": 9876,
       "giaTien": 149000,
-      "hinhAnh": "https://via.placeholder.com/200x300/FF6B6B/FFFFFF?text=Ban+Dat+Gia"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764513862/hinhanhcuabandanggiatrieudo_wvnxfd.jpg"
     },
     {
-      "maSach": 44,
       "tenSach": "The Great Gatsby - Gã khổng lồ vĩ đại",
       "maDanhMuc": 2,
       "maTacGia": [23],
@@ -454,10 +368,9 @@
       "namXuatBan": 1925,
       "soLuong": 4321,
       "giaTien": 189000,
-      "hinhAnh": "https://via.placeholder.com/200x300/3498DB/FFFFFF?text=Great+Gatsby"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764513988/gakhonglo_ov29df.jpg"
     },
     {
-      "maSach": 45,
       "tenSach": "Kính vạn hoa",
       "maDanhMuc": 4,
       "maTacGia": [1],
@@ -465,10 +378,9 @@
       "namXuatBan": 1993,
       "soLuong": 7654,
       "giaTien": 178000,
-      "hinhAnh": "https://via.placeholder.com/200x300/96CEB4/FFFFFF?text=Kinh+Van+Hoa"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764514080/kinhvanhoa_jmqiha.jpg"
     },
     {
-      "maSach": 46,
       "tenSach": "Súng, Vi trùng và Thép",
       "maDanhMuc": 7,
       "maTacGia": [25],
@@ -476,21 +388,19 @@
       "namXuatBan": 1997,
       "soLuong": 2987,
       "giaTien": 465000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E74C3C/FFFFFF?text=Guns+Germs"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764514135/sungvitrungvathep_mavfkv.jpg"
     },
     {
-      "maSach": 47,
-      "tenSach": "Chuyện con mèo dạy hải âu bay - Tuyển tập",
+      "tenSach": "Chuyện con mèo dạy hải âu bay",
       "maDanhMuc": 9,
       "maTacGia": [15,16],
       "maNhaXuatBan": 4,
       "namXuatBan": 2008,
       "soLuong": 5432,
       "giaTien": 132000,
-      "hinhAnh": "https://via.placeholder.com/200x300/1ABC9C/FFFFFF?text=Con+Meo"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764514308/truyenconmeodayhaiaubay_r9tpxj.jpg"
     },
     {
-      "maSach": 48,
       "tenSach": "Crime and Punishment - Tội ác và Trừng phạt",
       "maDanhMuc": 2,
       "maTacGia": [24],
@@ -498,11 +408,9 @@
       "namXuatBan": 1866,
       "soLuong": 3876,
       "giaTien": 289000,
-      "hinhAnh": "https://via.placeholder.com/200x300/8E44AD/FFFFFF?text=Crime+Punishment"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764514414/toiacvahinhphat_bdudpb.jpg"
     },
-  
     {
-      "maSach": 49,
       "tenSach": "Cô gái đến từ hôm qua",
       "maDanhMuc": 1,
       "maTacGia": [1],
@@ -510,10 +418,9 @@
       "namXuatBan": 2000,
       "soLuong": 6543,
       "giaTien": 159000,
-      "hinhAnh": "https://via.placeholder.com/200x300/C44569/FFFFFF?text=Co+Gai+Hom+Qua"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764514514/cogaidentuhomqua_k0dr1m.jpg"
     },
     {
-      "maSach": 50,
       "tenSach": "The Catcher in the Rye",
       "maDanhMuc": 2,
       "maTacGia": [23],
@@ -521,10 +428,9 @@
       "namXuatBan": 1951,
       "soLuong": 3210,
       "giaTien": 210000,
-      "hinhAnh": "https://via.placeholder.com/200x300/34495E/FFFFFF?text=Catcher+Rye"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764514618/thecatcherintherye_to7evg.webp"
     },
     {
-      "maSach": 51,
       "tenSach": "Thằng quỷ nhỏ",
       "maDanhMuc": 4,
       "maTacGia": [5],
@@ -532,10 +438,9 @@
       "namXuatBan": 1967,
       "soLuong": 7890,
       "giaTien": 123000,
-      "hinhAnh": "https://via.placeholder.com/200x300/27AE60/FFFFFF?text=Thang+Quy+Nho"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764514664/thangquynho_q6opbc.jpg"
     },
     {
-      "maSach": 52,
       "tenSach": "Homo Deus - Lược sử tương lai",
       "maDanhMuc": 7,
       "maTacGia": [25],
@@ -543,33 +448,39 @@
       "namXuatBan": 2015,
       "soLuong": 4567,
       "giaTien": 478000,
-      "hinhAnh": "https://via.placeholder.com/200x300/F9CA24/000000?text=Homo+Deus"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764514895/luocsutuonglai_rxfqfy.jpg"
     },
     {
-      "maSach": 53,
-      "tenSach": "Tâm hồn ta - Tuyển tập thơ",
-      "maDanhMuc": 9,
-      "maTacGia": [7,11],
-      "maNhaXuatBan": 5,
-      "namXuatBan": 2010,
-      "soLuong": 2345,
-      "giaTien": 139000,
-      "hinhAnh": "https://via.placeholder.com/200x300/9B59B6/FFFFFF?text=Tam+Hồn+Ta"
+      "tenSach": "Clean Code",
+      "maDanhMuc": 8,
+      "maTacGia": [1],
+      "maNhaXuatBan": 3,
+      "namXuatBan": 2008,
+      "soLuong": 32,
+      "giaTien": 150000,
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1763832947/olive-gallery-books/mtzkmcudlydopciffjdo.jpg"
     },
     {
-      "maSach": 54,
-      "tenSach": "The Hobbit - Người Hobít",
-      "maDanhMuc": 3,
-      "maTacGia": [16],
-      "maNhaXuatBan": 11,
-      "namXuatBan": 1937,
-      "soLuong": 5432,
-      "giaTien": 265000,
-      "hinhAnh": "https://via.placeholder.com/200x300/95A5A6/FFFFFF?text=The+Hobbit"
+      "tenSach": "JavaScript: The Good Parts",
+      "maDanhMuc": 8,
+      "maTacGia": [3],
+      "maNhaXuatBan": 3,
+      "namXuatBan": 2008,
+      "soLuong": 19,
+      "giaTien": 124000,
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1763832900/olive-gallery-books/rrz75t99v06tib2pqwgg.jpg"
     },
-  
     {
-      "maSach": 55,
+      "tenSach": "Giáo trình hệ quản trị cơ sở dữ liệu",
+      "maDanhMuc": 8,
+      "maTacGia": [3],
+      "maNhaXuatBan": 3,
+      "namXuatBan": 2003,
+      "soLuong": 43,
+      "giaTien": 173000,
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1763833368/olive-gallery-books/epnwyjkinffqhj9gacrk.jpg"
+    },
+    {
       "tenSach": "Pippi Tất dài",
       "maDanhMuc": 4,
       "maTacGia": [15],
@@ -577,10 +488,9 @@
       "namXuatBan": 1945,
       "soLuong": 4321,
       "giaTien": 115000,
-      "hinhAnh": "https://via.placeholder.com/200x300/FF9FF3/000000?text=Pippi+Tat+Dai"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764584398/pippitatdai_dvkucy.webp"
     },
     {
-      "maSach": 56,
       "tenSach": "Biên niên sử Narnia - Bộ 7 tập",
       "maDanhMuc": 3,
       "maTacGia": [16],
@@ -588,43 +498,9 @@
       "namXuatBan": 1950,
       "soLuong": 2987,
       "giaTien": 856000,
-      "hinhAnh": "https://via.placeholder.com/200x300/3498DB/FFFFFF?text=Narnia"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764584483/bienniensunarnia_yhwca4.webp"
     },
     {
-      "maSach": 57,
-      "tenSach": "Chuyện nhỏ Hà Nội",
-      "maDanhMuc": 1,
-      "maTacGia": [12],
-      "maNhaXuatBan": 9,
-      "namXuatBan": 2003,
-      "soLuong": 6543,
-      "giaTien": 142000,
-      "hinhAnh": "https://via.placeholder.com/200x300/2C3E50/FFFFFF?text=Chuyen+Nho+HN"
-    },
-    {
-      "maSach": 58,
-      "tenSach": "Sapiens 2 - Tương lai loài người",
-      "maDanhMuc": 7,
-      "maTacGia": [25],
-      "maNhaXuatBan": 3,
-      "namXuatBan": 2016,
-      "soLuong": 5678,
-      "giaTien": 495000,
-      "hinhAnh": "https://via.placeholder.com/200x300/F9CA24/000000?text=Sapiens+2"
-    },
-    {
-      "maSach": 59,
-      "tenSach": "Miền quê - Tuyển tập truyện ngắn",
-      "maDanhMuc": 9,
-      "maTacGia": [4,10],
-      "maNhaXuatBan": 2,
-      "namXuatBan": 2012,
-      "soLuong": 3876,
-      "giaTien": 158000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E67E22/FFFFFF?text=Mien+Que"
-    },
-    {
-      "maSach": 60,
       "tenSach": "Sherlock Holmes - Bộ sưu tập",
       "maDanhMuc": 2,
       "maTacGia": [21],
@@ -632,11 +508,9 @@
       "namXuatBan": 1892,
       "soLuong": 7654,
       "giaTien": 423000,
-      "hinhAnh": "https://via.placeholder.com/200x300/8E44AD/FFFFFF?text=Sherlock"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1763832806/olive-gallery-books/ul3zielmz5qzadi9o8i5.webp"
     },
-  
     {
-      "maSach": 61,
       "tenSach": "Có hai con mèo ngồi bên cửa sổ",
       "maDanhMuc": 4,
       "maTacGia": [1],
@@ -644,10 +518,9 @@
       "namXuatBan": 2001,
       "soLuong": 5432,
       "giaTien": 136000,
-      "hinhAnh": "https://via.placeholder.com/200x300/FF6B6B/FFFFFF?text=Hai+Con+Meo"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764584588/co2conmeongoibencuaso_qhf3oc.jpg"
     },
     {
-      "maSach": 62,
       "tenSach": "Fahrenheit 451",
       "maDanhMuc": 2,
       "maTacGia": [20],
@@ -655,10 +528,9 @@
       "namXuatBan": 1953,
       "soLuong": 3210,
       "giaTien": 197000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E74C3C/FFFFFF?text=Fahrenheit451"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764584694/451_lsuakq.webp"
     },
     {
-      "maSach": 63,
       "tenSach": "Bước đường cùng",
       "maDanhMuc": 1,
       "maTacGia": [10],
@@ -666,32 +538,9 @@
       "namXuatBan": 1988,
       "soLuong": 4567,
       "giaTien": 134000,
-      "hinhAnh": "https://via.placeholder.com/200x300/34495E/FFFFFF?text=Bước+Duong+Cùng"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764584763/buocduongcung_dudsnz.jpg"
     },
     {
-      "maSach": 64,
-      "tenSach": "Đắc lực - How to Win Friends",
-      "maDanhMuc": 5,
-      "maTacGia": [27],
-      "maNhaXuatBan": 3,
-      "namXuatBan": 1936,
-      "soLuong": 7890,
-      "giaTien": 168000,
-      "hinhAnh": "https://via.placeholder.com/200x300/F39C12/FFFFFF?text=Dac+Luc"
-    },
-    {
-      "maSach": 65,
-      "tenSach": "Những người khốn khổ - Tuyển tập",
-      "maDanhMuc": 9,
-      "maTacGia": [24,17],
-      "maNhaXuatBan": 12,
-      "namXuatBan": 2018,
-      "soLuong": 2987,
-      "giaTien": 245000,
-      "hinhAnh": "https://via.placeholder.com/200x300/8E44AD/FFFFFF?text=Khon+Kho"
-    },
-    {
-      "maSach": 66,
       "tenSach": "The Da Vinci Code",
       "maDanhMuc": 2,
       "maTacGia": [22],
@@ -699,9 +548,8 @@
       "namXuatBan": 2003,
       "soLuong": 6543,
       "giaTien": 278000,
-      "hinhAnh": "https://via.placeholder.com/200x300/9B59B6/FFFFFF?text=DaVinci"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764585182/thedavincicode_p5dmws.jpg"
     },
-  
     {
       "maSach": 67,
       "tenSach": "Dế Mèn phiêu lưu ký - Bản đặc biệt",
@@ -711,21 +559,9 @@
       "namXuatBan": 2015,
       "soLuong": 4321,
       "giaTien": 129000,
-      "hinhAnh": "https://via.placeholder.com/200x300/96CEB4/FFFFFF?text=De+Men+Special"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764508724/demenbandacbiet_ftaj2d.jpg"
     },
     {
-      "maSach": 68,
-      "tenSach": "Animal Farm - Trang trại động vật",
-      "maDanhMuc": 2,
-      "maTacGia": [20],
-      "maNhaXuatBan": 10,
-      "namXuatBan": 1945,
-      "soLuong": 5678,
-      "giaTien": 176000,
-      "hinhAnh": "https://via.placeholder.com/200x300/2C3E50/FFFFFF?text=Animal+Farm"
-    },
-    {
-      "maSach": 69,
       "tenSach": "Miền hoang tưởng",
       "maDanhMuc": 1,
       "maTacGia": [9],
@@ -733,10 +569,9 @@
       "namXuatBan": 1993,
       "soLuong": 2987,
       "giaTien": 165000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E91E63/FFFFFF?text=Mien+Hoang+Tuong"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764585282/mienhoangtuong_b1f6u4.jpg"
     },
     {
-      "maSach": 70,
       "tenSach": "7 Thói quen hiệu quả",
       "maDanhMuc": 5,
       "maTacGia": [27],
@@ -744,21 +579,9 @@
       "namXuatBan": 1989,
       "soLuong": 8765,
       "giaTien": 234000,
-      "hinhAnh": "https://via.placeholder.com/200x300/F1C40F/000000?text=7+Thoi+Quen"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764515124/7thoiquenhieuqua_zgwqf9.jpg"
     },
     {
-      "maSach": 71,
-      "tenSach": "Khơi nước mắt - Tuyển truyện ngắn",
-      "maDanhMuc": 9,
-      "maTacGia": [4,7],
-      "maNhaXuatBan": 2,
-      "namXuatBan": 2009,
-      "soLuong": 5432,
-      "giaTien": 147000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E67E22/FFFFFF?text=Khoi+Nước+Mắt"
-    },
-    {
-      "maSach": 72,
       "tenSach": "Harry Potter và Tù nhân Azkaban",
       "maDanhMuc": 4,
       "maTacGia": [15],
@@ -766,11 +589,9 @@
       "namXuatBan": 1999,
       "soLuong": 6543,
       "giaTien": 345000,
-      "hinhAnh": "https://via.placeholder.com/200x300/45B7D1/FFFFFF?text=Harry+Potter+3"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764585353/harrypottervatentunhan_typmfd.jpg"
     },
-  
     {
-      "maSach": 73,
       "tenSach": "Thiên thần và ác quỷ",
       "maDanhMuc": 2,
       "maTacGia": [22],
@@ -778,21 +599,9 @@
       "namXuatBan": 2000,
       "soLuong": 4321,
       "giaTien": 312000,
-      "hinhAnh": "https://via.placeholder.com/200x300/9B59B6/FFFFFF?text=Thien+Than"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764585423/thienthanvaacquy_hufiwu.jpg"
     },
     {
-      "maSach": 74,
-      "tenSach": "Khi nào trời xanh lại",
-      "maDanhMuc": 1,
-      "maTacGia": [14],
-      "maNhaXuatBan": 8,
-      "namXuatBan": 2016,
-      "soLuong": 5678,
-      "giaTien": 138000,
-      "hinhAnh": "https://via.placeholder.com/200x300/3498DB/FFFFFF?text=Troi+Xanh"
-    },
-    {
-      "maSach": 75,
       "tenSach": "Tottochan bên cửa sổ",
       "maDanhMuc": 4,
       "maTacGia": [18],
@@ -800,32 +609,9 @@
       "namXuatBan": 1981,
       "soLuong": 6543,
       "giaTien": 165000,
-      "hinhAnh": "https://via.placeholder.com/200x300/1ABC9C/FFFFFF?text=Tottochan"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764585503/tottochanbencuaso_jegxo5.jpg"
     },
     {
-      "maSach": 76,
-      "tenSach": "Súng Vi trùng và Thép - Bản mới",
-      "maDanhMuc": 7,
-      "maTacGia": [25],
-      "maNhaXuatBan": 3,
-      "namXuatBan": 2018,
-      "soLuong": 2987,
-      "giaTien": 512000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E74C3C/FFFFFF?text=Guns+Germs+2"
-    },
-    {
-      "maSach": 77,
-      "tenSach": "Gió qua miền tối sáng - Truyện ngắn",
-      "maDanhMuc": 9,
-      "maTacGia": [12,13],
-      "maNhaXuatBan": 7,
-      "namXuatBan": 2011,
-      "soLuong": 3876,
-      "giaTien": 154000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E67E22/FFFFFF?text=Gio+Qua+Mien"
-    },
-    {
-      "maSach": 78,
       "tenSach": "Game of Thrones - Trò chơi vương quyền",
       "maDanhMuc": 3,
       "maTacGia": [23],
@@ -833,33 +619,19 @@
       "namXuatBan": 1996,
       "soLuong": 5432,
       "giaTien": 298000,
-      "hinhAnh": "https://via.placeholder.com/200x300/34495E/FFFFFF?text=Game+Thrones"
-    },
-  
-    {
-      "maSach": 79,
-      "tenSach": "Tên gọi nước mắt",
-      "maDanhMuc": 1,
-      "maTacGia": [4],
-      "maNhaXuatBan": 2,
-      "namXuatBan": 2007,
-      "soLuong": 4321,
-      "giaTien": 141000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E91E63/FFFFFF?text=Ten+Go+Nuoc+Mat"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764585618/gameofthrones_btzsft.jpg"
     },
     {
-      "maSach": 80,
-      "tenSach": "Inferno - Địa ngục",
+      "tenSach": "Inferno - Hỏa ngục",
       "maDanhMuc": 2,
       "maTacGia": [22],
       "maNhaXuatBan": 10,
       "namXuatBan": 2013,
       "soLuong": 5678,
       "giaTien": 325000,
-      "hinhAnh": "https://via.placeholder.com/200x300/8E44AD/FFFFFF?text=Inferno"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764585718/hoanguc_uceuoq.jpg"
     },
     {
-      "maSach": 81,
       "tenSach": "Chiếc lược ngà",
       "maDanhMuc": 1,
       "maTacGia": [7],
@@ -867,66 +639,9 @@
       "namXuatBan": 1966,
       "soLuong": 7890,
       "giaTien": 98000,
-      "hinhAnh": "https://via.placeholder.com/200x300/34495E/FFFFFF?text=Chiec+Lua+nga"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764585772/chiecluocnga_fjlqok.jpg"
     },
     {
-      "maSach": 82,
-      "tenSach": "Principles - Nguyên tắc sống",
-      "maDanhMuc": 5,
-      "maTacGia": [25],
-      "maNhaXuatBan": 3,
-      "namXuatBan": 2017,
-      "soLuong": 6543,
-      "giaTien": 456000,
-      "hinhAnh": "https://via.placeholder.com/200x300/F39C12/FFFFFF?text=Principles"
-    },
-    {
-      "maSach": 83,
-      "tenSach": "Miền đất hứa - Truyện ngắn",
-      "maDanhMuc": 9,
-      "maTacGia": [9,10],
-      "maNhaXuatBan": 4,
-      "namXuatBan": 2014,
-      "soLuong": 2987,
-      "giaTien": 162000,
-      "hinhAnh": "https://via.placeholder.com/200x300/27AE60/FFFFFF?text=Mien+Dat+Hua"
-    },
-    {
-      "maSach": 84,
-      "tenSach": "Percy Jackson - Người anh hùng bán thần",
-      "maDanhMuc": 4,
-      "maTacGia": [15],
-      "maNhaXuatBan": 11,
-      "namXuatBan": 2005,
-      "soLuong": 5432,
-      "giaTien": 267000,
-      "hinhAnh": "https://via.placeholder.com/200x300/45B7D1/FFFFFF?text=Percy+Jackson"
-    },
-  
-    {
-      "maSach": 85,
-      "tenSach": "Nỗi buồn chiến tranh - Bản đặc biệt",
-      "maDanhMuc": 7,
-      "maTacGia": [9],
-      "maNhaXuatBan": 5,
-      "namXuatBan": 2015,
-      "soLuong": 4321,
-      "giaTien": 215000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E91E63/FFFFFF?text=Noi+Buon+Special"
-    },
-    {
-      "maSach": 86,
-      "tenSach": "Ngòi bút Ta Duy",
-      "maDanhMuc": 1,
-      "maTacGia": [10],
-      "maNhaXuatBan": 4,
-      "namXuatBan": 2005,
-      "soLuong": 2987,
-      "giaTien": 178000,
-      "hinhAnh": "https://via.placeholder.com/200x300/34495E/FFFFFF?text=Ngoi+But+Ta+Duy"
-    },
-    {
-      "maSach": 87,
       "tenSach": "Matilda",
       "maDanhMuc": 4,
       "maTacGia": [22],
@@ -934,32 +649,19 @@
       "namXuatBan": 1988,
       "soLuong": 6543,
       "giaTien": 189000,
-      "hinhAnh": "https://via.placeholder.com/200x300/FF9FF3/000000?text=Matilda"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764585924/matilda_gjr2em.webp"
     },
     {
-      "maSach": 88,
-      "tenSach": "Tư duy nhanh và chậm",
-      "maDanhMuc": 5,
-      "maTacGia": [27],
-      "maNhaXuatBan": 3,
-      "namXuatBan": 2011,
-      "soLuong": 7654,
-      "giaTien": 428000,
-      "hinhAnh": "https://via.placeholder.com/200x300/3498DB/FFFFFF?text=Tư+Duý+Nhanh"
-    },
-    {
-      "maSach": 89,
-      "tenSach": "Cát bụi chân ai - Tuyển tập",
+      "tenSach": "Cát bụi chân ai",
       "maDanhMuc": 9,
       "maTacGia": [4,12],
       "maNhaXuatBan": 2,
       "namXuatBan": 2006,
       "soLuong": 5432,
       "giaTien": 136000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E67E22/FFFFFF?text=Cat+Bui+Chan+Ai"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764586031/catbuichanai_gltgxp.jpg"
     },
     {
-      "maSach": 90,
       "tenSach": "The Name of the Wind",
       "maDanhMuc": 3,
       "maTacGia": [23],
@@ -967,11 +669,9 @@
       "namXuatBan": 2007,
       "soLuong": 3876,
       "giaTien": 312000,
-      "hinhAnh": "https://via.placeholder.com/200x300/8E44AD/FFFFFF?text=Name+Wind"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764586094/thenameofwind_hrkuhi.jpg"
     },
-  
     {
-      "maSach": 91,
       "tenSach": "Thiên tài bên trái, kẻ điên bên phải",
       "maDanhMuc": 2,
       "maTacGia": [18],
@@ -979,10 +679,9 @@
       "namXuatBan": 2003,
       "soLuong": 5432,
       "giaTien": 256000,
-      "hinhAnh": "https://via.placeholder.com/200x300/1ABC9C/FFFFFF?text=Thien+Tai+Dien"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764586170/thientaibentrai_rpyrf4.jpg"
     },
     {
-      "maSach": 92,
       "tenSach": "Cà phê cùng Tony",
       "maDanhMuc": 5,
       "maTacGia": [14],
@@ -990,66 +689,9 @@
       "namXuatBan": 2016,
       "soLuong": 8765,
       "giaTien": 145000,
-      "hinhAnh": "https://via.placeholder.com/200x300/F39C12/FFFFFF?text=Ca+Phe+Tony"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764586266/caphecungtony_pva2kp.jpg"
     },
     {
-      "maSach": 93,
-      "tenSach": "Lạc mất con người",
-      "maDanhMuc": 1,
-      "maTacGia": [11],
-      "maNhaXuatBan": 9,
-      "namXuatBan": 1993,
-      "soLuong": 3210,
-      "giaTien": 167000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E91E63/FFFFFF?text=Lac+Mat+Con+Nguoi"
-    },
-    {
-      "maSach": 94,
-      "tenSach": "Daring Greatly",
-      "maDanhMuc": 5,
-      "maTacGia": [27],
-      "maNhaXuatBan": 3,
-      "namXuatBan": 2012,
-      "soLuong": 4567,
-      "giaTien": 312000,
-      "hinhAnh": "https://via.placeholder.com/200x300/3498DB/FFFFFF?text=Daring+Greatly"
-    },
-    {
-      "maSach": 95,
-      "tenSach": "Vụng về là tài năng - Truyện ngắn",
-      "maDanhMuc": 9,
-      "maTacGia": [13,1],
-      "maNhaXuatBan": 2,
-      "namXuatBan": 2018,
-      "soLuong": 6543,
-      "giaTien": 139000,
-      "hinhAnh": "https://via.placeholder.com/200x300/9B59B6/FFFFFF?text=Vung+Ve+Tai+Nang"
-    },
-    {
-      "maSach": 96,
-      "tenSach": "Ender's Game",
-      "maDanhMuc": 3,
-      "maTacGia": [22],
-      "maNhaXuatBan": 10,
-      "namXuatBan": 1985,
-      "soLuong": 2987,
-      "giaTien": 245000,
-      "hinhAnh": "https://via.placeholder.com/200x300/34495E/FFFFFF?text=Enders+Game"
-    },
-  
-    {
-      "maSach": 97,
-      "tenSach": "Truyện của người giữ tháp chuông",
-      "maDanhMuc": 1,
-      "maTacGia": [1],
-      "maNhaXuatBan": 2,
-      "namXuatBan": 2007,
-      "soLuong": 4321,
-      "giaTien": 152000,
-      "hinhAnh": "https://via.placeholder.com/200x300/C44569/FFFFFF?text=Thap+Chuong"
-    },
-    {
-      "maSach": 98,
       "tenSach": "Dune - Bản dịch mới",
       "maDanhMuc": 3,
       "maTacGia": [22],
@@ -1057,10 +699,9 @@
       "namXuatBan": 2021,
       "soLuong": 5678,
       "giaTien": 389000,
-      "hinhAnh": "https://via.placeholder.com/200x300/9B59B6/FFFFFF?text=Dune+New"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764586373/dune_eoranp.jpg"
     },
     {
-      "maSach": 99,
       "tenSach": "Những ngôi sao xa xôi",
       "maDanhMuc": 1,
       "maTacGia": [8],
@@ -1068,32 +709,29 @@
       "namXuatBan": 1971,
       "soLuong": 6543,
       "giaTien": 123000,
-      "hinhAnh": "https://via.placeholder.com/200x300/3498DB/FFFFFF?text=Ngoi+Sao+Xa"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764586428/nhungngoisaoxaxoi_ezmyzc.jpg"
     },
     {
-      "maSach": 100,
-      "tenSach": "The Power of Habit",
+      "tenSach": "The Power of Habit - Sức mạnh của thói quen",
       "maDanhMuc": 5,
       "maTacGia": [27],
       "maNhaXuatBan": 3,
       "namXuatBan": 2012,
       "soLuong": 7890,
       "giaTien": 267000,
-      "hinhAnh": "https://via.placeholder.com/200x300/F1C40F/000000?text=Power+Habit"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764586584/thepowerofhabit_xgni5k.jpg"
     },
     {
-      "maSach": 101,
-      "tenSach": "Đất nước đứng lên - Tuyển tập",
+      "tenSach": "Đất nước đứng lên",
       "maDanhMuc": 9,
       "maTacGia": [9,11],
       "maNhaXuatBan": 7,
       "namXuatBan": 2010,
       "soLuong": 2987,
       "giaTien": 178000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E67E22/FFFFFF?text=Dat+Nước+Đứng"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764586674/datnuocdunglen_ycfumk.jpg"
     },
     {
-      "maSach": 102,
       "tenSach": "The Martian - Người về từ Sao Hỏa",
       "maDanhMuc": 2,
       "maTacGia": [23],
@@ -1101,22 +739,9 @@
       "namXuatBan": 2011,
       "soLuong": 5432,
       "giaTien": 298000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E74C3C/FFFFFF?text=Martian"
-    },
-  
-    {
-      "maSach": 103,
-      "tenSach": "Tôi muốn mình thích mình",
-      "maDanhMuc": 5,
-      "maTacGia": [13],
-      "maNhaXuatBan": 8,
-      "namXuatBan": 2018,
-      "soLuong": 6543,
-      "giaTien": 156000,
-      "hinhAnh": "https://via.placeholder.com/200x300/FF9FF3/000000?text=Toi+Thich+Minh"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764586770/nguoivetusaohoa_nz6xuy.jpg"
     },
     {
-      "maSach": 104,
       "tenSach": "The Night Circus",
       "maDanhMuc": 2,
       "maTacGia": [23],
@@ -1124,10 +749,9 @@
       "namXuatBan": 2011,
       "soLuong": 4321,
       "giaTien": 278000,
-      "hinhAnh": "https://via.placeholder.com/200x300/8E44AD/FFFFFF?text=Night+Circus"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764586843/thenightcircus_hdhcvi.webp"
     },
     {
-      "maSach": 105,
       "tenSach": "Bầu trời trong quả trứng",
       "maDanhMuc": 1,
       "maTacGia": [1],
@@ -1135,10 +759,9 @@
       "namXuatBan": 2003,
       "soLuong": 5678,
       "giaTien": 145000,
-      "hinhAnh": "https://via.placeholder.com/200x300/3498DB/FFFFFF?text=Bau+Troi+Trong"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764586905/bautroitrongquatrung_hhyeec.jpg"
     },
     {
-      "maSach": 106,
       "tenSach": "Làm giàu từ chứng khoán",
       "maDanhMuc": 6,
       "maTacGia": [27],
@@ -1146,21 +769,9 @@
       "namXuatBan": 2000,
       "soLuong": 7890,
       "giaTien": 356000,
-      "hinhAnh": "https://via.placeholder.com/200x300/F39C12/FFFFFF?text=Lam+Giau+CK"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764587031/lamgiautuchungkhoan_oylgir.jpg"
     },
     {
-      "maSach": 107,
-      "tenSach": "Vết thương miền Nam - Tuyển tập",
-      "maDanhMuc": 9,
-      "maTacGia": [4,6],
-      "maNhaXuatBan": 5,
-      "namXuatBan": 2013,
-      "soLuong": 2987,
-      "giaTien": 169000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E67E22/FFFFFF?text=Vet+Thuong+MN"
-    },
-    {
-      "maSach": 108,
       "tenSach": "Neuromancer",
       "maDanhMuc": 3,
       "maTacGia": [22],
@@ -1168,11 +779,9 @@
       "namXuatBan": 1984,
       "soLuong": 5432,
       "giaTien": 234000,
-      "hinhAnh": "https://via.placeholder.com/200x300/34495E/FFFFFF?text=Neuromancer"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764587122/neuromancer_zq4cvm.webp"
     },
-  
     {
-      "maSach": 109,
       "tenSach": "Người trong muôn nghề",
       "maDanhMuc": 1,
       "maTacGia": [12],
@@ -1180,32 +789,19 @@
       "namXuatBan": 2004,
       "soLuong": 4321,
       "giaTien": 134000,
-      "hinhAnh": "https://via.placeholder.com/200x300/2C3E50/FFFFFF?text=Nguoi+Trong+Muon"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764587191/nguoitrongmuonnghe_henhpy.jpg"
     },
     {
-      "maSach": 110,
-      "tenSach": "Foundation - Nền tảng",
-      "maDanhMuc": 2,
-      "maTacGia": [25],
-      "maNhaXuatBan": 10,
-      "namXuatBan": 1951,
-      "soLuong": 5678,
-      "giaTien": 289000,
-      "hinhAnh": "https://via.placeholder.com/200x300/34495E/FFFFFF?text=Foundation"
-    },
-    {
-      "maSach": 111,
       "tenSach": "Hồn Trương Ba, da hàng thịt",
       "maDanhMuc": 9,
-      "maTacGia": [6],
+      "maTacGia": [28],
       "maNhaXuatBan": 5,
       "namXuatBan": 1984,
       "soLuong": 6543,
       "giaTien": 89000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E91E63/FFFFFF?text=Hon+Truong+Ba"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764587281/hontruongbadathit_rrwo8e.jpg"
     },
     {
-      "maSach": 112,
       "tenSach": "Bí mật tư duy triệu phú",
       "maDanhMuc": 6,
       "maTacGia": [27],
@@ -1213,21 +809,9 @@
       "namXuatBan": 2006,
       "soLuong": 7890,
       "giaTien": 245000,
-      "hinhAnh": "https://via.placeholder.com/200x300/F39C12/FFFFFF?text=Bi+Mat+Tu+Duý"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764587354/bimattuduytrieuphu_pm1rnb.jpg"
     },
     {
-      "maSach": 113,
-      "tenSach": "Miền ký ức - Truyện ngắn",
-      "maDanhMuc": 9,
-      "maTacGia": [4,10],
-      "maNhaXuatBan": 2,
-      "namXuatBan": 2017,
-      "soLuong": 2987,
-      "giaTien": 152000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E67E22/FFFFFF?text=Mien+Ky+Uc"
-    },
-    {
-      "maSach": 114,
       "tenSach": "A Song of Ice and Fire - Bộ 5 tập",
       "maDanhMuc": 3,
       "maTacGia": [23],
@@ -1235,22 +819,9 @@
       "namXuatBan": 1996,
       "soLuong": 4321,
       "giaTien": 1256000,
-      "hinhAnh": "https://via.placeholder.com/200x300/8E44AD/FFFFFF?text=Ice+Fire"
-    },
-  
-    {
-      "maSach": 115,
-      "tenSach": "Chuyện tình cuối mùa thu",
-      "maDanhMuc": 1,
-      "maTacGia": [14],
-      "maNhaXuatBan": 8,
-      "namXuatBan": 2010,
-      "soLuong": 5432,
-      "giaTien": 148000,
-      "hinhAnh": "https://via.placeholder.com/200x300/FF6B6B/FFFFFF?text=Chuyen+Tinh+Thu"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764587503/asongoficeandfire_ozth7q.webp"
     },
     {
-      "maSach": 116,
       "tenSach": "Hyperion",
       "maDanhMuc": 2,
       "maTacGia": [22],
@@ -1258,43 +829,39 @@
       "namXuatBan": 1989,
       "soLuong": 3210,
       "giaTien": 345000,
-      "hinhAnh": "https://via.placeholder.com/200x300/9B59B6/FFFFFF?text=Hyperion"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764587579/hyperion_yo2ay4.webp"
     },
     {
-      "maSach": 117,
       "tenSach": "Miền đất hứa",
-      "maDanhMuc": 7,
+      "maDanhMuc": 4,
       "maTacGia": [9],
       "maNhaXuatBan": 5,
       "namXuatBan": 1995,
       "soLuong": 4567,
       "giaTien": 189000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E91E63/FFFFFF?text=Mien+Dat+Hua"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764589652/miendathua_furks9.jpg"
     },
     {
-      "maSach": 118,
-      "tenSach": "Nghệ thuật tư duy ngược",
+      "tenSach": "Nghệ thuật tư duy ngược dòng",
       "maDanhMuc": 5,
       "maTacGia": [27],
       "maNhaXuatBan": 3,
       "namXuatBan": 2019,
       "soLuong": 6543,
       "giaTien": 278000,
-      "hinhAnh": "https://via.placeholder.com/200x300/3498DB/FFFFFF?text=Nghệ+Thuật+Ngược"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764589782/nghethuattuduynguocdong_ylvupv.jpg"
     },
     {
-      "maSach": 119,
-      "tenSach": "Người thầy - Tuyển tập",
+      "tenSach": "Người thầy",
       "maDanhMuc": 9,
       "maTacGia": [6,12],
       "maNhaXuatBan": 4,
       "namXuatBan": 2016,
       "soLuong": 2987,
       "giaTien": 143000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E67E22/FFFFFF?text=Nguoi+Thay"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764589852/nguoithay_hvdsuh.jpg"
     },
     {
-      "maSach": 120,
       "tenSach": "Mistborn - Kẻ sinh ra từ tro tàn",
       "maDanhMuc": 3,
       "maTacGia": [23],
@@ -1302,22 +869,9 @@
       "namXuatBan": 2006,
       "soLuong": 5432,
       "giaTien": 267000,
-      "hinhAnh": "https://via.placeholder.com/200x300/34495E/FFFFFF?text=Mistborn"
-    },
-  
-    {
-      "maSach": 121,
-      "tenSach": "Mười năm một chặng đường",
-      "maDanhMuc": 1,
-      "maTacGia": [10],
-      "maNhaXuatBan": 5,
-      "namXuatBan": 2008,
-      "soLuong": 4321,
-      "giaTien": 156000,
-      "hinhAnh": "https://via.placeholder.com/200x300/2C3E50/FFFFFF?text=Muoi+Nam+Mot"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764589916/mistborn_gyb44w.webp"
     },
     {
-      "maSach": 122,
       "tenSach": "Red Rising",
       "maDanhMuc": 2,
       "maTacGia": [23],
@@ -1325,43 +879,19 @@
       "namXuatBan": 2014,
       "soLuong": 2987,
       "giaTien": 289000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E74C3C/FFFFFF?text=Red+Rising"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764590018/redrising_ao8qjm.webp"
     },
     {
-      "maSach": 123,
-      "tenSach": "Bên dòng sông Cửu Long",
-      "maDanhMuc": 1,
-      "maTacGia": [5],
-      "maNhaXuatBan": 1,
-      "namXuatBan": 1990,
-      "soLuong": 6543,
-      "giaTien": 134000,
-      "hinhAnh": "https://via.placeholder.com/200x300/3498DB/FFFFFF?text=Sông+Cửu+Long"
-    },
-    {
-      "maSach": 124,
-      "tenSach": "Tốc độ của sự tin tưởng",
+      "tenSach": "Tốc độ của niềm tin",
       "maDanhMuc": 5,
       "maTacGia": [27],
       "maNhaXuatBan": 3,
       "namXuatBan": 2006,
       "soLuong": 5678,
       "giaTien": 312000,
-      "hinhAnh": "https://via.placeholder.com/200x300/F39C12/FFFFFF?text=Tốc+Độ+Tin"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764590116/tocdocuaniemtin_ms6pfm.jpg"
     },
     {
-      "maSach": 125,
-      "tenSach": "Hồn quê - Tuyển tập thơ",
-      "maDanhMuc": 9,
-      "maTacGia": [7,11],
-      "maNhaXuatBan": 9,
-      "namXuatBan": 2012,
-      "soLuong": 3876,
-      "giaTien": 145000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E67E22/FFFFFF?text=Hồn+Quê"
-    },
-    {
-      "maSach": 126,
       "tenSach": "The Lies of Locke Lamora",
       "maDanhMuc": 3,
       "maTacGia": [22],
@@ -1369,44 +899,9 @@
       "namXuatBan": 2006,
       "soLuong": 5432,
       "giaTien": 356000,
-      "hinhAnh": "https://via.placeholder.com/200x300/8E44AD/FFFFFF?text=Lies+Locke"
-    },
-  
-    {
-      "maSach": 127,
-      "tenSach": "Đánh cắp giấc mơ",
-      "maDanhMuc": 1,
-      "maTacGia": [1],
-      "maNhaXuatBan": 2,
-      "namXuatBan": 2005,
-      "soLuong": 5432,
-      "giaTien": 162000,
-      "hinhAnh": "https://via.placeholder.com/200x300/C44569/FFFFFF?text=Dan+Capl+Giấc"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764590173/theliesoflockelamora_sllzv0.webp"
     },
     {
-      "maSach": 128,
-      "tenSach": "The Expanse - Phương trình không gian",
-      "maDanhMuc": 3,
-      "maTacGia": [22],
-      "maNhaXuatBan": 10,
-      "namXuatBan": 2011,
-      "soLuong": 3876,
-      "giaTien": 298000,
-      "hinhAnh": "https://via.placeholder.com/200x300/34495E/FFFFFF?text=Expanse"
-    },
-    {
-      "maSach": 129,
-      "tenSach": "Về làng",
-      "maDanhMuc": 1,
-      "maTacGia": [10],
-      "maNhaXuatBan": 5,
-      "namXuatBan": 1980,
-      "soLuong": 6543,
-      "giaTien": 112000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E91E63/FFFFFF?text=Ve+Lang"
-    },
-    {
-      "maSach": 130,
       "tenSach": "Nghệ thuật chiến tranh",
       "maDanhMuc": 5,
       "maTacGia": [27],
@@ -1414,21 +909,9 @@
       "namXuatBan": 500,
       "soLuong": 8765,
       "giaTien": 189000,
-      "hinhAnh": "https://via.placeholder.com/200x300/F1C40F/000000?text=Nghệ+Thuật+CT"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764590275/nghethuatchientranh_kqjrlz.jpg"
     },
     {
-      "maSach": 131,
-      "tenSach": "Miền nhiệt đới - Tuyển tập",
-      "maDanhMuc": 9,
-      "maTacGia": [4,9],
-      "maNhaXuatBan": 7,
-      "namXuatBan": 2014,
-      "soLuong": 2987,
-      "giaTien": 167000,
-      "hinhAnh": "https://via.placeholder.com/200x300/27AE60/FFFFFF?text=Mien+Nhiet+Doi"
-    },
-    {
-      "maSach": 132,
       "tenSach": "American Gods",
       "maDanhMuc": 2,
       "maTacGia": [23],
@@ -1436,22 +919,9 @@
       "namXuatBan": 2001,
       "soLuong": 4321,
       "giaTien": 267000,
-      "hinhAnh": "https://via.placeholder.com/200x300/8E44AD/FFFFFF?text=American+Gods"
-    },
-  
-    {
-      "maSach": 133,
-      "tenSach": "Cánh đồng bất tận",
-      "maDanhMuc": 1,
-      "maTacGia": [4],
-      "maNhaXuatBan": 2,
-      "namXuatBan": 2005,
-      "soLuong": 4321,
-      "giaTien": 145000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E91E63/FFFFFF?text=Canh+Dong+BT"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764590376/americangods_yotuh1.jpg"
     },
     {
-      "maSach": 134,
       "tenSach": "The Three-Body Problem",
       "maDanhMuc": 2,
       "maTacGia": [18],
@@ -1459,65 +929,9 @@
       "namXuatBan": 2008,
       "soLuong": 5678,
       "giaTien": 312000,
-      "hinhAnh": "https://via.placeholder.com/200x300/1ABC9C/FFFFFF?text=Three+Body"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764590495/thethreebodyproblem_mqdk7p.jpg"
     },
     {
-      "maSach": 135,
-      "tenSach": "Đất rừng phương Nam",
-      "maDanhMuc": 1,
-      "maTacGia": [10],
-      "maNhaXuatBan": 5,
-      "namXuatBan": 1957,
-      "soLuong": 7890,
-      "giaTien": 123000,
-      "hinhAnh": "https://via.placeholder.com/200x300/34495E/FFFFFF?text=Dat+Rung+Nam"
-    },
-    {
-      "maSach": 136,
-      "tenSach": "Dạy con làm giàu",
-      "maDanhMuc": 6,
-      "maTacGia": [27],
-      "maNhaXuatBan": 3,
-      "namXuatBan": 2001,
-      "soLuong": 6543,
-      "giaTien": 267000,
-      "hinhAnh": "https://via.placeholder.com/200x300/F39C12/FFFFFF?text=Dạy+Con+Giàu"
-    },
-    {
-      "maSach": 137,
-      "tenSach": "Những ngày tháng không quên - Tuyển tập",
-      "maDanhMuc": 9,
-      "maTacGia": [7,8],
-      "maNhaXuatBan": 9,
-      "namXuatBan": 2015,
-      "soLuong": 2987,
-      "giaTien": 158000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E67E22/FFFFFF?text=Ngay+Thang+KG"
-    },
-    {
-      "maSach": 138,
-      "tenSach": "Stormlight Archive - Lời thề",
-      "maDanhMuc": 3,
-      "maTacGia": [23],
-      "maNhaXuatBan": 11,
-      "namXuatBan": 2010,
-      "soLuong": 5432,
-      "giaTien": 456000,
-      "hinhAnh": "https://via.placeholder.com/200x300/8E44AD/FFFFFF?text=Stormlight"
-    },
-    {
-      "maSach": 139,
-      "tenSach": "Mùa len trâu",
-      "maDanhMuc": 1,
-      "maTacGia": [5],
-      "maNhaXuatBan": 1,
-      "namXuatBan": 1982,
-      "soLuong": 4321,
-      "giaTien": 109000,
-      "hinhAnh": "https://via.placeholder.com/200x300/96CEB4/FFFFFF?text=Mua+Len+Trâu"
-    },
-    {
-      "maSach": 140,
       "tenSach": "The Fifth Season",
       "maDanhMuc": 2,
       "maTacGia": [23],
@@ -1525,43 +939,9 @@
       "namXuatBan": 2015,
       "soLuong": 2987,
       "giaTien": 278000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E74C3C/FFFFFF?text=Fifth+Season"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764590678/thefifthseason_hmxbe4.webp"
     },
     {
-      "maSach": 141,
-      "tenSach": "Cho tôi xin một vé đi tuổi thơ",
-      "maDanhMuc": 4,
-      "maTacGia": [15],
-      "maNhaXuatBan": 8,
-      "namXuatBan": 1997,
-      "soLuong": 6543,
-      "giaTien": 132000,
-      "hinhAnh": "https://via.placeholder.com/200x300/FF9FF3/000000?text=Vé+Tuổi+Thơ"
-    },
-    {
-      "maSach": 142,
-      "tenSach": "Người giàu có nhất thành Babylon",
-      "maDanhMuc": 6,
-      "maTacGia": [27],
-      "maNhaXuatBan": 3,
-      "namXuatBan": 1926,
-      "soLuong": 7654,
-      "giaTien": 198000,
-      "hinhAnh": "https://via.placeholder.com/200x300/F39C12/FFFFFF?text=Giàu+Babylon"
-    },
-    {
-      "maSach": 143,
-      "tenSach": "Vàng lửa - Tuyển tập truyện",
-      "maDanhMuc": 9,
-      "maTacGia": [9,12],
-      "maNhaXuatBan": 5,
-      "namXuatBan": 2009,
-      "soLuong": 5432,
-      "giaTien": 176000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E67E22/FFFFFF?text=Vang+Lửa"
-    },
-    {
-      "maSach": 144,
       "tenSach": "The Broken Earth - Bộ 3 tập",
       "maDanhMuc": 3,
       "maTacGia": [23],
@@ -1569,21 +949,9 @@
       "namXuatBan": 2015,
       "soLuong": 3876,
       "giaTien": 856000,
-      "hinhAnh": "https://via.placeholder.com/200x300/34495E/FFFFFF?text=Broken+Earth"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764590809/thebrokenearth_rimryl.webp"
     },
     {
-      "maSach": 145,
-      "tenSach": "Tuổi trẻ đáng giá bao nhiêu",
-      "maDanhMuc": 5,
-      "maTacGia": [13],
-      "maNhaXuatBan": 8,
-      "namXuatBan": 2015,
-      "soLuong": 9876,
-      "giaTien": 145000,
-      "hinhAnh": "https://via.placeholder.com/200x300/FF6B6B/FFFFFF?text=Tuoi+Tre+DG"
-    },
-    {
-      "maSach": 146,
       "tenSach": "The Road",
       "maDanhMuc": 2,
       "maTacGia": [20],
@@ -1591,50 +959,16 @@
       "namXuatBan": 2006,
       "soLuong": 4321,
       "giaTien": 198000,
-      "hinhAnh": "https://via.placeholder.com/200x300/34495E/FFFFFF?text=The+Road"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764590890/theroad_gd7elh.jpg"
     },
     {
-      "maSach": 147,
-      "tenSach": "Tôi thấy hoa vàng trên cỏ xanh",
-      "maDanhMuc": 1,
-      "maTacGia": [1],
-      "maNhaXuatBan": 2,
-      "namXuatBan": 1993,
-      "soLuong": 7654,
-      "giaTien": 167000,
-      "hinhAnh": "https://via.placeholder.com/200x300/96CEB4/FFFFFF?text=Hoa+Vang"
-    },
-    {
-      "maSach": 148,
-      "tenSach": "Atomic Habits",
-      "maDanhMuc": 5,
-      "maTacGia": [27],
-      "maNhaXuatBan": 3,
-      "namXuatBan": 2018,
-      "soLuong": 8765,
-      "giaTien": 289000,
-      "hinhAnh": "https://via.placeholder.com/200x300/F9CA24/000000?text=Atomic+Habits"
-    },
-    {
-      "maSach": 149,
-      "tenSach": "Bến không chồng - Tuyển tập",
+      "tenSach": "Bến không chồng",
       "maDanhMuc": 9,
       "maTacGia": [4,14],
       "maNhaXuatBan": 5,
       "namXuatBan": 1990,
       "soLuong": 5432,
       "giaTien": 154000,
-      "hinhAnh": "https://via.placeholder.com/200x300/E67E22/FFFFFF?text=Ben+Khong+Chong"
-    },
-    {
-      "maSach": 150,
-      "tenSach": "The Kingkiller Chronicle - Bộ hoàn chỉnh",
-      "maDanhMuc": 3,
-      "maTacGia": [23],
-      "maNhaXuatBan": 11,
-      "namXuatBan": 2007,
-      "soLuong": 6543,
-      "giaTien": 978000,
-      "hinhAnh": "https://via.placeholder.com/200x300/8E44AD/FFFFFF?text=Kingkiller"
+      "hinhAnh": "https://res.cloudinary.com/dzc5ukalj/image/upload/v1764590959/benkhongchong_qqvbfi.jpg"
     }
 ]

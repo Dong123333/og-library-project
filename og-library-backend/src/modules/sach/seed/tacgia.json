@@ -241,5 +241,24 @@
       "namMat": 2024,
       "tieuSu": "Nobel Kinh tế 2002. Tâm lý học hành vi. Thinking Fast Slow.",
       "butDanh": ""
+    },
+    {
+      "id": 28,
+      "tenTacGia": "Lưu Quang Vũ",
+      "quocTich": "Việt Nam",
+      "namSinh": 1948,
+      "namMat": 1988,
+      "tieuSu": "Nhà viết kịch xuất sắc. Hồn Trương Ba, Lời thề thứ 9.",
+      "butDanh": ""
+    },
+    {
+      "id": 29,
+      "tenTacGia": "Rosie Nguyễn",
+      "quocTich": "Việt Nam",
+      "namSinh": 1979,
+      "namMat": null,
+      "tieuSu": "Tác giả self-help nổi tiếng. Tuổi trẻ đáng giá bao nhiêu bán 100k bản. Blogger du lịch.",
+      "butDanh": "Nguyễn Hoàng Nguyên"
     }
+
 ]
