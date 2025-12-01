@@ -24,10 +24,20 @@ export class SachService implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
+    await this.cleanDatabase();
     await this.seedCategories();
     await this.seedAuthors();
     await this.seedPublishers();
     await this.seedBooks();
+  }
+
+  async cleanDatabase() {
+    await Promise.all([
+      this.danhMucModel.deleteMany({}),
+      this.tacGiaModel.deleteMany({}),
+      this.nhaXuatBanModel.deleteMany({}),
+      this.sachModel.deleteMany({}),
+    ]);
   }
 
   async seedCategories() {
