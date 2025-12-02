@@ -120,38 +120,51 @@ export class ChatbotService {
       try {
         intent = JSON.parse(extractionText);
       } catch (e) {
-        console.error("Lỗi parse JSON từ AI:", e);
+        console.error('Lỗi parse JSON từ AI:', e);
         intent.isSearchingBook = true;
         intent.keyword = message;
       }
 
-      let bookContext = "Người dùng không hỏi về cuốn sách cụ thể nào.";
+      let bookContext = 'Người dùng không hỏi về cuốn sách cụ thể nào.';
 
-      if (intent.isSearchingBook && intent.keyword && intent.keyword !== 'NULL') {
+      if (
+        intent.isSearchingBook &&
+        intent.keyword &&
+        intent.keyword !== 'NULL'
+      ) {
         const regex = { $regex: intent.keyword, $options: 'i' };
 
-        // A. Tìm ID của các Danh mục khớp từ khóa (VD: "Kinh tế", "Văn học")
-        const foundCategories = await this.danhMucModel.find({ tenDanhMuc: regex }).select('_id');
+        const foundCategories = await this.danhMucModel
+          .find({ tenDanhMuc: regex })
+          .select('_id');
         const catIds = foundCategories.map(c => c._id);
 
-        // B. Tìm ID của các Tác giả khớp từ khóa (VD: "Nam Cao")
-        const foundAuthors = await this.tacGiaModel.find({ tenTacGia: regex }).select('_id');
+        const foundAuthors = await this.tacGiaModel
+          .find({ tenTacGia: regex })
+          .select('_id');
         const authIds = foundAuthors.map(a => a._id);
 
-        // C. Tìm Sách khớp 1 trong 3 điều kiện
+        const foundPublishers = await this.nhaXuatBanModel
+          .find({ tenNhaXuatBan: regex })
+          .select('_id');
+        const pubIds = foundPublishers.map(a => a._id);
+
         const books = await this.sachModel
           .find({
             $or: [
               { tenSach: regex },
               { maDanhMuc: { $in: catIds } },
               { maTacGia: { $in: authIds } },
+              { maNhaXuatBan: { $in: pubIds } },
             ],
           })
-          .select('tenSach soLuong giaTien namXuatBan maTacGia maDanhMuc maNhaXuatBan')
+          .select(
+            'tenSach soLuong giaTien namXuatBan maTacGia maDanhMuc maNhaXuatBan',
+          )
           .populate('maTacGia', 'tenTacGia')
           .populate('maDanhMuc', 'tenDanhMuc')
           .populate('maNhaXuatBan', 'tenNhaXuatBan')
-          .limit(5) // Lấy 5 cuốn để AI có nhiều dữ liệu trả lời hơn
+          .limit(5)
           .exec();
 
         if (books.length > 0) {
@@ -205,8 +218,10 @@ export class ChatbotService {
       const result = await this.model.generateContent(finalPrompt);
       return { reply: result.response.text() };
     } catch (error) {
-      console.error("❌ Lỗi Chatbot:", error);
-      return { reply: "Xin lỗi, hệ thống đang bận. Bạn vui lòng thử lại sau nhé! 🤖" };
+      console.error('❌ Lỗi Chatbot:', error);
+      return {
+        reply: 'Xin lỗi, hệ thống đang bận. Bạn vui lòng thử lại sau nhé! 🤖',
+      };
     }
   }
 }

@@ -3,10 +3,10 @@
       "id": 1,
       "tenTacGia": "Nguyễn Nhật Ánh",
       "quocTich": "Việt Nam",
-      "namSinh": 1954,
+      "namSinh": 1955,
       "namMat": null,
-      "tieuSu": "Nhà văn thiếu nhi nổi tiếng nhất Việt Nam. Bút danh: Chu Đình Ngạn, Đông Phương Sóc, Anh Bồ Câu.",
-      "butDanh": "Chu Đình Ngạn, Đông Phương Sóc, Anh Bồ Câu, Lê Duy Cật"
+      "tieuSu": "Nhà văn nổi tiếng Việt Nam với các tác phẩm dành cho thiếu nhi và tuổi mới lớn; phong cách giàu tính nhân văn, lãng mạn và giàu ký ức tuổi thơ.",
+      "butDanh": ""
     },
     {
       "id": 2,
@@ -14,8 +14,8 @@
       "quocTich": "Việt Nam",
       "namSinh": 1915,
       "namMat": 1951,
-      "tieuSu": "Nhà văn hiện thực phê phán. Tác phẩm tiêu biểu: Chí Phèo, Lão Hạc.",
-      "butDanh": "Vũ Trọng Phụng"
+      "tieuSu": "Nhà văn Việt Nam tiêu biểu của dòng văn học hiện thực; các tác phẩm phản ánh đời sống người nông dân và xã hội Việt Nam thời kỳ trước Cách mạng tháng Tám.",
+      "butDanh": "Nam Cao"
     },
     {
       "id": 3,
@@ -32,7 +32,7 @@
       "quocTich": "Việt Nam",
       "namSinh": 1976,
       "namMat": null,
-      "tieuSu": "Nhà văn Cà Mau. Nổi tiếng với truyện ngắn miền Tây.",
+      "tieuSu": "Nhà văn nổi tiếng với các tác phẩm về đời sống miền Tây Nam Bộ, giàu chất trữ tình và hiện thực xã hội.",
       "butDanh": ""
     },
     {
@@ -40,17 +40,17 @@
       "tenTacGia": "Tô Hoài",
       "quocTich": "Việt Nam",
       "namSinh": 1920,
-      "namMat": 2014,
-      "tieuSu": "Tác giả Dế Mèn phiêu lưu ký. Giải thưởng Hồ Chí Minh.",
-      "butDanh": "Tô Germani"
+      "namMat": 2008,
+      "tieuSu": "Nhà văn Việt Nam nổi tiếng với các tác phẩm dành cho thiếu nhi và tuổi mới lớn; phong cách giàu hình tượng, nhân văn và giàu tính giáo dục.",
+      "butDanh": ""
     },
     {
       "id": 6,
       "tenTacGia": "Kim Lân",
       "quocTich": "Việt Nam",
       "namSinh": 1920,
-      "namMat": 2008,
-      "tieuSu": "Người nông dân của văn học Việt Nam. Vợ nhặt.",
+      "namMat": 2007,
+      "tieuSu": "Nhà văn Việt Nam nổi bật với các truyện ngắn phản ánh đời sống nông thôn và con người Việt Nam thời kỳ trước và sau Cách mạng tháng Tám.",
       "butDanh": ""
     },
     {
@@ -58,8 +58,8 @@
       "tenTacGia": "Nguyễn Quang Sáng",
       "quocTich": "Việt Nam",
       "namSinh": 1932,
-      "namMat": 2012,
-      "tieuSu": "Chiến tranh Nhân dân. Chiếc lược ngà.",
+      "namMat": 2014,
+      "tieuSu": "Nhà văn Việt Nam nổi bật với các truyện ngắn, kịch bản phim và tiểu thuyết phản ánh đời sống chiến tranh và hậu chiến; phong cách giàu cảm xúc, nhân văn.",
       "butDanh": ""
     },
     {
@@ -68,7 +68,7 @@
       "quocTich": "Việt Nam",
       "namSinh": 1930,
       "namMat": 1989,
-      "tieuSu": "Người mở đường đổi mới văn học. Bến quê.",
+      "tieuSu": "Người mở đường đổi mới văn học.",
       "butDanh": ""
     },
     {
@@ -77,7 +77,7 @@
       "quocTich": "Việt Nam",
       "namSinh": 1952,
       "namMat": null,
-      "tieuSu": "Giải thưởng ASEAN. Nỗi buồn chiến tranh.",
+      "tieuSu": "Giải thưởng ASEAN.",
       "butDanh": ""
     },
     {
@@ -95,7 +95,7 @@
       "quocTich": "Việt Nam",
       "namSinh": 1960,
       "namMat": null,
-      "tieuSu": "Nhà văn nữ tiên phong đổi mới. Thiên đường mù.",
+      "tieuSu": "Nhà văn nữ tiên phong đổi mới.",
       "butDanh": ""
     },
     {
@@ -104,7 +104,7 @@
       "quocTich": "Việt Nam",
       "namSinh": 1965,
       "namMat": null,
-      "tieuSu": "Nhà văn bí ẩn. Những ngôi sao xa xôi.",
+      "tieuSu": "Nhà văn bí ẩn.",
       "butDanh": ""
     },
     {
@@ -113,7 +113,7 @@
       "quocTich": "Việt Nam",
       "namSinh": 1988,
       "namMat": null,
-      "tieuSu": "Thế hệ 8X. Cánh đồng bất tận.",
+      "tieuSu": "Thế hệ 8X.",
       "butDanh": "Nguyễn Ngọc Tư"
     },
     {
@@ -122,26 +122,26 @@
       "quocTich": "Việt Nam",
       "namSinh": 1985,
       "namMat": null,
-      "tieuSu": "Tác giả trẻ. Chuyện tình cuối mùa thu.",
+      "tieuSu": "Tác giả trẻ.",
       "butDanh": ""
     },
     {
       "id": 15,
       "tenTacGia": "J.K. Rowling",
-      "quocTich": "UK",
+      "quocTich": "Anh",
       "namSinh": 1965,
       "namMat": null,
-      "tieuSu": "Tác giả Harry Potter giàu nhất văn học.",
-      "butDanh": "Robert Galbraith"
+      "tieuSu": "Nhà văn nổi tiếng người Anh, tác phẩm chủ yếu dành cho thiếu nhi và thanh thiếu niên; phong cách giàu tưởng tượng, kỳ ảo, lồng ghép các giá trị đạo đức và nhân văn.",
+      "butDanh": ""
     },
     {
       "id": 16,
       "tenTacGia": "J.R.R. Tolkien",
-      "quocTich": "UK",
+      "quocTich": "Anh",
       "namSinh": 1892,
       "namMat": 1973,
-      "tieuSu": "Cha đẻ thể loại Fantasy hiện đại. Tác giả Chúa Nhẫn, Hobbit.",
-      "butDanh": ""
+      "tieuSu": "Nhà văn, học giả và nhà ngôn ngữ học nổi tiếng người Anh; được coi là “cha đẻ của thể loại fantasy hiện đại.",
+      "butDanh": "J.R.R. Tolkien"
     },
     {
       "id": 17,
@@ -149,26 +149,26 @@
       "quocTich": "Colombia",
       "namSinh": 1927,
       "namMat": 2014,
-      "tieuSu": "Nobel Văn học 1982. Cha đẻ chủ nghĩa Hiện thực huyền ảo.",
-      "butDanh": "Gabo"
+      "tieuSu": "Nhà văn Colombia nổi tiếng với phong cách hiện thực huyền ảo; đoạt Giải Nobel Văn học 1982.",
+      "butDanh": ""
     },
     {
       "id": 18,
       "tenTacGia": "Haruki Murakami",
-      "quocTich": "Japan",
+      "quocTich": "Nhật Bản",
       "namSinh": 1949,
       "namMat": null,
-      "tieuSu": "Hiện tượng văn học Nhật. Norwegian Wood, Kafka bên bờ biển.",
+      "tieuSu": "Nhà văn Nhật Bản nổi tiếng với các tác phẩm pha trộn giữa hiện thực, siêu thực và triết lý.",
       "butDanh": ""
     },
     {
       "id": 19,
       "tenTacGia": "Jane Austen",
-      "quocTich": "UK",
+      "quocTich": "Anh",
       "namSinh": 1775,
       "namMat": 1817,
-      "tieuSu": "Nữ văn hào Anh. Tác giả Kiêu hãnh và Định kiến.",
-      "butDanh": "A Lady"
+      "tieuSu": "Nhà văn Anh nổi tiếng với các tiểu thuyết về đời sống xã hội, tình yêu và hôn nhân trong tầng lớp trung lưu Anh thế kỷ 18 – 19.",
+      "butDanh": ""
     },
     {
       "id": 20,
@@ -185,7 +185,7 @@
       "quocTich": "UK",
       "namSinh": 1890,
       "namMat": 1976,
-      "tieuSu": "Nữ hoàng trinh thám. Hercule Poirot, Miss Marple.",
+      "tieuSu": "Nữ hoàng trinh thám.",
       "butDanh": "Mary Westmacott"
     },
     {
@@ -203,16 +203,16 @@
       "quocTich": "USA",
       "namSinh": 1899,
       "namMat": 1961,
-      "tieuSu": "Nobel 1954. Người già và biển cả. Phong cách băng giá.",
+      "tieuSu": "Nobel 1954.",
       "butDanh": ""
     },
     {
       "id": 24,
       "tenTacGia": "Victor Hugo",
-      "quocTich": "France",
+      "quocTich": "Pháp",
       "namSinh": 1802,
       "namMat": 1885,
-      "tieuSu": "Những người khốn khổ, Nhà thờ Đức Bà Paris.",
+      "tieuSu": "Nhà văn, nhà thơ và nhà chính trị Pháp; nổi tiếng với các tác phẩm văn học kinh điển, phản ánh xã hội và con người Pháp thế kỷ 19.",
       "butDanh": ""
     },
     {
@@ -221,7 +221,7 @@
       "quocTich": "Israel",
       "namSinh": 1976,
       "namMat": null,
-      "tieuSu": "Sapiens, Homo Deus. Sử gia bán chạy nhất thế kỷ 21.",
+      "tieuSu": "Nhà sử học, giảng viên tại Đại học Hebrew, nổi tiếng với các nghiên cứu lịch sử nhân loại, công nghệ và tương lai.",
       "butDanh": ""
     },
     {
@@ -230,16 +230,16 @@
       "quocTich": "Pakistan",
       "namSinh": 1997,
       "namMat": null,
-      "tieuSu": "Nobel Hòa bình trẻ nhất 2014. Tôi là Malala.",
+      "tieuSu": "Nobel Hòa bình trẻ nhất 2014.",
       "butDanh": ""
     },
     {
       "id": 27,
       "tenTacGia": "Daniel Kahneman",
-      "quocTich": "Israel",
+      "quocTich": "Mỹ (gốc Israel)",
       "namSinh": 1934,
-      "namMat": 2024,
-      "tieuSu": "Nobel Kinh tế 2002. Tâm lý học hành vi. Thinking Fast Slow.",
+      "namMat": null,
+      "tieuSu": "Nhà tâm lý học và kinh tế học hành vi nổi tiếng, đoạt Giải Nobel Kinh tế 2002; nghiên cứu về nhận thức, quyết định và hành vi con người.",
       "butDanh": ""
     },
     {
@@ -248,17 +248,620 @@
       "quocTich": "Việt Nam",
       "namSinh": 1948,
       "namMat": 1988,
-      "tieuSu": "Nhà viết kịch xuất sắc. Hồn Trương Ba, Lời thề thứ 9.",
+      "tieuSu": "Nhà viết kịch và nhà văn Việt Nam; nổi tiếng với các vở kịch hiện thực xã hội, phản ánh bi kịch và mâu thuẫn trong cuộc sống con người.",
       "butDanh": ""
     },
     {
       "id": 29,
       "tenTacGia": "Rosie Nguyễn",
       "quocTich": "Việt Nam",
-      "namSinh": 1979,
+      "namSinh": null,
       "namMat": null,
-      "tieuSu": "Tác giả self-help nổi tiếng. Tuổi trẻ đáng giá bao nhiêu bán 100k bản. Blogger du lịch.",
-      "butDanh": "Nguyễn Hoàng Nguyên"
+      "tieuSu": "Blogger, tác giả và nhà truyền cảm hứng Việt Nam; nổi tiếng với các bài viết, chia sẻ về phát triển bản thân, tuổi trẻ và kỹ năng sống.",
+      "butDanh": "Rosie Nguyễn"
+    },
+    {
+      "id": 30,
+      "tenTacGia": "Đặng Thùy Trâm",
+      "quocTich": "Việt Nam",
+      "namSinh": 1942,
+      "namMat": 1970,
+      "tieuSu": "Bản thân là một bác sĩ chiến trường trong chiến tranh Việt Nam. Nhật ký được ghi chép trực tiếp tại chiến trường trước khi chị hy sinh.",
+      "butDanh": ""
+    },
+    {
+      "id": 31,
+      "tenTacGia": "George S. Clason",
+      "quocTich": "Mỹ",
+      "namSinh": 1874,
+      "namMat": 1957,
+      "tieuSu": "Tác giả, nhà kinh doanh và nhà sáng lập các công ty xuất bản quảng cáo; nổi tiếng với các sách về tài chính cá nhân và phương pháp quản lý tiền bạc thông qua các câu chuyện cổ Babylon.",
+      "butDanh": ""
+    },
+    {
+      "id": 32,
+      "tenTacGia": "Dale Carnegie",
+      "quocTich": "Mỹ",
+      "namSinh": 1888,
+      "namMat": 1955,
+      "tieuSu": "Nhà giảng dạy kỹ năng giao tiếp, phát triển bản thân và quản lý; nổi tiếng với các cuốn sách về nghệ thuật sống và thuyết phục.",
+      "butDanh": ""
+    },
+    {
+      "id": 33,
+      "tenTacGia": "Paulo Coelho",
+      "quocTich": "Brazil",
+      "namSinh": 1947,
+      "namMat": null,
+      "tieuSu": "Nhà văn Brazil nổi tiếng với các tác phẩm văn học hiện đại mang yếu tố triết lý và tâm linh.",
+      "butDanh": ""
+    },
+    {
+      "id": 34,
+      "tenTacGia": "Mario Puzo",
+      "quocTich": "Mỹ",
+      "namSinh": 1920,
+      "namMat": 1999,
+      "tieuSu": "Nhà văn Mỹ nổi tiếng với các tiểu thuyết về mafia và tội phạm.",
+      "butDanh": ""
+    },
+    {
+      "id": 35,
+      "tenTacGia": "Harper Lee",
+      "quocTich": "Mỹ",
+      "namSinh": 1926,
+      "namMat": 2016,
+      "tieuSu": "Nhà văn Mỹ nổi tiếng với các tác phẩm văn học hiện đại, phản ánh các vấn đề xã hội, công lý và phân biệt chủng tộc ở Mỹ.",
+      "butDanh": ""
+    },
+    {
+      "id": 36,
+      "tenTacGia": "Đoàn Giỏi",
+      "quocTich": "Việt Nam",
+      "namSinh": 1925,
+      "namMat": 1987,
+      "tieuSu": "Nhà văn Việt Nam nổi tiếng với các tác phẩm viết về chiến tranh, miền Nam Việt Nam và cuộc sống miền sông nước.",
+      "butDanh": ""
+    },
+    {
+      "id": 37,
+      "tenTacGia": "Nguyên Phong",
+      "quocTich": "Pháp",
+      "namSinh": 1916,
+      "namMat": 1962,
+      "tieuSu": "Nhà triết học, nghiên cứu về huyền học và tôn giáo phương Đông; nổi tiếng với các tác phẩm khai sáng về tri thức tâm linh và huyền học.",
+      "butDanh": "Nguyên Phong"
+    },
+    {
+      "id": 38,
+      "tenTacGia": "Ngô Tất Tố",
+      "quocTich": "Việt Nam",
+      "namSinh": 1893,
+      "namMat": 1954,
+      "tieuSu": "Nhà văn Việt Nam nổi tiếng với dòng văn học hiện thực phản ánh đời sống nông dân Việt Nam trước Cách mạng tháng Tám.",
+      "butDanh": ""
+    },
+    {
+      "id": 39,
+      "tenTacGia": "James Clear",
+      "quocTich": "Mỹ",
+      "namSinh": 1986,
+      "namMat": null,
+      "tieuSu": "Chuyên gia về thói quen, phát triển bản thân và hiệu suất làm việc.",
+      "butDanh": ""
+    },
+    {
+      "id": 40,
+      "tenTacGia": "Robert T. Kiyosaki",
+      "quocTich": "Mỹ",
+      "namSinh": 1947,
+      "namMat": null,
+      "tieuSu": "Doanh nhân, nhà đầu tư và tác giả nổi tiếng với các cuốn sách về tài chính cá nhân.",
+      "butDanh": ""
+    },
+    {
+      "id": 41,
+      "tenTacGia": "Aldous Huxley",
+      "quocTich": "Anh",
+      "namSinh": 1894,
+      "namMat": 1963,
+      "tieuSu": "Nhà văn, triết gia và nhà tư tưởng Anh; nổi tiếng với các tác phẩm phản ánh xã hội, công nghệ và tương lai con người.",
+      "butDanh": ""
+    },
+    {
+      "id": 42,
+      "tenTacGia": "Ingrid Zhang",
+      "quocTich": "",
+      "namSinh": null,
+      "namMat": null,
+      "tieuSu": "",
+      "butDanh": ""
+    },
+    {
+      "id": 43,
+      "tenTacGia": "F. Scott Fitzgerald",
+      "quocTich": "Mỹ",
+      "namSinh": 1896,
+      "namMat": 1940,
+      "tieuSu": "Nhà văn Mỹ nổi tiếng với dòng văn học hiện đại, đặc biệt là các tác phẩm phản ánh xã hội Mỹ thời kỳ Roaring Twenties.",
+      "butDanh": ""
+    },
+    {
+      "id": 44,
+      "tenTacGia": "Jared Diamond",
+      "quocTich": "Mỹ",
+      "namSinh": 1937,
+      "namMat": null,
+      "tieuSu": "Nhà sinh lý học, nhà địa lý và sử học; nổi tiếng với các nghiên cứu liên ngành về lịch sử, văn hóa và sinh thái học.",
+      "butDanh": ""
+    },
+    {
+      "id": 45,
+      "tenTacGia": "Luis Sepúlveda",
+      "quocTich": "Chile",
+      "namSinh": 1949,
+      "namMat": 2020,
+      "tieuSu": "Nhà văn, nhà báo và nhà hoạt động môi trường Chile; nổi tiếng với các tác phẩm hướng tới trẻ em và thanh thiếu niên, kết hợp yếu tố môi trường, giáo dục và nhân văn.",
+      "butDanh": ""
+    },
+    {
+      "id": 46,
+      "tenTacGia": "Fyodor Dostoevsky",
+      "quocTich": "Nga",
+      "namSinh": 1821,
+      "namMat": 1881,
+      "tieuSu": "Nhà văn Nga nổi tiếng với các tác phẩm khám phá tâm lý con người, triết lý đạo đức và xã hội.",
+      "butDanh": ""
+    },
+    {
+      "id": 47,
+      "tenTacGia": "J. D. Salinger",
+      "quocTich": "Mỹ",
+      "namSinh": 1919,
+      "namMat": 2010,
+      "tieuSu": "Nhà văn Mỹ nổi tiếng với tác phẩm dành cho tuổi mới lớn và thanh thiếu niên, đặc biệt là The Catcher in the Rye; phong cách viết mang tính phản ánh xã hội và tâm lý tuổi trẻ.",
+      "butDanh": ""
+    },
+    {
+      "id": 48,
+      "tenTacGia": "Robert C. Martin",
+      "quocTich": "Mỹ",
+      "namSinh": 1952,
+      "namMat": null,
+      "tieuSu": "Lập trình viên kỳ cựu, tác giả và chuyên gia phần mềm; nổi tiếng với các phương pháp lập trình sạch, thiết kế phần mềm hiệu quả.",
+      "butDanh": "Uncle Bob"
+    },
+    {
+      "id": 49,
+      "tenTacGia": "Douglas Crockford",
+      "quocTich": "Mỹ",
+      "namSinh": 1955,
+      "namMat": null,
+      "tieuSu": "Lập trình viên, nhà thiết kế phần mềm, chuyên gia về JavaScript; nổi tiếng với việc phát triển JSON và tư tưởng “JavaScript tốt nhất”.",
+      "butDanh": ""
+    },
+    {
+      "id": 50,
+      "tenTacGia": "Nguyễn Văn Bình",
+      "quocTich": "Việt Nam",
+      "namSinh": null,
+      "namMat": null,
+      "tieuSu": "Giảng viên và chuyên gia công nghệ thông tin; tham gia biên soạn nhiều giáo trình về cơ sở dữ liệu, lập trình và quản trị hệ thống; đóng góp chính cho các chương trình đào tạo CNTT tại các trường đại học ở Việt Nam.",
+      "butDanh": ""
+    },
+    {
+      "id": 51,
+      "tenTacGia": "Astrid Lindgren",
+      "quocTich": "Thụy Điển",
+      "namSinh": 1907,
+      "namMat": 2002,
+      "tieuSu": "Nhà văn Thụy Điển nổi tiếng với các tác phẩm thiếu nhi; các tác phẩm thường mang tính giải trí cao, tưởng tượng phong phú, lồng ghép giáo dục nhân văn.",
+      "butDanh": ""
+    },
+    {
+      "id": 52,
+      "tenTacGia": "C. S. Lewis",
+      "quocTich": "Anh",
+      "namSinh": 1898,
+      "namMat": 1963,
+      "tieuSu": "Nhà văn, nhà học giả và nhà thần học người Anh; nổi tiếng với các tác phẩm giả tưởng, đặc biệt dành cho thiếu nhi và thanh thiếu niên, mang yếu tố thần thoại, tôn giáo và nhân văn.",
+      "butDanh": ""
+    },
+    {
+      "id": 53,
+      "tenTacGia": "Arthur Conan Doyle",
+      "quocTich": "Anh",
+      "namSinh": 1859,
+      "namMat": 1930,
+      "tieuSu": "Nhà văn, bác sĩ người Anh; nổi tiếng với các tác phẩm trinh thám, đặc biệt là chuỗi truyện về thám tử Sherlock Holmes.",
+      "butDanh": ""
+    },
+    {
+      "id": 54,
+      "tenTacGia": "Ray Bradbury",
+      "quocTich": "Mỹ",
+      "namSinh": 1920,
+      "namMat": 2012,
+      "tieuSu": "Nhà văn Mỹ nổi tiếng với các tác phẩm khoa học viễn tưởng và giả tưởng, phong cách giàu hình tượng, phản ánh xã hội và tương lai.",
+      "butDanh": ""
+    },
+    {
+      "id": 55,
+      "tenTacGia": "Nguyễn Công Hoan",
+      "quocTich": "Việt Nam",
+      "namSinh": 1903,
+      "namMat": 1977,
+      "tieuSu": "Nhà văn hiện thực phê phán nổi tiếng Việt Nam, chuyên viết về đời sống xã hội, các mâu thuẫn và bi kịch của con người trong bối cảnh xã hội phong kiến và cận đại.",
+      "butDanh": ""
+    },
+    {
+      "id": 56,
+      "tenTacGia": "Dan Brown",
+      "quocTich": "Mỹ",
+      "namSinh": 1964,
+      "namMat": null,
+      "tieuSu": "Nhà văn Mỹ chuyên viết tiểu thuyết trinh thám, bí ẩn; phong cách kết hợp lịch sử, nghệ thuật, tôn giáo và giải mã.",
+      "butDanh": ""
+    },
+    {
+      "id": 57,
+      "tenTacGia": "Nguyễn Xuân Khánh",
+      "quocTich": "Việt Nam",
+      "namSinh": 1948,
+      "namMat": null,
+      "tieuSu": "Nhà văn Việt Nam thuộc dòng hiện thực phê phán, nổi bật với các truyện ngắn và tiểu thuyết khai thác đời sống, xã hội, mâu thuẫn nội tâm của con người.",
+      "butDanh": ""
+    },
+    {
+      "id": 58,
+      "tenTacGia": "Stephen R. Covey",
+      "quocTich": "Mỹ",
+      "namSinh": 1932,
+      "namMat": 2012,
+      "tieuSu": "Chuyên gia về lãnh đạo, phát triển bản thân và quản lý; tác giả nổi tiếng toàn cầu với các sách về kỹ năng sống, lãnh đạo và phát triển cá nhân.",
+      "butDanh": ""
+    },
+    {
+      "id": 59,
+      "tenTacGia": "Tetsuko Kuroyanagi",
+      "quocTich": "Nhật Bản",
+      "namSinh": 1933,
+      "namMat": null,
+      "tieuSu": "Diễn viên, MC và nhà văn nổi tiếng Nhật Bản; tác phẩm Totto-chan bên cửa sổ dựa trên hồi ký thời thơ ấu, phản ánh phương pháp giáo dục sáng tạo và nhân văn.",
+      "butDanh": ""
+    },
+    {
+      "id": 60,
+      "tenTacGia": "George R. R. Martin",
+      "quocTich": "Mỹ",
+      "namSinh": 1948,
+      "namMat": null,
+      "tieuSu": "Nhà văn Mỹ chuyên viết tiểu thuyết giả tưởng và khoa học viễn tưởng; nổi tiếng với series A Song of Ice and Fire, được chuyển thể thành loạt phim truyền hình Game of Thrones.",
+      "butDanh": ""
+    },
+    {
+      "id": 61,
+      "tenTacGia": "Roald Dahl",
+      "quocTich": "Anh",
+      "namSinh": 1916,
+      "namMat": 1990,
+      "tieuSu": "Nhà văn Anh nổi tiếng với các tác phẩm dành cho thiếu nhi và thanh thiếu niên; phong cách sáng tạo, hài hước, giàu trí tưởng tượng.",
+      "butDanh": ""
+    },
+    {
+      "id": 62,
+      "tenTacGia": "Patrick Rothfuss",
+      "quocTich": "Mỹ",
+      "namSinh": 1973,
+      "namMat": null,
+      "tieuSu": "Nhà văn Mỹ chuyên viết tiểu thuyết giả tưởng; nổi tiếng với series The Kingkiller Chronicle, phong cách giàu tưởng tượng, câu chuyện phiêu lưu – kỳ ảo sâu sắc.",
+      "butDanh": ""
+    },
+    {
+      "id": 63,
+      "tenTacGia": "Cao Minh",
+      "quocTich": "Trung Quốc",
+      "namSinh": 1974,
+      "namMat": null,
+      "tieuSu": "Nhà văn Trung quốc nổi tiếng với những tác phẩm có chiều sâu triết lý và sự quan sát tinh tế về tâm lý con người.",
+      "butDanh": ""
+    },
+    {
+      "id": 64,
+      "tenTacGia": "Tony Buổi Sáng",
+      "quocTich": "Việt Nam",
+      "namSinh": null,
+      "namMat": null,
+      "tieuSu": "Blogger, nhà sáng lập và tác giả nổi tiếng tại Việt Nam về phát triển bản thân, kinh doanh và tư duy khởi nghiệp; phong cách viết gần gũi, hài hước, dễ tiếp thu.",
+      "butDanh": "Tony Buổi Sáng"
+    },
+    {
+      "id": 65,
+      "tenTacGia": "Frank Herbert",
+      "quocTich": "Mỹ",
+      "namSinh": 1920,
+      "namMat": 1986,
+      "tieuSu": "Nhà văn Mỹ chuyên viết tiểu thuyết khoa học viễn tưởng; nổi tiếng với series Dune – một trong những bộ truyện khoa học viễn tưởng kinh điển nhất thế giới; phong cách giàu tưởng tượng, xây dựng thế giới chi tiết, phản ánh các vấn đề chính trị, tôn giáo và sinh thái.",
+      "butDanh": ""
+    },
+    {
+      "id": 66,
+      "tenTacGia": "Lê Minh Khuê",
+      "quocTich": "Việt Nam",
+      "namSinh": 1949,
+      "namMat": null,
+      "tieuSu": "Nhà văn Việt Nam nổi bật với các truyện ngắn và tiểu thuyết phản ánh chiến tranh và đời sống phụ nữ; phong cách giàu cảm xúc, hiện thực và nhân văn.",
+      "butDanh": ""
+    },
+    {
+      "id": 67,
+      "tenTacGia": "Charles Duhigg",
+      "quocTich": "Mỹ",
+      "namSinh": 1974,
+      "namMat": null,
+      "tieuSu": "Nhà báo và tác giả người Mỹ, chuyên viết về khoa học hành vi, thói quen và năng suất; nổi tiếng với việc kết hợp nghiên cứu khoa học với câu chuyện thực tế để giải thích cách hình thành thói quen.",
+      "butDanh": ""
+    },
+    {
+      "id": 68,
+      "tenTacGia": "Nguyên Ngọc",
+      "quocTich": "Việt Nam",
+      "namSinh": 1923,
+      "namMat": null,
+      "tieuSu": "Nhà văn, nhà báo và nhà nghiên cứu văn hóa Việt Nam; nổi bật với các tác phẩm phản ánh chiến tranh, cách mạng, văn hóa Tây Nguyên; phong cách giàu chất nhân văn, hiện thực.",
+      "butDanh": "Nguyên Ngọc"
+    },
+    {
+      "id": 69,
+      "tenTacGia": "Andy Weir",
+      "quocTich": "Mỹ",
+      "namSinh": 1972,
+      "namMat": null,
+      "tieuSu": "Nhà văn Mỹ chuyên viết tiểu thuyết khoa học viễn tưởng; nổi tiếng với việc kết hợp kiến thức khoa học chính xác với câu chuyện phiêu lưu – sinh tồn.",
+      "butDanh": ""
+    },
+    {
+      "id": 70,
+      "tenTacGia": "Erin Morgenstern",
+      "quocTich": "Mỹ",
+      "namSinh": 1978,
+      "namMat": null,
+      "tieuSu": "Nhà văn Mỹ, nổi tiếng với các tiểu thuyết giả tưởng lãng mạn, giàu hình tượng và tưởng tượng; phong cách sáng tạo, huyền ảo, chú trọng chi tiết về không gian và cảm xúc.",
+      "butDanh": ""
+    },
+    {
+      "id": 71,
+      "tenTacGia": "Xuân Quỳnh",
+      "quocTich": "Việt Nam",
+      "namSinh": 1942,
+      "namMat": 1988,
+      "tieuSu": "Nhà thơ Việt Nam nổi tiếng với các tác phẩm về tình yêu, tuổi trẻ và cuộc sống; phong cách lãng mạn, giàu cảm xúc và dễ đi vào lòng người.",
+      "butDanh": ""
+    },
+    {
+      "id": 72,
+      "tenTacGia": "William J. O’Neil",
+      "quocTich": "Mỹ",
+      "namSinh": 1933,
+      "namMat": null,
+      "tieuSu": "Nhà đầu tư, tác giả và nhà sáng lập tạp chí Investor’s Business Daily; nổi tiếng với phương pháp phân tích cổ phiếu CAN SLIM.",
+      "butDanh": ""
+    },
+    {
+      "id": 73,
+      "tenTacGia": "William Gibson",
+      "quocTich": "Mỹ",
+      "namSinh": 1948,
+      "namMat": null,
+      "tieuSu": "Nhà văn Mỹ nổi tiếng với các tiểu thuyết khoa học viễn tưởng; được coi là “cha đẻ của thể loại cyberpunk”, với các tác phẩm nổi bật khai thác thế giới tương lai, công nghệ cao và xã hội thông tin.",
+      "butDanh": ""
+    },
+    {
+      "id": 74,
+      "tenTacGia": "Spiderum",
+      "quocTich": "Việt Nam",
+      "namSinh": null,
+      "namMat": null,
+      "tieuSu": "Dự án tập hợp các câu chuyện, kinh nghiệm và góc nhìn thực tế từ những người làm việc trong nhiều lĩnh vực khác nhau; mục tiêu giúp người trẻ định hướng nghề nghiệp, phát triển kỹ năng và hiểu rõ môi trường làm việc.",
+      "butDanh": ""
+    },
+    {
+      "id": 75,
+      "tenTacGia": "T. Harv Eker",
+      "quocTich": "Canada / Mỹ",
+      "namSinh": 1954,
+      "namMat": null,
+      "tieuSu": "Doanh nhân, nhà đào tạo và tác giả nổi tiếng về tư duy tài chính và phát triển bản thân.",
+      "butDanh": ""
+    },
+    {
+      "id": 76,
+      "tenTacGia": "Dan Simmons",
+      "quocTich": "Mỹ",
+      "namSinh": 1948,
+      "namMat": null,
+      "tieuSu": "Nhà văn Mỹ chuyên viết tiểu thuyết khoa học viễn tưởng và giả tưởng; nổi tiếng với loạt truyện Hyperion Cantos, kết hợp các yếu tố khoa học viễn tưởng, triết lý và văn học cổ điển.",
+      "butDanh": ""
+    },
+    {
+      "id": 77,
+      "tenTacGia": "Kaiu Shirai",
+      "quocTich": "Nhật Bản",
+      "namSinh": 1991,
+      "namMat": null,
+      "tieuSu": "Nhà văn / tác giả truyện tranh Nhật Bản, nổi tiếng với các truyện kinh dị, trinh thám, tâm lý trong manga.",
+      "butDanh": ""
+    },
+    {
+      "id": 78,
+      "tenTacGia": "Humphrey B. Neill",
+      "quocTich": "Anh",
+      "namSinh": null,
+      "namMat": null,
+      "tieuSu": "Chuyên gia quản trị và phát triển tư duy phản biện; tác phẩm nổi bật tập trung vào tư duy sáng tạo, tư duy phản trực giác và cách ra quyết định trong kinh doanh; nổi bật với phong cách phân tích sâu và ví dụ minh họa cụ thể.",
+      "butDanh": ""
+    },
+    {
+      "id": 79,
+      "tenTacGia": "Nguyễn Chí Vịnh",
+      "quocTich": "Việt Nam",
+      "namSinh": null,
+      "namMat": null,
+      "tieuSu": "Tác giả Việt Nam; viết các tác phẩm về giáo dục, triết lý, kỹ năng sống và kinh nghiệm làm thầy; tác phẩm Người thầy kể về vai trò, ảnh hưởng và triết lý nghề giáo trong cuộc sống và sự nghiệp của mỗi con người.",
+      "butDanh": ""
+    },
+    {
+      "id": 80,
+      "tenTacGia": "Brandon Sanderson",
+      "quocTich": "Mỹ",
+      "namSinh": 1975,
+      "namMat": null,
+      "tieuSu": "Nhà văn Mỹ nổi tiếng với thể loại giả tưởng (fantasy), đặc biệt là các series Mistborn và The Stormlight Archive; phong cách viết chi tiết, xây dựng thế giới phức tạp, hệ thống ma pháp độc đáo.",
+      "butDanh": ""
+    },
+    {
+      "id": 81,
+      "tenTacGia": "Pierce Brown",
+      "quocTich": "Mỹ",
+      "namSinh": 1988,
+      "namMat": null,
+      "tieuSu": "Nhà văn Mỹ chuyên viết tiểu thuyết khoa học viễn tưởng và fantasy; nổi tiếng với series Red Rising, kết hợp các yếu tố chính trị, chiến tranh, phiêu lưu trong thế giới tương lai.",
+      "butDanh": ""
+    },
+    {
+      "id": 82,
+      "tenTacGia": "Stephen M. R. Covey",
+      "quocTich": "Mỹ",
+      "namSinh": 1962,
+      "namMat": null,
+      "tieuSu": "Chuyên gia về lãnh đạo, quản trị và phát triển cá nhân; con trai của Stephen R. Covey – tác giả 7 thói quen của người thành đạt; nổi tiếng với các tác phẩm về xây dựng niềm tin trong tổ chức và cuộc sống.",
+      "butDanh": ""
+    },
+    {
+      "id": 83,
+      "tenTacGia": "Scott Lynch",
+      "quocTich": "Mỹ",
+      "namSinh": 1978,
+      "namMat": null,
+      "tieuSu": "Nhà văn Mỹ chuyên viết tiểu thuyết giả tưởng (fantasy); nổi tiếng với series Gentleman Bastard, bắt đầu bằng The Lies of Locke Lamora; phong cách viết kết hợp phiêu lưu, trinh thám và yếu tố hài hước trong bối cảnh fantasy phức tạp.",
+      "butDanh": ""
+    },
+    {
+      "id": 84,
+      "tenTacGia": "Tôn Tử",
+      "quocTich": "Trung Quốc",
+      "namSinh": null,
+      "namMat": null,
+      "tieuSu": "Nhà quân sự, chiến lược gia và triết gia nổi tiếng của Trung Quốc cổ đại; tác phẩm Nghệ thuật chiến tranh là kinh điển về chiến lược, chiến thuật và quản lý xung đột; ảnh hưởng sâu rộng đến quân sự, kinh doanh và quản trị hiện đại.",
+      "butDanh": ""
+    },
+    {
+      "id": 85,
+      "tenTacGia": "Neil Gaiman",
+      "quocTich": "Anh",
+      "namSinh": 1960,
+      "namMat": null,
+      "tieuSu": "Nhà văn Anh nổi tiếng với các tác phẩm fantasy, giả tưởng, truyện tranh và tiểu thuyết dành cho cả người lớn và trẻ em; phong cách viết giàu tưởng tượng, huyền thoại và hiện thực.",
+      "butDanh": ""
+    },
+    {
+      "id": 86,
+      "tenTacGia": "Liu Cixin",
+      "quocTich": "Trung Quốc",
+      "namSinh": 1963,
+      "namMat": null,
+      "tieuSu": "Nhà văn Trung Quốc nổi tiếng với các tác phẩm khoa học viễn tưởng; phong cách viết kết hợp khoa học thực tế, giả tưởng và triết lý; được biết đến rộng rãi với Remembrance of Earth’s Past (loạt 3 tập, bắt đầu với The Three-Body Problem).",
+      "butDanh": ""
+    },
+    {
+      "id": 87,
+      "tenTacGia": "N. K. Jemisin",
+      "quocTich": "Mỹ",
+      "namSinh": 1972,
+      "namMat": null,
+      "tieuSu": "Nhà văn Mỹ chuyên viết tiểu thuyết giả tưởng (fantasy) và khoa học viễn tưởng; nổi tiếng với series The Broken Earth (The Fifth Season là tập đầu tiên); phong cách viết độc đáo, khai thác các vấn đề xã hội, môi trường và chủng tộc trong bối cảnh fantasy.",
+      "butDanh": ""
+    },
+    {
+      "id": 88,
+      "tenTacGia": "Cormac McCarthy",
+      "quocTich": "Mỹ",
+      "namSinh": 1933,
+      "namMat": 2023,
+      "tieuSu": "Nhà văn Mỹ nổi tiếng với các tác phẩm hiện thực và hậu tận thế; phong cách viết cô đọng, tăm tối và sâu sắc, tập trung vào các vấn đề sinh tồn, đạo đức và mối quan hệ con người.",
+      "butDanh": ""
+    },
+    {
+      "id": 89,
+      "tenTacGia": "Dương Hướng",
+      "quocTich": "Việt Nam",
+      "namSinh": null,
+      "namMat": null,
+      "tieuSu": "Nhà văn Việt Nam; viết các tiểu thuyết phản ánh đời sống, tình cảm và số phận con người; phong cách nhẹ nhàng, gần gũi với đời sống thường nhật.",
+      "butDanh": ""
+    },
+    {
+      "id": 90,
+      "tenTacGia": "Terry Pratchett",
+      "quocTich": "Anh",
+      "namSinh": 1948,
+      "namMat": 2015,
+      "tieuSu": "Nhà văn fantasy nổi tiếng với series Discworld gồm 41 cuốn. Phong cách hài hước, châm biếm, sáng tạo. Được phong tước Hiệp sĩ năm 2009 vì đóng góp cho văn học Anh.",
+      "butDanh": "Patrick Kearns, Uncle Jim"
+    },
+    {
+      "id": 91,
+      "tenTacGia": "Daniel Abraham",
+      "quocTich": "Mỹ",
+      "namSinh": 1969,
+      "namMat": null,
+      "tieuSu": "Nhà văn Mỹ chuyên viết fantasy và sci-fi. Tác phẩm nổi bật nhất là series The Expanse. Phong cách giàu kịch tính, nhịp nhanh, xây dựng thế giới rất chi tiết.",
+      "butDanh": "M.L.N. Hanover, James S.A. Corey"
+    },
+    {
+      "id": 92,
+      "tenTacGia": "Ty Franck",
+      "quocTich": "Mỹ",
+      "namSinh": 1970,
+      "namMat": null,
+      "tieuSu": "Nhà văn và nhà thiết kế thế giới giả tưởng. Là đồng tác giả The Expanse và từng làm việc với George R.R. Martin. Tập trung vào xây dựng bối cảnh khoa học viễn tưởng thực tế.",
+      "butDanh": "James S.A. Corey"
+    },
+    {
+      "id": 93,
+      "tenTacGia": "Anu Partanen",
+      "quocTich": "Phần Lan – Mỹ",
+      "namSinh": 1975,
+      "namMat": null,
+      "tieuSu": "Nhà báo, nhà phân tích xã hội. Nổi tiếng với việc so sánh mô hình phúc lợi Bắc Âu và Mỹ. Cuốn sách trở thành tài liệu tham khảo phổ biến về giáo dục và xã hội Bắc Âu.",
+      "butDanh": ""
+    },
+    {
+      "id": 94,
+      "tenTacGia": "Trevor Corson",
+      "quocTich": "Mỹ",
+      "namSinh": 1966,
+      "namMat": null,
+      "tieuSu": "Nhà văn phi hư cấu, biên tập viên và giảng viên. Viết nhiều về văn hóa, xã hội và ẩm thực. Đồng tác giả trong phiên bản mở rộng của sách.",
+      "butDanh": ""
+    },
+    {
+      "id": 95,
+      "tenTacGia": "Matthew P. Walker",
+      "quocTich": "Anh",
+      "namSinh": 1972,
+      "namMat": null,
+      "tieuSu": "Nhà khoa học thần kinh và chuyên gia nghiên cứu giấc ngủ. Giáo sư tại UC Berkeley. Cuốn Why We Sleep giúp phổ biến kiến thức khoa học về giấc ngủ toàn cầu, trở thành bestseller quốc tế.",
+      "butDanh": ""
+    },
+    {
+      "id": 96,
+      "tenTacGia": "Nguyễn Xuân Hồng",
+      "quocTich": "Việt Nam",
+      "namSinh": null,
+      "namMat": null,
+      "tieuSu": "Dịch giả chuyên về các đầu sách khoa học – giáo dục, từng dịch nhiều tác phẩm phi hư cấu nổi tiếng. Bản dịch “Giải mã giấc ngủ” được đánh giá cao vì giữ được giọng văn học thuật nhưng vẫn dễ hiểu.",
+      "butDanh": ""
     }
 
 ]

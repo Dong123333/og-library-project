@@ -16,7 +16,10 @@ export class ThongBaoController {
 
   @Get()
   findAll(@Request() req) {
-    return this.thongBaoService.findAll(req.user._id, req.user.role);
+    return this.thongBaoService.findAll(
+      req.user._id,
+      req.user.maVaiTro.maVaiTro,
+    );
   }
 
   @Patch(':id/read')
@@ -26,6 +29,9 @@ export class ThongBaoController {
 
   @Patch('read-all')
   markAllRead(@Request() req) {
-    return this.thongBaoService.markAllRead(req.user._id, req.user.role);
+    return this.thongBaoService.markAllRead(
+      req.user._id,
+      req.user.maVaiTro.maVaiTro,
+    );
   }
 }

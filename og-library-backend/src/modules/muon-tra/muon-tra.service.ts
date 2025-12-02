@@ -11,6 +11,9 @@ import { ChiTietMuonTra } from '../chi-tiet-muon-tra/schemas/chi-tiet-muon-tra.s
 import { Sach } from '../sach/schemas/sach.schema';
 import { PhieuPhatService } from '../phieu-phat/phieu-phat.service';
 import { ThongBaoService } from '../thong-bao/thong-bao.service';
+import aqp from 'api-query-params';
+import { NguoiDung } from '../nguoi-dung/schemas/nguoi-dung.schema';
+import { convertToRegex } from '../../helpers/regex.util';
 
 @Injectable()
 export class MuonTraService {
@@ -20,6 +23,7 @@ export class MuonTraService {
     @InjectModel(ChiTietMuonTra.name)
     private chiTietMuonTraModel: Model<ChiTietMuonTra>,
     @InjectModel(Sach.name) private sachModel: Model<Sach>,
+    @InjectModel(NguoiDung.name) private nguoiDungModel: Model<NguoiDung>,
     private phieuPhatService: PhieuPhatService,
     private thongBaoService: ThongBaoService,
   ) {}
@@ -229,7 +233,7 @@ export class MuonTraService {
       }
 
       const isOwner = phieu.maNguoiDung.toString() === user._id.toString();
-      const isAdmin = user.role === 'VT002';
+      const isAdmin = user.maVaiTro.maVaiTro === 'VT002';
 
       if (!isOwner && !isAdmin) {
         throw new BadRequestException('Bạn không có quyền hủy phiếu này');
@@ -262,7 +266,7 @@ export class MuonTraService {
         await this.thongBaoService.create({
           loaiThongBao: 'LIBRARIAN',
           tieuDe: 'Độc giả đã hủy yêu cầu',
-          noiDung: `Độc giả ${user.fullName} đã hủy phiếu mượn ${phieu._id.toString().slice(-6)}.`,
+          noiDung: `Độc giả ${user.hoVaTen} đã hủy phiếu mượn ${phieu._id.toString().slice(-6)}.`,
           lienKet: '/librarian/loans',
         });
       }
@@ -281,11 +285,65 @@ export class MuonTraService {
     }
   }
 
-  async findAll() {
-    return this.muonTraModel
-      .find()
-      .populate('maNguoiDung', 'hoVaTen email')
-      .sort({ createdAt: -1 });
+  async findAll(currentPage: number, limit: number, query: string) {
+    const { filter, sort } = aqp(query);
+    delete filter.page;
+    delete filter.limit;
+    delete filter.current;
+    delete filter.pageSize;
+
+    const keyword = filter.keyword;
+    delete filter.keyword;
+
+    if (keyword) {
+      const regexString = convertToRegex(keyword);
+      const regex = { $regex: regexString, $options: 'i' };
+      const users = await this.nguoiDungModel
+        .find({
+          $or: [{ hoVaTen: regex }, { email: regex }],
+        })
+        .select('_id');
+
+      const userIds = users.map((u) => u._id);
+
+      const keywordString = String(keyword);
+
+      filter['$or'] = [
+        { maNguoiDung: { $in: userIds } },
+        {
+          $expr: {
+            $regexMatch: {
+              input: { $toString: '$_id' },
+              regex: keywordString,
+              options: 'i',
+            },
+          },
+        },
+      ];
+    }
+    const sortOption = sort || { createdAt: -1 };
+    const defaultLimit = limit ? limit : 10;
+    const offset = (currentPage - 1) * defaultLimit;
+
+    const totalItems = await this.muonTraModel.countDocuments(filter);
+
+    const result = await this.muonTraModel
+      .find(filter)
+      .skip(offset)
+      .limit(defaultLimit)
+      .sort(sortOption as any)
+      .populate('maNguoiDung', 'hoVaTen email soDienThoai')
+      .exec();
+
+    return {
+      meta: {
+        current: currentPage,
+        pageSize: defaultLimit,
+        pages: Math.ceil(totalItems / defaultLimit),
+        total: totalItems,
+      },
+      result,
+    };
   }
 
   async findDetails(loanId: string) {
@@ -296,11 +354,30 @@ export class MuonTraService {
       .exec();
   }
 
-  async getHistoryByUser(userId: string) {
-    return await this.muonTraModel
+  async getHistoryByUser(currentPage: number, limit: number, userId: string) {
+    const offset = (currentPage - 1) * limit;
+    const defaultLimit = limit ? limit : 10;
+
+    const totalItems = await this.muonTraModel.countDocuments({
+      maNguoiDung: userId,
+    });
+
+    const result = await this.muonTraModel
       .find({ maNguoiDung: userId })
       .sort({ createdAt: -1 })
+      .skip(offset)
+      .limit(defaultLimit)
       .exec();
+
+    return {
+      meta: {
+        current: currentPage,
+        pageSize: defaultLimit,
+        pages: Math.ceil(totalItems / defaultLimit),
+        total: totalItems,
+      },
+      result,
+    };
   }
 
   async getTrendingBooks(limit = 6) {

@@ -52,7 +52,7 @@ const LoginPage = () => {
                     duration: 2
                 });
 
-                const role = res.user.maVaiTro;
+                const role = res.user.maVaiTro.maVaiTro;
                 if (role === 'VT001') {
                     navigate('/');
                 } else if (role === 'VT002') {
@@ -94,6 +94,7 @@ const LoginPage = () => {
             />
             <Form
                 form={form}
+                autoComplete="off"
                 name="login_form"
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
@@ -107,14 +108,14 @@ const LoginPage = () => {
                         { type: 'email', message: 'Email không hợp lệ!' }
                     ]}
                 >
-                    <Input prefix={<MailOutlined className="text-gray-400" />} placeholder="Email" />
+                    <Input prefix={<MailOutlined className="text-gray-400" />} placeholder="Email"/>
                 </Form.Item>
 
                 <Form.Item
                     name="password"
                     rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}
                 >
-                    <Input.Password prefix={<LockOutlined className="text-gray-400" />} placeholder="Mật khẩu" />
+                    <Input.Password prefix={<LockOutlined className="text-gray-400" />} placeholder="Mật khẩu"/>
                 </Form.Item>
 
                 <div className="flex justify-between items-center mb-4">

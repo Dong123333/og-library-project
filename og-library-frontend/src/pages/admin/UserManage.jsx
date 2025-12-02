@@ -128,7 +128,11 @@ const UserManage = () => {
             width: 60,
             align: 'center',
             render: (text, record, index) => {
-                return index + 1;
+                return (
+                    <b>
+                        {(current - 1) * pageSize + index + 1}
+                    </b>
+                );
             },
         },
         {
@@ -258,6 +262,10 @@ const UserManage = () => {
                     onChange={(page, pageSize) => {
                         setCurrent(page);
                         setPageSize(pageSize);
+                        const tableBody = document.querySelector('.ant-table-body');
+                        if (tableBody) {
+                            tableBody.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
                     }}
                 />
             </div>

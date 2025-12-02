@@ -26,7 +26,7 @@ export class PhieuPhatController {
   @Get()
   findAll(@Request() req) {
     const user = req.user;
-    if (user.role === 'VT002') {
+    if (user.maVaiTro.maVaiTro === 'VT002') {
       return this.phieuPhatService.findAll();
     }
     return this.phieuPhatService.findByUser(user._id);
@@ -34,7 +34,7 @@ export class PhieuPhatController {
 
   @Patch(':id/pay')
   confirmPayment(@Param('id') id: string, @Request() req) {
-    if (req.user.role !== 'VT002') {
+    if (req.user.maVaiTro.maVaiTro !== 'VT002') {
       throw new BadRequestException('Chỉ Admin mới được xác nhận thu tiền');
     }
     return this.phieuPhatService.confirmPayment(id);

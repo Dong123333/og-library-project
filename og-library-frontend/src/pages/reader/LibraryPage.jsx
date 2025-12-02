@@ -23,6 +23,7 @@ import useDebounce from "../../hooks/UseDebounce.jsx";
 import bookDonation from "../../assets/images/book-donation.png";
 import dayjs from "dayjs";
 import {useAuth} from "../../context/AuthContext.jsx";
+import FadeInImage from "../../components/FadeInImage.jsx";
 
 const { Meta } = Card;
 
@@ -35,12 +36,12 @@ const LibraryPage = () => {
     const [categories, setCategories] = useState([]);
     const [selectedBook, setSelectedBook] = useState(null);
     const [isBorrowModalOpen, setIsBorrowModalOpen] = useState(false);
-    const [borrowLoading, setBorrowLoading] = useState(false);
+    const [loadingBookId, setLoadingBookId] = useState(null);
     const [form] = Form.useForm();
     const { isAuthenticated } = useAuth();
 
     const [current, setCurrent] = useState(1);
-    const [pageSize, setPageSize] = useState(8);
+    const [pageSize, setPageSize] = useState(16);
     const [total, setTotal] = useState(0);
 
     const [searchTerm, setSearchTerm] = useState("");
@@ -101,7 +102,7 @@ const LibraryPage = () => {
     };
 
     const handleConfirmBorrow = async (values) => {
-        setBorrowLoading(true);
+        setLoadingBookId(selectedBook._id);
         try {
             const payload = {
                 items: [
@@ -126,7 +127,7 @@ const LibraryPage = () => {
                 messageApi.error("Lỗi mượn sách");
             }
         }
-        setBorrowLoading(false);
+        setLoadingBookId(null)
         setIsBorrowModalOpen(false);
     };
 
@@ -201,11 +202,11 @@ const LibraryPage = () => {
                                                     hoverable
                                                     className="h-full flex flex-col rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
                                                     cover={
-                                                        <div className="h-60 p-4 bg-[#f0f2f5] relative group">
-                                                            <img
+                                                        <div className="h-64 p-4 relative group bg-white flex justify-center items-center border-b border-gray-100">
+                                                            <FadeInImage
+                                                                src={book.hinhAnh}
                                                                 alt={book.tenSach}
-                                                                src={book.hinhAnh || "https://placehold.co/400x600?text=No+Image"}
-                                                                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-h-[90%] max-w-[90%] object-contain shadow-md transition-transform duration-300 group-hover:scale-110"
+                                                                className="w-full h-full"
                                                             />
                                                             <div className="absolute inset-0 bg-black/20 hidden group-hover:flex items-center justify-center transition-all">
                                                                 <Button type="primary" shape="round" onClick={() => navigate(`/library/${book._id}`)}>
@@ -242,12 +243,23 @@ const LibraryPage = () => {
                                                         <Button
                                                             type="primary"
                                                             size="large"
-                                                            className="bg-orange-500 hover:bg-orange-600 h-14 text-lg font-bold shadow-lg shadow-orange-200 mt-4"
-                                                            loading={borrowLoading}
+                                                            className="flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 h-14 text-lg font-bold shadow-lg shadow-orange-200 mt-4"
+                                                            loading={loadingBookId === book._id}
                                                             disabled={book.soLuong === 0}
                                                             onClick={() => handleOpenBorrowModal(book)}
                                                         >
-                                                            <img style={{ filter: 'invert(100%)', width: '28px', height: '28px' }} src={bookDonation} alt=""/>
+                                                            {loadingBookId !== book._id && (
+                                                                    <img
+                                                                        style={{
+                                                                            filter: 'invert(100%)',
+                                                                            width: '24px',
+                                                                            height: '24px',
+                                                                            objectFit: 'contain'
+                                                                        }}
+                                                                        src={bookDonation}
+                                                                        alt=""
+                                                                    />
+                                                            )}
                                                             <span>Mượn Ngay</span>
                                                         </Button>
                                                     </div>
@@ -267,7 +279,7 @@ const LibraryPage = () => {
                                 pageSize={pageSize}
                                 total={total}
                                 showSizeChanger
-                                pageSizeOptions={['4', '8', '12', '20']}
+                                pageSizeOptions={['8', '16', '32', '64']}
                                 onChange={(p, s) => {
                                     setCurrent(p);
                                     setPageSize(s);
@@ -295,7 +307,6 @@ const LibraryPage = () => {
                 onCancel={() => setIsBorrowModalOpen(false)}
                 onOk={() => form.submit()}
                 okText="Xác nhận mượn"
-                confirmLoading={borrowLoading}
                 centered
                 width={500}
             >

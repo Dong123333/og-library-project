@@ -3,8 +3,9 @@ import {
     Table, Button, Modal, Form, Input, Select, InputNumber, Space, message, Popconfirm, Image, Row, Col,
     Pagination
 } from 'antd';
-import {EditOutlined, DeleteOutlined, PlusOutlined, UploadOutlined} from '@ant-design/icons';
+import {EditOutlined, DeleteOutlined, PlusOutlined, UploadOutlined, SearchOutlined} from '@ant-design/icons';
 import axios from "../../services/axios.customize.jsx";
+import useDebounce from "../../hooks/UseDebounce.jsx";
 
 const BookManage = () => {
     const [listBook, setListBook] = useState([]);
@@ -26,6 +27,8 @@ const BookManage = () => {
     const [inputKey, setInputKey] = useState(Date.now());
     const fileInputRef = useRef(null);
     const [isSubmitLoading, setIsSubmitLoading] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
+    const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
     useEffect(() => {
         fetchMasterData();
@@ -33,7 +36,7 @@ const BookManage = () => {
 
     useEffect(() => {
         fetchBooks();
-    }, [current, pageSize]);
+    }, [current, pageSize, debouncedSearchTerm]);
 
     const handleImageChange = (e) => {
         if (e.target.files && e.target.files[0]) {
@@ -62,8 +65,14 @@ const BookManage = () => {
 
     const fetchBooks = async () => {
         setLoading(true);
+
+        let query = `page=${current}&limit=${pageSize}`;
+
+        if (debouncedSearchTerm) {
+            query += `&tenSach=${debouncedSearchTerm}`;
+        }
         try {
-            const res = await axios.get(`/sach?page=${current}&limit=${pageSize}`);
+            const res = await axios.get(`/sach?${query}`);
             if (res && res.result) {
                 setListBook(res.result);
                 setTotal(res.meta.total);
@@ -145,7 +154,11 @@ const BookManage = () => {
             width: 60,
             align: 'center',
             render: (text, record, index) => {
-                return index + 1;
+                return (
+                    <b>
+                        {(current - 1) * pageSize + index + 1}
+                    </b>
+                );
             },
         },
         {
@@ -160,7 +173,7 @@ const BookManage = () => {
         },
         {
             title: 'Danh mục',
-            dataIndex: 'maDanhMuc', // Đây là object do populate
+            dataIndex: 'maDanhMuc',
             render: (item) => item?.tenDanhMuc || <span className="text-gray-400">--</span>
         },
         {
@@ -220,15 +233,30 @@ const BookManage = () => {
             paddingBottom: 0
         }}>
             {contextHolder}
-            <div className="flex justify-between items-center mb-4">
+            <div className="mb-4">
                 <h2 className="text-2xl font-bold">Quản Lý Sách</h2>
+            </div>
+            <div className="flex justify-between items-center mb-4">
+                <div className="min-w-[500px]">
+                    <Input
+                        size="large"
+                        placeholder="Nhập tên sách..."
+                        prefix={<SearchOutlined />}
+                        className="flex-grow"
+                        value={searchTerm}
+                        onChange={(e) => {
+                            setSearchTerm(e.target.value);
+                        }}
+                    />
+                </div>
                 <Button type="primary" icon={<PlusOutlined />} onClick={() => {
                     setEditingBook(null);
                     form.resetFields();
                     setRawFile(null);
                     setSelectedImage("");
                     setIsModalOpen(true);
-                }}>Thêm sách mới</Button>
+                }}>Thêm sách mới
+                </Button>
             </div>
 
             <div style={{ flex: 1, overflow: 'hidden' }}>
@@ -240,7 +268,7 @@ const BookManage = () => {
                     pagination={false}
                     scroll={{
                         x: 1000,
-                        y: 'calc(100vh - 300px)'
+                        y: 'calc(100vh - 380px)'
                     }}
                 />
             </div>
@@ -260,6 +288,10 @@ const BookManage = () => {
                     onChange={(page, pageSize) => {
                         setCurrent(page);
                         setPageSize(pageSize);
+                        const tableBody = document.querySelector('.ant-table-body');
+                        if (tableBody) {
+                            tableBody.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
                     }}
                 />
             </div>

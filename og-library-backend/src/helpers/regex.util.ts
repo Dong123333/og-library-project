@@ -1,5 +1,8 @@
-export function convertToRegex(text: string): string {
-  let result = text.toLowerCase();
+export function convertToRegex(text: any): string {
+  if (!text) return '';
+  let result = String(text);
+  result = result.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, ' ');
+  result = result.toLowerCase();
   result = result.replace(/a/g, '[aàáạảãâầấậẩẫăằắặẳẵ]');
   result = result.replace(/e/g, '[eèéẹẻẽêềếệểễ]');
   result = result.replace(/i/g, '[iìíịỉĩ]');
@@ -8,7 +11,8 @@ export function convertToRegex(text: string): string {
   result = result.replace(/y/g, '[yỳýỵỷỹ]');
   result = result.replace(/d/g, '[dđ]');
 
-  result = result.replace(/\s+/g, '\\s+');
+  result = result.trim();
+  result = result.replace(/\s+/g, '[\\W_]+');
 
   return result;
 }

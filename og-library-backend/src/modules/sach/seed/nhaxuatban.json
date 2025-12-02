@@ -58,5 +58,55 @@
       "id": 12,
       "tenNhaXuatBan": "Gallimard",
       "diaChi": "Paris, France"
+    },
+    {
+      "id": 13,
+      "tenNhaXuatBan": "Liễu Văn Đường",
+      "diaChi": ""
+    },
+    {
+      "id": 14,
+      "tenNhaXuatBan": "Nhà xuất bản Thời Đại",
+      "diaChi": "394 Nguyễn Thị Minh Khai, Quận 3, Thành phố Hồ Chí Minh"
+    },
+    {
+      "id": 15,
+      "tenNhaXuatBan": "Nhà xuất bản Thế Giới",
+      "diaChi": "Số 59 phố Thợ Nhuộm, phường Cửa Nam, quận Hoàn Kiếm, Hà Nội"
+    },
+    {
+      "id": 16,
+      "tenNhaXuatBan": "Nhà xuất bản Dân Trí",
+      "diaChi": "Số 9, ngõ 26, phố Hoàng Cầu, phường Ô Chợ Dừa, quận Đống Đa, Hà Nội"
+    },
+    {
+      "id": 17,
+      "tenNhaXuatBan": "Nhà xuất bản Xây Dựng",
+      "diaChi": "37 Lê Đại Hành, quận Hai Bà Trưng, Hà Nội"
+    },
+    {
+      "id": 18,
+      "tenNhaXuatBan": "Nhà Xuất Bản Văn Hóa - Văn Nghệ TP.HCM",
+      "diaChi": "88‑90 đường Ký Con, phường Nguyễn Thái Bình, quận 1, TP.Hồ Chí Minh"
+    },
+    {
+      "id": 19,
+      "tenNhaXuatBan": "Nhà xuất bản Thanh Niên",
+      "diaChi": "D29 Phạm Văn Bạch, phường Yên Hòa, quận Cầu Giấy, Hà Nội"
+    },
+    {
+      "id": 20,
+      "tenNhaXuatBan": "Nhà xuất bản Văn Hóa Thông Tin",
+      "diaChi": "43 Lò Đúc, quận Hai Bà Trưng, Hà Nội"
+    },
+    {
+      "id": 21,
+      "tenNhaXuatBan": "Nhà xuất bản Mỹ Thuật",
+      "diaChi": "44B Hàm Long, quận Hoàn Kiếm, Hà Nội"
+    },
+    {
+      "id": 22,
+      "tenNhaXuatBan": "Nhà xuất bản Quân đội nhân dân",
+      "diaChi": "23 Lý Nam Đế, quận Hoàn Kiếm, Hà Nội"
     }
 ]

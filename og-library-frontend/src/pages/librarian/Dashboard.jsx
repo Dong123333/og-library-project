@@ -107,7 +107,6 @@ const Dashboard = () => {
                 );
 
                 setActivities(combined);
-                console.log(activities);
             }
         } catch (e) { console.error("Lỗi Recent", e) }
         setLoadingActivity(false);

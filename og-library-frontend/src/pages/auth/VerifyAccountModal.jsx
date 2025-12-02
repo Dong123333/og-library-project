@@ -34,6 +34,7 @@ const VerifyAccountModal = ({ isModalOpen, setIsModalOpen, email, userId }) => {
                 });
                 form.resetFields();
                 setIsModalOpen(false);
+                localStorage.removeItem('remembered_email');
             }
         } catch (error) {
             api.error({
@@ -63,7 +64,7 @@ const VerifyAccountModal = ({ isModalOpen, setIsModalOpen, email, userId }) => {
                 title={<span className="text-2xl font-bold">Kích hoạt tài khoản</span>}
                 open={isModalOpen}
                 onCancel={() => setIsModalOpen(false)}
-                footer={null} // Tắt nút mặc định của Modal để tự custom
+                footer={null}
                 maskClosable={false}
                 centered
             >

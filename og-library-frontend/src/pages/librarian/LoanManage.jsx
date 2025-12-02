@@ -1,13 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import {Table, Tag, Button, message, Modal, Form, InputNumber, Input, Tooltip, Popconfirm, Space, Select} from 'antd';
+import {
+    Table,
+    Tag,
+    Button,
+    message,
+    Modal,
+    Form,
+    InputNumber,
+    Input,
+    Tooltip,
+    Popconfirm,
+    Space,
+    Select,
+    Pagination
+} from 'antd';
 import {
     CheckCircleOutlined,
     CarOutlined,
     ExclamationCircleOutlined,
-    ClockCircleOutlined, CloseCircleOutlined
+    ClockCircleOutlined, CloseCircleOutlined, SearchOutlined
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import axios from '../../services/axios.customize';
+import useDebounce from "../../hooks/UseDebounce.jsx";
 
 const LoanManage = () => {
     const [loans, setLoans] = useState([]);
@@ -21,14 +36,27 @@ const LoanManage = () => {
     const [selectedLoanId, setSelectedLoanId] = useState(null);
     const [formApprove] = Form.useForm();
     const [messageApi, contextHolder] = message.useMessage();
+    const [searchTerm, setSearchTerm] = useState("");
+    const debouncedSearchTerm = useDebounce(searchTerm, 500);
+    const [current, setCurrent] = useState(1);
+    const [pageSize, setPageSize] = useState(5);
+    const [total, setTotal] = useState(0);
 
-    useEffect(() => { fetchLoans(); }, []);
+    useEffect(() => { fetchLoans(); }, [current, pageSize, debouncedSearchTerm]);
 
     const fetchLoans = async () => {
         setLoading(true);
+
+        let query = `page=${current}&limit=${pageSize}`;
+        if (debouncedSearchTerm) {
+            query += `&keyword=${debouncedSearchTerm}`;
+        }
         try {
-            const res = await axios.get('/muon-tra');
-            if (Array.isArray(res)) setLoans(res);
+            const res = await axios.get(`/muon-tra?${query}`);
+            if (res && res.result) {
+                setLoans(res.result);
+                setTotal(res.meta.total);
+            }
         } catch (error) {
             messageApi.error("Lỗi tải danh sách");
         }
@@ -178,9 +206,16 @@ const LoanManage = () => {
     const columns = [
         {
             title: 'STT',
+            key: 'stt',
             width: 60,
             align: 'center',
-            render: (_, __, index) => <b>{index + 1}</b>,
+            render: (text, record, index) => {
+                return (
+                    <b>
+                        {(current - 1) * pageSize + index + 1}
+                    </b>
+                );
+            },
         },
         {
             title: 'Mã phiếu',
@@ -400,6 +435,18 @@ const LoanManage = () => {
             {contextHolder}
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-2xl font-bold mb-4">Quản lý Mượn Trả</h2>
+                <div className="flex gap-2 w-[300px]">
+                    <Input
+                        size="large"
+                        placeholder="Nhập mã phiếu hoặc người mượn..."
+                        prefix={<SearchOutlined />}
+                        className="flex-grow"
+                        value={searchTerm}
+                        onChange={(e) => {
+                            setSearchTerm(e.target.value);
+                        }}
+                    />
+                </div>
             </div>
             <div style={{ flex: 1, overflow: 'hidden' }}>
                 <Table
@@ -413,6 +460,29 @@ const LoanManage = () => {
                     scroll={{
                         x: 1000,
                         y: 'calc(100vh - 300px)'
+                    }}
+                />
+            </div>
+            <div style={{
+                marginTop: 16,
+                display: 'flex',
+                justifyContent: 'flex-end',
+                flexShrink: 0
+            }}>
+                <Pagination
+                    current={current}
+                    total={total}
+                    pageSize={pageSize}
+                    showSizeChanger
+                    pageSizeOptions={['5', '10', '20', '50']}
+                    showTotal={(total, range) => `${range[0]}-${range[1]} của ${total} phiếu`}
+                    onChange={(page, pageSize) => {
+                        setCurrent(page);
+                        setPageSize(pageSize);
+                        const tableBody = document.querySelector('.ant-table-body');
+                        if (tableBody) {
+                            tableBody.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
                     }}
                 />
             </div>

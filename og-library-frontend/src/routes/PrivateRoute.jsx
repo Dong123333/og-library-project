@@ -31,8 +31,7 @@ export const AdminRoute = ({ children }) => {
     if (!isAuthenticated) {
         return <Navigate to="/login" replace />;
     }
-    console.log(user)
-    if (user.maVaiTro !== 'VT003') {
+    if (user.maVaiTro.maVaiTro !== 'VT003') {
         return (
             <div className="flex justify-center items-center h-screen bg-gray-100">
                 <Result
@@ -63,7 +62,7 @@ export const LibrarianRoute = ({ children }) => {
     if (!isAuthenticated) {
         return <Navigate to="/login" replace />;
     }
-    if (user.maVaiTro !== 'VT002') {
+    if (user.maVaiTro.maVaiTro !== 'VT002') {
         return (
             <div className="flex justify-center items-center h-screen bg-gray-100">
                 <Result

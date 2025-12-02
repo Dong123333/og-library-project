@@ -45,6 +45,7 @@ const VerifyAccountPage = () => {
                     description: "Tài khoản của bạn đã được kích hoạt. Vui lòng đăng nhập."
                 });
                 form.resetFields();
+                localStorage.removeItem('remembered_email');
                 navigate('/login');
             }
         } catch (error) {

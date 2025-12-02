@@ -1,11 +1,10 @@
 import React from 'react';
-import { Layout, Button, Avatar, Dropdown, Badge, Space, theme } from 'antd';
+import { Layout, Button, Avatar, Dropdown, Space, theme } from 'antd';
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     UserOutlined,
     LogoutOutlined,
-    BellOutlined,
     SettingOutlined
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
@@ -66,11 +65,6 @@ const AdminHeader = ({ collapsed, setCollapsed }) => {
                 </span>
             </div>
             <div className="flex items-center gap-6 pr-4">
-                <div className="cursor-pointer hover:bg-gray-100 p-2 rounded-full ">
-                    <Badge count={5} size="small">
-                        <BellOutlined style={{ fontSize: '20px', color: '#555' }} />
-                    </Badge>
-                </div>
                 <Dropdown menu={{ items: menuItems }} trigger={['click']} placement="bottomRight">
                     <Space className="cursor-pointer hover:bg-gray-100 p-2 rounded-lg  border border-transparent">
                         <div className="flex items-center mr-3">

@@ -31,7 +31,9 @@ export class MailService {
 
     if (!fs.existsSync(templatePath)) {
       this.logger.error(`❌ Không tìm thấy file template tại: ${templatePath}`);
-      this.logger.error(`💡 Gợi ý: Kiểm tra lại nest-cli.json xem đã cấu hình copy assets chưa?`);
+      this.logger.error(
+        `💡 Gợi ý: Kiểm tra lại nest-cli.json xem đã cấu hình copy assets chưa?`,
+      );
       return '';
     }
 

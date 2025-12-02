@@ -5,13 +5,12 @@ import {
   Body,
   Patch,
   Param,
-  Delete,
   Request,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { MuonTraService } from './muon-tra.service';
 import { CreateMuonTraDto, ReturnBookDto } from './dto/create-muon-tra.dto';
-import { UpdateMuonTraDto } from './dto/update-muon-tra.dto';
 import { JwtAuthGuard } from '../../auth/passport/jwt-auth.guard';
 
 @Controller('muon-tra')
@@ -47,19 +46,29 @@ export class MuonTraController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  @UseGuards(JwtAuthGuard)
-  findAll(@Request() req) {
+  findAll(
+    @Request() req,
+    @Query('page') currentPage: string,
+    @Query('limit') limit: string,
+    @Query() query: string,
+  ) {
     const user = req.user;
 
-    if (user.role === 'VT002') {
-      return this.muonTraService.findAll();
+    if (user.maVaiTro.maVaiTro === 'VT002') {
+      return this.muonTraService.findAll(
+        +currentPage || 1,
+        +limit || 10,
+        query,
+      );
     }
 
-    // Nếu là Reader -> Chỉ xem của mình
-    return this.muonTraService.getHistoryByUser(user._id);
+    return this.muonTraService.getHistoryByUser(
+      +currentPage || 1,
+      +limit || 10,
+      user._id);
   }
 
-  @Get(':id/details') // Lấy chi tiết
+  @Get(':id/details')
   getDetails(@Param('id') id: string) {
     return this.muonTraService.findDetails(id);
   }

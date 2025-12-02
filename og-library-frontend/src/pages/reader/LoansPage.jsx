@@ -1,5 +1,18 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Layout, Table, Tag, Typography, message, Tooltip, Tabs, Alert, Empty, Popconfirm, Button} from 'antd';
+import {
+    Layout,
+    Table,
+    Tag,
+    Typography,
+    message,
+    Tooltip,
+    Tabs,
+    Alert,
+    Empty,
+    Popconfirm,
+    Button,
+    Pagination
+} from 'antd';
 import {
     HomeOutlined,
     ClockCircleOutlined,
@@ -29,6 +42,9 @@ const LoansPage = () => {
     const [activeTab, setActiveTab] = useState('1');
     const location = useLocation();
     const [messageApi, contextHolder] = message.useMessage();
+    const [current, setCurrent] = useState(1);
+    const [pageSize, setPageSize] = useState(5);
+    const [total, setTotal] = useState(0);
 
     useEffect(() => {
         const hash = window.location.hash;
@@ -41,14 +57,21 @@ const LoansPage = () => {
 
     useEffect(() => {
         fetchMyLoans();
+    }, [current, pageSize]);
+
+    useEffect(() => {
         fetchMyPenalty();
     }, []);
 
     const fetchMyLoans = async () => {
         setLoading(true);
+
         try {
-            const res = await axios.get('/muon-tra');
-            if (Array.isArray(res)) setLoans(res);
+            const res = await axios.get(`/muon-tra?page=${current}&limit=${pageSize}`);
+            if (res && res.result) {
+                setLoans(res.result);
+                setTotal(res.meta.total);
+            }
         } catch (error) {
             messageApi.error("Lỗi tải lịch sử");
         }
@@ -110,10 +133,14 @@ const LoansPage = () => {
         {
             title: 'STT',
             key: 'stt',
-            align: 'center',
             width: 60,
+            align: 'center',
             render: (text, record, index) => {
-                return <b>{index + 1}</b>;
+                return (
+                    <b>
+                        {(current - 1) * pageSize + index + 1}
+                    </b>
+                );
             },
         },
         {
@@ -437,9 +464,9 @@ const LoansPage = () => {
                         </Tooltip>
                     </div>
                 } key="1">
-                    <Layout className="min-h-screen bg-gray-50">
+                    <div className="bg-gray-50" style={{ height: 'calc(100vh - 100px)', display: 'flex', flexDirection: 'column' }}>
                         <Content className="max-w-6xl mx-auto px-4 py-8 w-full">
-                            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100" style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
                                 <Table
                                     className="components-table-demo-nested"
                                     columns={columns}
@@ -447,20 +474,39 @@ const LoansPage = () => {
                                     expandable={{ expandedRowRender, onExpand }}
                                     rowKey="_id"
                                     loading={loading}
-                                    pagination={{ pageSize: 10 }}
-                                    onChange={ () => {
-                                        if (topRef.current) {
-                                            topRef.current.scrollIntoView({
-                                                behavior: 'smooth',
-                                                block: 'start'
-                                            });
+                                    pagination={false}
+                                    scroll={{
+                                        x: 1000,
+                                        y: 'calc(100vh - 280px)'
+                                    }}
+                                />
+                            </div>
+                            <div style={{
+                                marginTop: 16,
+                                display: 'flex',
+                                justifyContent: 'flex-end',
+                                flexShrink: 0
+                            }}>
+                                <Pagination
+                                    current={current}
+                                    total={total}
+                                    pageSize={pageSize}
+                                    showSizeChanger
+                                    pageSizeOptions={['5', '10', '20', '50']}
+                                    showTotal={(total, range) => `${range[0]}-${range[1]} của ${total} phiếu`}
+                                    onChange={(page, pageSize) => {
+                                        setCurrent(page);
+                                        setPageSize(pageSize);
+                                        const tableBody = document.querySelector('.ant-table-body');
+                                        if (tableBody) {
+                                            tableBody.scrollTo({ top: 0, behavior: 'smooth' });
                                         }
                                     }}
                                 />
                             </div>
 
                         </Content>
-                    </Layout>
+                    </div>
                 </TabPane>
                 <TabPane tab={
                     <div className="flex items-center gap-3">
@@ -504,15 +550,7 @@ const LoansPage = () => {
                                     dataSource={list}
                                     rowKey="_id"
                                     loading={loading}
-                                    pagination={{ pageSize: 5 }}
-                                    onChange={ () => {
-                                        if (topRef.current) {
-                                            topRef.current.scrollIntoView({
-                                                behavior: 'smooth',
-                                                block: 'start'
-                                            });
-                                        }
-                                    }}
+                                    pagination={false}
                                     locale={{ emptyText: <Empty description="Không có dữ liệu vi phạm" /> }}
                                 />
                             </div>

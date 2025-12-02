@@ -10,6 +10,10 @@ import {
 import { Sach, SachSchema } from '../sach/schemas/sach.schema';
 import { PhieuPhatModule } from '../phieu-phat/phieu-phat.module';
 import { ThongBaoModule } from '../thong-bao/thong-bao.module';
+import {
+  NguoiDung,
+  NguoiDungSchema,
+} from '../nguoi-dung/schemas/nguoi-dung.schema';
 
 @Module({
   imports: [
@@ -17,6 +21,7 @@ import { ThongBaoModule } from '../thong-bao/thong-bao.module';
       { name: MuonTra.name, schema: MuonTraSchema },
       { name: ChiTietMuonTra.name, schema: ChiTietMuonTraSchema },
       { name: Sach.name, schema: SachSchema },
+      { name: NguoiDung.name, schema: NguoiDungSchema },
     ]),
     PhieuPhatModule,
     ThongBaoModule,

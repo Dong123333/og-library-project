@@ -64,11 +64,9 @@ export class PhieuPhatService {
   }
 
   async markAsPaid(id: string) {
-    const phieu = await this.phieuPhatModel.findByIdAndUpdate(
-      id,
-      { trangThai: true },
-      { new: true },
-    ).populate('maNguoiDung');
+    const phieu = await this.phieuPhatModel
+      .findByIdAndUpdate(id, { trangThai: true }, { new: true })
+      .populate('maNguoiDung');
 
     if (phieu) {
       const user = phieu.maNguoiDung as any;

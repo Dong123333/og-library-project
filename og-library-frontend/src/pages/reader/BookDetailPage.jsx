@@ -16,7 +16,7 @@ import {
     Input,
     Form, InputNumber, DatePicker
 } from 'antd';
-import {ShoppingCartOutlined, HomeOutlined} from '@ant-design/icons';
+import {ShoppingCartOutlined, HomeOutlined, RightOutlined, LeftOutlined, HeartFilled} from '@ant-design/icons';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from "../../services/axios.customize";
 import {useAuth} from "../../context/AuthContext.jsx";
@@ -35,6 +35,8 @@ const BookDetailPage = () => {
     const [book, setBook] = useState(null);
     const [loading, setLoading] = useState(true);
     const [relatedBooks, setRelatedBooks] = useState([]);
+    const [startIndex, setStartIndex] = useState(0);
+    const ITEMS_PER_PAGE = 4;
     const topRef = useRef(null);
     const [isBorrowModalOpen, setIsBorrowModalOpen] = useState(false);
     const [borrowLoading, setBorrowLoading] = useState(false);
@@ -81,12 +83,12 @@ const BookDetailPage = () => {
     };
 
     const fetchRelatedBooks = async (categoryId, currentBookId) => {
-        const query = `page=1&limit=5&maDanhMuc=${categoryId}`;
+        const query = `page=1&limit=100&maDanhMuc=${categoryId}`;
         const res = await axios.get(`/sach?${query}`);
 
         if (res && res.result) {
             const filtered = res.result.filter(b => b._id !== currentBookId);
-            setRelatedBooks(filtered.slice(0, 4));
+            setRelatedBooks(filtered);
         }
     }
 
@@ -157,6 +159,18 @@ const BookDetailPage = () => {
         addToBookcase(book);
     };
 
+    const handleNext = () => {
+        if (startIndex + ITEMS_PER_PAGE < relatedBooks.length) {
+            setStartIndex(prev => prev + ITEMS_PER_PAGE);
+        }
+    };
+
+    const handlePrev = () => {
+        if (startIndex > 0) {
+            setStartIndex(prev => prev - ITEMS_PER_PAGE);
+        }
+    };
+
     return (
         <div>
             {contextHolder}
@@ -186,7 +200,7 @@ const BookDetailPage = () => {
                             <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm w-full">
                                 <Row gutter={[48, 32]}>
                                     <Col xs={24} md={9} lg={8}>
-                                        <div className="border rounded-lg overflow-hidden shadow-md bg-gray-100 p-4 flex justify-center items-center w-full h-[500px]">
+                                        <div className="border rounded-lg overflow-hidden shadow-md bg-white p-4 flex justify-center items-center w-full h-[500px]">
                                             <Image
                                                 src={book.hinhAnh || "https://placehold.co/400x600?text=No+Image"}
                                                 alt={book.tenSach}
@@ -284,53 +298,83 @@ const BookDetailPage = () => {
                 </Content>
             </Layout>
             <Divider style={{ margin: '50px 0' }} />
-            <div className="bg-white p-6 md:p-8">
-                <Title level={3} style={{ marginBottom: 20 }}>Có thể bạn sẽ thích</Title>
-                <Row gutter={[16, 16]}>
-                    {relatedBooks.map((item) => (
-                        <Col xs={12} sm={8} md={6} lg={6} key={item._id}>
-                            <Card
-                                hoverable
-                                className="h-full shadow-sm hover:shadow-lg transition-all duration-300 border-gray-200"
-                                style={{ borderRadius: 12, overflow: 'hidden' }}
-                                onClick={() => navigate(`/library/${item._id}`)}
-                                cover={
-                                    <div className="h-56 p-3 bg-[#f8f9fa] flex justify-center items-center relative overflow-hidden">
-                                        <img
-                                            alt={item.tenSach}
-                                            src={item.hinhAnh || "https://placehold.co/200x300?text=No+Image"}
-                                            className="h-full w-full object-contain transition-transform duration-300 hover:scale-110 mix-blend-multiply"
+            <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm w-full">
+                <div className="flex items-center gap-3 mb-6">
+                    <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center text-red-500">
+                        <HeartFilled style={{ fontSize: '20px' }} />
+                    </div>
+                    <Title level={3} style={{ margin: 0, color: '#374151' }}>
+                        Có thể bạn sẽ thích
+                    </Title>
+                </div>
+                <div className="flex items-center gap-2 md:gap-4">
+                    <Button
+                        shape="circle"
+                        icon={<LeftOutlined />}
+                        size="large"
+                        onClick={handlePrev}
+                        disabled={startIndex === 0}
+                        className="z-10 -translate-y-1/2 shadow-md border-gray-200 text-gray-500 hover:text-blue-600 hover:border-blue-600 bg-white"
+                        style={{ display: relatedBooks.length <= 4 ? 'none' : 'flex' }}
+                    />
+                    <div className="flex-1 w-0">
+                        <Row gutter={[16, 16]}>
+                            {relatedBooks.slice(startIndex, startIndex + ITEMS_PER_PAGE).map((item) => (
+                                <Col xs={12} sm={8} md={6} lg={6} key={item._id}>
+                                    <Card
+                                        hoverable
+                                        className="h-full shadow-sm hover:shadow-lg transition-all duration-300 border-gray-200"
+                                        style={{ borderRadius: 12, overflow: 'hidden' }}
+                                        onClick={() => navigate(`/library/${item._id}`)}
+                                        cover={
+                                            <div className="h-56 p-3 bg-[#f8f9fa] flex justify-center items-center relative overflow-hidden">
+                                                <img
+                                                    alt={item.tenSach}
+                                                    src={item.hinhAnh || "https://placehold.co/200x300?text=No+Image"}
+                                                    className="h-full w-full object-contain transition-transform duration-300 hover:scale-110 mix-blend-multiply"
+                                                />
+                                            </div>
+                                        }
+                                    >
+                                        <Meta
+                                            title={
+                                                <div
+                                                    className="text-sm md:text-base font-bold text-gray-800 truncate"
+                                                    title={item.tenSach}
+                                                >
+                                                    {item.tenSach}
+                                                </div>
+                                            }
+                                            description={
+                                                <div className="flex justify-between items-center mt-2">
+                                                <span className="text-xs bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded border border-blue-100">
+                                                Xem ngay
+                                            </span>
+                                                </div>
+                                            }
                                         />
-                                    </div>
-                                }
-                            >
-                                <Meta
-                                    title={
-                                        <div
-                                            className="text-sm md:text-base font-bold text-gray-800 truncate"
-                                            title={item.tenSach}
-                                        >
-                                            {item.tenSach}
-                                        </div>
-                                    }
-                                    description={
-                                        <div className="flex justify-between items-center mt-2">
-                                            <span className="text-xs bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded border border-blue-100">
-                                            Xem ngay
-                                        </span>
-                                        </div>
-                                    }
-                                />
-                            </Card>
-                        </Col>
-                    ))}
+                                    </Card>
+                                </Col>
+                            ))}
 
-                    {relatedBooks.length === 0 && (
-                        <div className="w-full text-center text-gray-400 py-10 italic">
-                            Chưa có sách tương tự để hiển thị.
-                        </div>
-                    )}
-                </Row>
+                            {relatedBooks.length === 0 && (
+                                <div className="w-full text-center text-gray-400 py-10 italic">
+                                    Chưa có sách tương tự để hiển thị.
+                                </div>
+                            )}
+                        </Row>
+                    </div>
+
+                    <Button
+                        shape="circle"
+                        icon={<RightOutlined />}
+                        size="large"
+                        onClick={handleNext}
+                        disabled={startIndex + ITEMS_PER_PAGE >= relatedBooks.length}
+                        className="shrink-0 shadow-md border-gray-200 text-gray-500 hover:text-blue-600 hover:border-blue-600 bg-white flex items-center justify-center"
+                        style={{ display: relatedBooks.length <= 4 ? 'none' : 'flex' }}
+                    />
+                </div>
             </div>
             <Modal
                 title={

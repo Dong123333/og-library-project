@@ -1,4 +1,4 @@
-import { Injectable, Logger, OnModuleInit, UploadedFile } from '@nestjs/common';
+import { Injectable, OnModuleInit, UploadedFile } from '@nestjs/common';
 import { CreateSachDto } from './dto/create-sach.dto';
 import { UpdateSachDto } from './dto/update-sach.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -24,20 +24,10 @@ export class SachService implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
-    await this.cleanDatabase();
     await this.seedCategories();
     await this.seedAuthors();
     await this.seedPublishers();
     await this.seedBooks();
-  }
-
-  async cleanDatabase() {
-    await Promise.all([
-      this.danhMucModel.deleteMany({}),
-      this.tacGiaModel.deleteMany({}),
-      this.nhaXuatBanModel.deleteMany({}),
-      this.sachModel.deleteMany({}),
-    ]);
   }
 
   async seedCategories() {
@@ -194,8 +184,15 @@ export class SachService implements OnModuleInit {
     delete filter.current;
     delete filter.pageSize;
 
-    if (filter.tenSach) {
-      const regexString = convertToRegex(filter.tenSach);
+    let keyword = filter.tenSach;
+
+    if (keyword) {
+      if (Array.isArray(keyword)) {
+        keyword = keyword.join(',');
+      } else if (typeof keyword === 'object' && keyword.$in) {
+        keyword = keyword.$in.join(',');
+      }
+      const regexString = convertToRegex(keyword);
 
       filter.tenSach = { $regex: regexString, $options: 'i' };
     }
