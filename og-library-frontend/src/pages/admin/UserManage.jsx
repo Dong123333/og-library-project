@@ -274,7 +274,9 @@ const UserManage = () => {
                 title={editingUser ? "Cập nhật thông tin" : "Thêm người dùng mới"}
                 open={isModalOpen}
                 onCancel={handleCancel}
+                cancelText="Thoát"
                 onOk={() => form.submit()}
+                okText="Lưu"
                 width={700}
             >
                 <Form form={form} layout="vertical" onFinish={handleSave}>

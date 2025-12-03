@@ -213,7 +213,7 @@ const BookManage = () => {
             render: (_, record) => (
                 <Space>
                     <Button icon={<EditOutlined />} type="primary" ghost onClick={() => handleEdit(record)} />
-                    <Popconfirm title="Xóa sách?" onConfirm={async () => {
+                    <Popconfirm title="Xóa sách?" okText="Xóa" cancelText="Hủy" onConfirm={async () => {
                         await axios.delete(`/sach/${record._id}`);
                         messageApi.success("Đã xóa");
                         fetchBooks();
@@ -300,10 +300,11 @@ const BookManage = () => {
                 title={editingBook ? "Cập nhật sách" : "Thêm sách mới"}
                 open={isModalOpen}
                 onCancel={handleCancel}
+                cancelText="Thoát"
                 onOk={() => form.submit()}
                 width={800}
                 confirmLoading={isSubmitLoading}
-                okText={isSubmitLoading ? "Đang xử lý..." : "Lưu lại"}
+                okText={isSubmitLoading ? "Đang xử lý..." : "Lưu"}
                 cancelButtonProps={{ disabled: isSubmitLoading }}
             >
                 <Form form={form} layout="vertical" onFinish={handleSave}>

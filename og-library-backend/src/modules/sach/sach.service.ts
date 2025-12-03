@@ -207,7 +207,7 @@ export class SachService implements OnModuleInit {
       sortOption = { createdAt: -1, _id: 1 };
     }
 
-    const defaultLimit = limit ? limit : 10;
+    const defaultLimit = limit ? limit : 16;
     const offset = (currentPage - 1) * defaultLimit;
 
     const totalItems = await this.sachModel.countDocuments(filter);

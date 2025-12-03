@@ -186,7 +186,9 @@ const AuthorManage = () => {
                 title={editingItem ? "Cập nhật thông tin" : "Thêm tác giả mới"}
                 open={isModalOpen}
                 onCancel={() => setIsModalOpen(false)}
+                cancelText="Thoát"
                 onOk={() => form.submit()}
+                okText="Lưu"
                 width={700}
             >
                 <Form form={form} layout="vertical" onFinish={handleSave}>

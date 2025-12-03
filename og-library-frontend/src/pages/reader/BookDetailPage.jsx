@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useRef, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import {
     Layout,
     Row,
@@ -36,7 +36,7 @@ const BookDetailPage = () => {
     const [loading, setLoading] = useState(true);
     const [relatedBooks, setRelatedBooks] = useState([]);
     const [startIndex, setStartIndex] = useState(0);
-    const ITEMS_PER_PAGE = 4;
+    const [itemsPerPage, setItemsPerPage] = useState(4);
     const topRef = useRef(null);
     const [isBorrowModalOpen, setIsBorrowModalOpen] = useState(false);
     const [borrowLoading, setBorrowLoading] = useState(false);
@@ -65,6 +65,20 @@ const BookDetailPage = () => {
         return () => clearTimeout(timer);
     }, [id]);
 
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth < 768) {
+                setItemsPerPage(2);
+            } else {
+                setItemsPerPage(4);
+            }
+        };
+
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const fetchBookDetail = async () => {
         try {
             setLoading(true);
@@ -77,7 +91,7 @@ const BookDetailPage = () => {
             }
         } catch (error) {
             messageApi.error("Không tìm thấy thông tin sách");
-            navigate('/');
+            navigate('/library');
         }
         setLoading(false);
     };
@@ -160,14 +174,14 @@ const BookDetailPage = () => {
     };
 
     const handleNext = () => {
-        if (startIndex + ITEMS_PER_PAGE < relatedBooks.length) {
-            setStartIndex(prev => prev + ITEMS_PER_PAGE);
+        if (startIndex + itemsPerPage < relatedBooks.length) {
+            setStartIndex(prev => prev + itemsPerPage);
         }
     };
 
     const handlePrev = () => {
         if (startIndex > 0) {
-            setStartIndex(prev => prev - ITEMS_PER_PAGE);
+            setStartIndex(prev => prev - itemsPerPage);
         }
     };
 
@@ -180,17 +194,17 @@ const BookDetailPage = () => {
                     style={{ position: 'absolute', top: 0, left: 0, width: 1, height: 1 }}
                 />
                 <Content className="w-full">
-                    <div className="flex items-center gap-2 text-sm text-gray-500 mb-6">
-                        <Link to="/" className="flex items-center gap-1  transition-colors cursor-pointer">
+                    <div className="flex items-center gap-2 text-sm text-gray-500 mb-6 flex-nowrap">
+                        <Link to="/" className="flex items-center gap-1  transition-colors cursor-pointer whitespace-nowrap">
                             <HomeOutlined style={{ color: '#1f2937' }} />
                             <span className="text-gray-800 hover:text-blue-600 ">Trang chủ</span>
                         </Link>
                         <span className="text-gray-400">/</span>
-                        <Link to="/library" className="flex items-center gap-1 transition-colors cursor-pointer">
+                        <Link to="/library" className="flex items-center gap-1 transition-colors cursor-pointer whitespace-nowrap">
                             <span className="text-gray-800 hover:text-blue-600">Thư viện sách</span>
                         </Link>
                         <span className="text-gray-400">/</span>
-                        <span className="font-medium text-gray-800 truncate max-w-[300px]">
+                        <span className="font-medium text-gray-800 truncate flex-1 min-w-0">
                             {book?.tenSach || "Đang tải..."}
                         </span>
                     </div>
@@ -260,11 +274,11 @@ const BookDetailPage = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                            <div className="flex items-center gap-2">
+                                            <div className="flex items-center gap-2 mb-8">
                                                 <span className="text-gray-500 text-[20px]">Giá tiền:</span>
                                                 <span className="text-red-600 font-semibold text-[20px]">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(book.giaTien || 0)}</span>
                                             </div>
-                                        <div className="flex gap-4 mt-auto pb-4">
+                                        <div className="flex gap-4 mt-auto mb-8">
                                             <Button
                                                 type="primary"
                                                 size="large"
@@ -319,15 +333,15 @@ const BookDetailPage = () => {
                     />
                     <div className="flex-1 w-0">
                         <Row gutter={[16, 16]}>
-                            {relatedBooks.slice(startIndex, startIndex + ITEMS_PER_PAGE).map((item) => (
-                                <Col xs={12} sm={8} md={6} lg={6} key={item._id}>
+                            {relatedBooks.slice(startIndex, startIndex + itemsPerPage).map((item) => (
+                                <Col xs={12} sm={12} md={8} lg={6} key={item._id}>
                                     <Card
                                         hoverable
-                                        className="h-full shadow-sm hover:shadow-lg transition-all duration-300 border-gray-200"
-                                        style={{ borderRadius: 12, overflow: 'hidden' }}
+                                        className="shadow-sm hover:shadow-lg transition-all duration-300 border-gray-200"
+                                        style={{ borderRadius: 12, overflow: 'hidden', height: '100%', }}
                                         onClick={() => navigate(`/library/${item._id}`)}
                                         cover={
-                                            <div className="h-56 p-3 bg-[#f8f9fa] flex justify-center items-center relative overflow-hidden">
+                                            <div className="h-40 md:h-56 md:p-3 bg-[#f8f9fa] flex justify-center items-center relative overflow-hidden">
                                                 <img
                                                     alt={item.tenSach}
                                                     src={item.hinhAnh || "https://placehold.co/200x300?text=No+Image"}
@@ -364,13 +378,12 @@ const BookDetailPage = () => {
                             )}
                         </Row>
                     </div>
-
                     <Button
                         shape="circle"
                         icon={<RightOutlined />}
                         size="large"
                         onClick={handleNext}
-                        disabled={startIndex + ITEMS_PER_PAGE >= relatedBooks.length}
+                        disabled={startIndex + itemsPerPage >= relatedBooks.length}
                         className="shrink-0 shadow-md border-gray-200 text-gray-500 hover:text-blue-600 hover:border-blue-600 bg-white flex items-center justify-center"
                         style={{ display: relatedBooks.length <= 4 ? 'none' : 'flex' }}
                     />
@@ -378,13 +391,15 @@ const BookDetailPage = () => {
             </div>
             <Modal
                 title={
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 w-full">
                         <img style={{width: '24px', height: '24px' }} src={bookDonation} alt=""/>
-                        Mượn nhanh: <span className="text-blue-700 truncate max-w-[200px]">{book?.tenSach}</span>
+                        <span className="flex-shrink-0 whitespace-nowrap font-medium">Mượn nhanh: </span>
+                        <span className="text-blue-700 truncate">{book?.tenSach}</span>
                     </div>
                 }
                 open={isBorrowModalOpen}
                 onCancel={() => setIsBorrowModalOpen(false)}
+                cancelText="Thoát"
                 onOk={() => form.submit()}
                 okText="Xác nhận mượn"
                 confirmLoading={borrowLoading}

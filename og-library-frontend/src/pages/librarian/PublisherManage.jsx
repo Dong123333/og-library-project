@@ -163,7 +163,9 @@ const PublisherManage = () => {
                 title={editingItem ? "Chỉnh sửa nhà xuất bản" : "Thêm nhà xuất bản mới"}
                 open={isModalOpen}
                 onCancel={() => setIsModalOpen(false)}
+                cancelText="Thoát"
                 onOk={() => form.submit()}
+                okText="Lưu"
             >
                 <Form form={form} layout="vertical" onFinish={handleSave}>
                     <Form.Item

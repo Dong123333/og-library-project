@@ -43,6 +43,9 @@ const RegisterPage = () => {
         <AuthLayout
             title="Tạo tài khoản mới 🚀"
             subtitle="Điền thông tin bên dưới để tham gia cùng chúng tôi."
+            titleFooter="Đã có tài khoản?"
+            actionFooter="Đăng nhập ngay"
+            linkFooter="/login"
         >
             {contextHolder}
             <Form
@@ -110,19 +113,6 @@ const RegisterPage = () => {
                     </Button>
                 </Form.Item>
             </Form>
-
-            <Divider plain><span className="text-gray-400 text-xs uppercase">Hoặc đăng ký với</span></Divider>
-            <div className="grid grid-cols-2 gap-4 mb-8">
-                <Button icon={<GoogleOutlined />} className="h-10 flex items-center justify-center font-medium">Google</Button>
-                <Button icon={<FacebookFilled className="text-blue-600" />} className="h-10 flex items-center justify-center font-medium">Facebook</Button>
-            </div>
-
-            <div className="text-center text-gray-600">
-                Đã có tài khoản?{' '}
-                <Link to="/login" className="text-blue-600 font-bold hover:underline">
-                    Đăng nhập ngay
-                </Link>
-            </div>
         </AuthLayout>
     );
 };

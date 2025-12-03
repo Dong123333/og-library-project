@@ -28,7 +28,10 @@ const ChangePasswordPage = () => {
             window.location.href = "/login";
 
         } catch (error) {
-            api.error(error.response?.data?.message || "Mã OTP không đúng");
+            api.error({
+                message: "Lỗi",
+                description: error.message,
+            });
         }
         setLoading(false);
     };

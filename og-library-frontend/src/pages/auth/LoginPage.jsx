@@ -84,6 +84,9 @@ const LoginPage = () => {
         <AuthLayout
             title="Chào mừng trở lại! 👋"
             subtitle="Vui lòng nhập thông tin để đăng nhập."
+            titleFooter="Chưa có tài khoản?"
+            actionFooter="Đăng ký miễn phí"
+            linkFooter="/register"
         >
             {contextHolder}
             <VerifyAccountModal
@@ -136,19 +139,6 @@ const LoginPage = () => {
                     </Button>
                 </Form.Item>
             </Form>
-
-            <Divider plain><span className="text-gray-400 text-xs uppercase">Hoặc tiếp tục với</span></Divider>
-            <div className="grid grid-cols-2 gap-4 mb-8">
-                <Button icon={<GoogleOutlined />} className="h-10 flex items-center justify-center font-medium">Google</Button>
-                <Button icon={<FacebookFilled className="text-blue-600" />} className="h-10 flex items-center justify-center font-medium">Facebook</Button>
-            </div>
-
-            <div className="text-center text-gray-600">
-                Chưa có tài khoản?{' '}
-                <Link to="/register" className="text-blue-600 font-bold hover:underline">
-                    Đăng ký miễn phí
-                </Link>
-            </div>
         </AuthLayout>
     );
 };

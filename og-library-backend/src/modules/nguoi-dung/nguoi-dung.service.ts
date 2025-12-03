@@ -59,21 +59,36 @@ export class NguoiDungService implements OnModuleInit {
   }
 
   async seedAdmin() {
-    const adminEmail = 'admin@gmail.com';
-    const adminAlready = await this.nguoiDungModel.findOne({
-      email: adminEmail,
-    });
-    if (!adminAlready) {
-      const adminRole = await this.vaiTroModel.findOne({ maVaiTro: 'VT003' });
-      if (adminRole) {
-        const hashPassword = await hashPasswordHelper('admin123');
-        await this.nguoiDungModel.create({
-          hoVaTen: 'Quản trị viên',
-          email: adminEmail,
-          matKhau: hashPassword,
-          trangThai: 1,
-          maVaiTro: adminRole._id,
+    const usersToSeed = [
+      {
+        email: 'admin@olive.gallery.vn',
+        hoVaTen: 'Quản trị viên',
+        password: 'admin123',
+        maVaiTro: 'VT003',
+      },
+      {
+        email: 'librarian@olive.gallery.vn',
+        hoVaTen: 'Thủ thư',
+        password: 'librarian123',
+        maVaiTro: 'VT002',
+      },
+    ];
+    for (const user of usersToSeed) {
+      const existing = await this.nguoiDungModel.findOne({ email: user.email });
+      if (!existing) {
+        const role = await this.vaiTroModel.findOne({
+          maVaiTro: user.maVaiTro,
         });
+        if (role) {
+          const hashedPassword = await hashPasswordHelper(user.password);
+          await this.nguoiDungModel.create({
+            hoVaTen: user.hoVaTen,
+            email: user.email,
+            matKhau: hashedPassword,
+            trangThai: 1,
+            maVaiTro: role._id,
+          });
+        }
       }
     }
   }
@@ -202,7 +217,7 @@ export class NguoiDungService implements OnModuleInit {
 
     this.mailService.sendUserConfirmation(
       user.email,
-      'Activate your account at Olive Gallery',
+      'Kích hoạt tài khoản của bạn tại Olive Gallery',
       user?.hoVaTen ?? user?.email,
       maOTP,
     );
@@ -222,14 +237,18 @@ export class NguoiDungService implements OnModuleInit {
     }
     const isBeforeCheck = dayjs().isBefore(user.thoiHanOTP);
     if (isBeforeCheck) {
-      await this.nguoiDungModel.updateOne(
+      await this.nguoiDungModel.findOneAndUpdate(
         { _id: user._id },
-        { trangThai: TrangThaiNguoiDung.DANG_HOAT_DONG },
+        {
+          trangThai: TrangThaiNguoiDung.DANG_HOAT_DONG,
+          maOTP: null,
+          thoiHanOTP: null,
+        },
       );
-      return { isBeforeCheck };
     } else {
       throw new BadRequestException('Mã OTP đã hết hạn hoặc không hợp lệ');
     }
+    return { message: 'Xác thực tài khoản thành công' };
   }
 
   async handleResendOTP(email: string) {
@@ -247,22 +266,19 @@ export class NguoiDungService implements OnModuleInit {
     await this.nguoiDungModel.findOneAndUpdate(
       { email },
       {
-        $set: {
-          maOTP: maOTP,
-          thoiHanOTP: dayjs().add(5, 'minutes'),
-        },
+        maOTP: maOTP,
+        thoiHanOTP: dayjs().add(5, 'minutes'),
       },
-      { upsert: true, new: true },
     );
 
     this.mailService.sendUserConfirmation(
       user.email,
-      'Resend OTP',
+      'Gửi lại OTP',
       user?.hoVaTen ?? user?.email,
       maOTP,
     );
 
-    return { _id: user._id };
+    return { message: 'Gửi OTP thành công' };
   }
 
   async handleRetryPassword(email: string) {
@@ -276,22 +292,19 @@ export class NguoiDungService implements OnModuleInit {
     await this.nguoiDungModel.findOneAndUpdate(
       { email },
       {
-        $set: {
-          maOTP: maOTP,
-          thoiHanOTP: dayjs().add(5, 'minutes'),
-        },
+        maOTP: maOTP,
+        thoiHanOTP: dayjs().add(5, 'minutes'),
       },
-      { upsert: true, new: true },
     );
 
     this.mailService.sendUserConfirmation(
       user.email,
-      'Change password your account at Olive Gallery',
+      'Thay đổi mật khẩu tài khoản của bạn tại Olive Gallery',
       user?.hoVaTen ?? user?.email,
       maOTP,
     );
 
-    return { _id: user._id };
+    return { message: 'Gửi yêu cầu đổi mật khẩu thành công' };
   }
 
   async handleChangePassword(changePasswordAuthDto: ChangePasswordAuthDto) {
@@ -307,6 +320,10 @@ export class NguoiDungService implements OnModuleInit {
       throw new BadRequestException('Tài khoản không tồn tại');
     }
 
+    if (changePasswordAuthDto.maOTP !== user.maOTP) {
+      throw new BadRequestException('Mã OTP không chính xác');
+    }
+
     const isBeforeCheck = dayjs().isBefore(user.thoiHanOTP);
 
     if (isBeforeCheck) {
@@ -315,11 +332,16 @@ export class NguoiDungService implements OnModuleInit {
       );
       await this.nguoiDungModel.findOneAndUpdate(
         { _id: user._id },
-        { matKhau: newPassword },
-        { upsert: true, new: true },
+        {
+          matKhau: newPassword,
+          maOTP: null,
+          thoiHanOTP: null,
+        },
       );
+    } else {
+      throw new BadRequestException('Mã OTP đã hết hạn. Vui lòng lấy mã mới.');
     }
-    return { isBeforeCheck };
+    return { message: 'Đổi mật khẩu thành công' };
   }
 
   async handleChangePasswordProfile(

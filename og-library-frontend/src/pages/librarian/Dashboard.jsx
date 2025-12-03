@@ -175,7 +175,7 @@ const Dashboard = () => {
                             bodyStyle={{ flex: 1, minHeight: 0 }}
                         >
                             {loadingChart ? <Skeleton active /> : (
-                                <div style={{ width: '100%', height: '100%' }}>
+                                <div style={{ width: '100%', height: '100%' }} onFocus={e => e.target.blur()}>
                                     <ResponsiveContainer>
                                         <BarChart data={chartData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
                                             <CartesianGrid strokeDasharray="3 3" vertical={false} />

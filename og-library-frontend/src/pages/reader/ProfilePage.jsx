@@ -191,7 +191,7 @@ const ProfilePage = () => {
                                         label: <span className="font-medium"><LockOutlined /> Đổi mật khẩu</span>,
                                         children: (
                                             <div style= {{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                                <Form form={formPass} layout="vertical" onFinish={handleChangePass} style={{ minWidth: '500px'}} className="mt-4 max-w-md mx-auto ">
+                                                <Form form={formPass} layout="vertical" onFinish={handleChangePass} style={{ marginTop: '1rem', maxWidth: '32rem', marginLeft: 'auto', marginRight: 'auto', width: '100%' }}>
                                                     <Form.Item
                                                         name="matKhauCu"
                                                         label="Mật khẩu hiện tại"

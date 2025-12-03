@@ -20,7 +20,10 @@ const ForgotPasswordPage = () => {
             });
             navigate('/change-password', { state: { userEmail: values.email } });
         } catch (error) {
-            api.error(error.response?.data?.message || "Lỗi gửi email");
+            api.error({
+                message: "Lỗi",
+                description: error.message,
+            });
         }
         setLoading(false);
     };

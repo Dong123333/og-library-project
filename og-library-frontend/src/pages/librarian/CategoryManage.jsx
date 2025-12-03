@@ -162,7 +162,9 @@ const CategoryManage = () => {
                 title={editingItem ? "Chỉnh sửa danh mục" : "Thêm danh mục mới"}
                 open={isModalOpen}
                 onCancel={() => setIsModalOpen(false)}
+                cancelText="Thoát"
                 onOk={() => form.submit()}
+                okText="Lưu"
             >
                 <Form form={form} layout="vertical" onFinish={handleSave}>
                     <Form.Item

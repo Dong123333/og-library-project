@@ -158,13 +158,13 @@ const LibraryPage = () => {
     return (
         <div ref={topRef} className="scroll-mt-0">
             {contextHolder}
-            <Layout style={{ backgroundColor: 'transparent'}} className="min-h-screen">
+            <Layout className="min-h-screen" style={{ backgroundColor: "transparent"}}>
                 <div className="animate-fade-in">
                     <div className="flex items-center gap-2 mb-6 text-gray-500 cursor-pointer hover:text-blue-600 w-fit" onClick={handleClick}>
                         <ArrowRightOutlined className="rotate-180" /> Quay lại
                     </div>
 
-                    <div className="bg-white rounded-xl shadow-sm p-6 min-h-[600px]">
+                    <div className="bg-white rounded-xl shadow-md p-6 min-h-[600px]">
                         <div className="flex flex-col md:flex-row gap-4 mb-8 mt-4">
                             <Input
                                 size="large"
@@ -200,7 +200,8 @@ const LibraryPage = () => {
                                             <Col xs={24} sm={12} md={8} lg={6} key={book._id}>
                                                 <Card
                                                     hoverable
-                                                    className="h-full flex flex-col rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
+                                                    className="h-full flex flex-col rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+                                                    onClick={() => navigate(`/library/${book._id}`)}
                                                     cover={
                                                         <div className="h-64 p-4 relative group bg-white flex justify-center items-center border-b border-gray-100">
                                                             <FadeInImage
@@ -246,7 +247,10 @@ const LibraryPage = () => {
                                                             className="flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 h-14 text-lg font-bold shadow-lg shadow-orange-200 mt-4"
                                                             loading={loadingBookId === book._id}
                                                             disabled={book.soLuong === 0}
-                                                            onClick={() => handleOpenBorrowModal(book)}
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                handleOpenBorrowModal(book);
+                                                            }}
                                                         >
                                                             {loadingBookId !== book._id && (
                                                                     <img
@@ -298,13 +302,15 @@ const LibraryPage = () => {
             </Layout>
             <Modal
                 title={
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 w-full">
                         <img style={{width: '24px', height: '24px' }} src={bookDonation} alt=""/>
-                        Mượn nhanh: <span className="text-blue-700 truncate max-w-[200px]">{selectedBook?.tenSach}</span>
+                        <span className="flex-shrink-0 whitespace-nowrap font-medium">Mượn nhanh: </span>
+                        <span className="text-blue-700 truncate">{selectedBook?.tenSach}</span>
                     </div>
                 }
                 open={isBorrowModalOpen}
                 onCancel={() => setIsBorrowModalOpen(false)}
+                cancelText="Thoát"
                 onOk={() => form.submit()}
                 okText="Xác nhận mượn"
                 centered

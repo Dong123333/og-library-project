@@ -59,7 +59,7 @@ const NotificationBell = () => {
     };
 
     const menu = (
-        <div className="w-80 bg-white shadow-xl rounded-lg border border-gray-200 overflow-hidden">
+        <div className="w-full max-w-[280px] sm:max-w-xs bg-white shadow-xl rounded-lg border border-gray-200 overflow-hidden">
             <div className="p-3 border-b flex justify-between items-center bg-gray-50">
                 <span className="font-bold text-gray-700">Thông báo</span>
                 {unreadCount > 0 && (
@@ -83,7 +83,6 @@ const NotificationBell = () => {
                             icon = <WarningOutlined style={{ color: '#faad14' }} />;
                             bg = '#fffbe6';
                         }
-                        // 👇 TRƯỜNG HỢP TIỀN VỀ (ADMIN) HOẶC ĐÓNG TIỀN (USER)
                         else if (item.tieuDe.includes("Tiền phạt") || item.tieuDe.includes("Thanh toán")) {
                             icon = <DollarCircleOutlined style={{ color: '#52c41a' }} />;
                             bg = '#f6ffed';

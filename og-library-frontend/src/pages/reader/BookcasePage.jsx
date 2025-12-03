@@ -135,13 +135,14 @@ const BookcasePage = () => {
 
                 {Bookcase.length > 0 ? (
                     <div className="flex flex-col lg:flex-row gap-8">
-                        <div className="flex-1">
+                        <div className="w-full overflow-x-auto">
                             <Table
                                 dataSource={Bookcase}
                                 columns={columns}
                                 rowKey="_id"
                                 pagination={false}
-                                className="shadow-sm bg-white rounded-lg overflow-hidden"
+                                scroll={{ x: 'max-content' }}
+                                className="shadow-sm bg-white rounded-lg"
                             />
                         </div>
 

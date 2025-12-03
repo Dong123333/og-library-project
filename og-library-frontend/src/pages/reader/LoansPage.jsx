@@ -544,15 +544,17 @@ const LoansPage = () => {
 
                             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                                 <Title level={4} className="mb-4">Chi tiết các phiếu phạt</Title>
-
-                                <Table
-                                    columns={columnsPenalty}
-                                    dataSource={list}
-                                    rowKey="_id"
-                                    loading={loading}
-                                    pagination={false}
-                                    locale={{ emptyText: <Empty description="Không có dữ liệu vi phạm" /> }}
-                                />
+                                <div className="overflow-x-auto">
+                                    <Table
+                                        columns={columnsPenalty}
+                                        dataSource={list}
+                                        rowKey="_id"
+                                        loading={loading}
+                                        pagination={false}
+                                        scroll={{ x: 'max-content' }}
+                                        locale={{ emptyText: <Empty description="Không có dữ liệu vi phạm" /> }}
+                                    />
+                                </div>
                             </div>
 
                         </Content>

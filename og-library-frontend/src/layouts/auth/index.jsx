@@ -1,6 +1,7 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 
-const AuthLayout = ({ children, title, subtitle }) => {
+const AuthLayout = ({ children, title, subtitle, titleFooter, actionFooter, linkFooter }) => {
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 font-sans">
             <div className="bg-white w-full max-w-5xl h-[600px] rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row m-4">
@@ -35,6 +36,12 @@ const AuthLayout = ({ children, title, subtitle }) => {
                             <p className="text-gray-500">{subtitle}</p>
                         </div>
                         {children}
+                    </div>
+                    <div className="text-center text-gray-600 mt-auto">
+                        {titleFooter}{' '}
+                        <Link to={linkFooter} className="text-blue-600 font-bold hover:underline">
+                            {actionFooter}
+                        </Link>
                     </div>
                 </div>
             </div>

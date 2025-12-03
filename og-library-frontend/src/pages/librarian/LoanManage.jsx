@@ -496,6 +496,7 @@ const LoanManage = () => {
                 }
                 open={isModalOpen}
                 onCancel={() => setIsModalOpen(false)}
+                cancelText="Thoát"
                 onOk={() => form.submit()}
                 okText="Xác nhận"
                 okButtonProps={{ danger: selectedDetail?.isOverdue }}
@@ -554,6 +555,7 @@ const LoanManage = () => {
                 title="Duyệt yêu cầu mượn sách"
                 open={isApproveModalOpen}
                 onCancel={() => setIsApproveModalOpen(false)}
+                cancelText="Thoát"
                 onOk={() => formApprove.submit()}
                 okText="Duyệt ngay"
             >
