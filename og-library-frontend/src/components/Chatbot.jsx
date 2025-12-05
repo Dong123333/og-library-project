@@ -6,15 +6,18 @@ import {
     CloseOutlined,
     RobotOutlined,
     UserOutlined,
-    LoadingOutlined
+    LoadingOutlined, ReloadOutlined
 } from '@ant-design/icons';
 import axios from '../services/axios.customize';
 
 const Chatbot = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [messages, setMessages] = useState([
-        { role: 'ai', text: 'Xin chào! Tôi là trợ lý ảo Olivery. Tôi có thể giúp gì cho bạn?' }
-    ]);
+    const [messages, setMessages] = useState(() => {
+        const saved = localStorage.getItem('chat_history');
+        return saved ? JSON.parse(saved) : [
+            { role: 'ai', text: 'Xin chào! Tôi là trợ lý ảo Olivery. Tôi có thể giúp gì cho bạn?' }
+        ];
+    });
     const [inputValue, setInputValue] = useState('');
     const [loading, setLoading] = useState(false);
     const messagesEndRef = useRef(null);
@@ -24,16 +27,30 @@ const Chatbot = () => {
     };
     useEffect(scrollToBottom, [messages, isOpen]);
 
+    useEffect(() => {
+        localStorage.setItem('chat_history', JSON.stringify(messages));
+    }, [messages]);
+
     const handleSend = async () => {
         if (!inputValue.trim()) return;
 
         const userMsg = inputValue;
-        setMessages(prev => [...prev, { role: 'reader', text: userMsg }]);
+        setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
         setInputValue('');
         setLoading(true);
 
         try {
-            const res = await axios.post('/chatbot', { message: userMsg });
+            const historyPayload = messages.slice(1).map(msg => ({
+                role: msg.role === 'ai' ? 'model' : 'user',
+                parts: [{ text: msg.text }]
+            }));
+
+            const limitedHistory = historyPayload.slice(-20);
+
+            const res = await axios.post('/chatbot', {
+                message: userMsg,
+                history: limitedHistory
+            });
 
             if (res && res.reply) {
                 setMessages(prev => [...prev, { role: 'ai', text: res.reply }]);
@@ -56,12 +73,45 @@ const Chatbot = () => {
                                 <span className="text-xs font-normal">Trợ lý ảo của Olive Gallery</span>
                             </div>
                         </div>
-                        <Button
-                            type="text"
-                            icon={<CloseOutlined style={{ color: '#fff' }}  />}
-                            onClick={() => setIsOpen(false)}
-                            className="hover:bg-blue-500 rounded-full p-1"
-                        />
+                        <div className="flex items-center gap-1">
+                            <Button
+                                type="text"
+                                icon={<ReloadOutlined />}
+                                onClick={() => {
+                                    localStorage.removeItem('chat_history');
+                                    setMessages([{ role: 'ai', text: 'Xin chào! Tôi là trợ lý ảo Olivery.' }]);
+                                }}
+                                style={{
+                                    color: "#fff",
+                                    width: 28,
+                                    height: 28,
+                                    borderRadius: "50%",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    transition: "0.2s",
+                                }}
+                                onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.2)")}
+                                onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                            />
+                            <Button
+                                type="text"
+                                icon={<CloseOutlined style={{ color: '#fff' }}  />}
+                                onClick={() => setIsOpen(false)}
+                                style={{
+                                    color: "#fff",
+                                    width: 28,
+                                    height: 28,
+                                    borderRadius: "50%",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    transition: "0.2s",
+                                }}
+                                onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.2)")}
+                                onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                            />
+                        </div>
                     </div>
 
                     <div className="flex-1 p-3 overflow-y-auto bg-white space-y-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
@@ -69,7 +119,7 @@ const Chatbot = () => {
                             <div
                                 key={index}
                                 className={`flex items-start gap-2 ${
-                                    msg.role === "reader" ? "justify-end" : "justify-start"
+                                    msg.role === "user" ? "justify-end" : "justify-start"
                                 }`}
                             >
                                 {msg.role === "ai" && (
@@ -81,14 +131,14 @@ const Chatbot = () => {
                                 )}
                                 <div
                                     className={`max-w-[75%] p-2 text-sm break-words rounded-lg shadow-md transition hover:shadow-lg ${
-                                        msg.role === "reader"
+                                        msg.role === "user"
                                             ? "bg-blue-500 text-white rounded-tr-none"
                                             : "bg-gray-100 text-gray-800 rounded-tl-none"
                                     }`}
                                 >
                                     {msg.text}
                                 </div>
-                                {msg.role === "reader" && (
+                                {msg.role === "user" && (
                                     <Avatar
                                         icon={<UserOutlined />}
                                         style={{backgroundColor: '#9ca3af', color: '#ffffff', boxShadow: '0 4px 6px rgba(0,0,0,0.1)'}}

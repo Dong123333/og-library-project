@@ -5,8 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import { useBookcase } from "../../context/BookcaseContext";
 import axios from "../../services/axios.customize";
 import dayjs from 'dayjs';
+import {usePage} from "../../context/NavContext.jsx";
 
 const BookcasePage = () => {
+    const { setActivePage } = usePage();
     const { Bookcase, removeFromBookcase, clearBookcase, updateSoLuongMuon } = useBookcase();
     const [loading, setLoading] = useState(false);
     const [note, setNote] = useState("");
@@ -14,6 +16,10 @@ const BookcasePage = () => {
     const [api, contextHolder] = message.useMessage();
     const [returnDate, setReturnDate] = useState(null);
     const totalQuantity = Bookcase.reduce((sum, item) => sum + (item.soLuongMuon || 1), 0);
+
+    useEffect(() => {
+        setActivePage('');
+    }, [setActivePage]);
 
     const hanToiDa = (soLuong) => {
         const today = new Date();
@@ -135,17 +141,71 @@ const BookcasePage = () => {
 
                 {Bookcase.length > 0 ? (
                     <div className="flex flex-col lg:flex-row gap-8">
-                        <div className="w-full overflow-x-auto">
-                            <Table
-                                dataSource={Bookcase}
-                                columns={columns}
-                                rowKey="_id"
-                                pagination={false}
-                                scroll={{ x: 'max-content' }}
-                                className="shadow-sm bg-white rounded-lg"
-                            />
+                        <div className="hidden sm:block">
+                            <div className="w-full overflow-x-auto">
+                                <Table
+                                    dataSource={Bookcase}
+                                    columns={columns}
+                                    rowKey="_id"
+                                    pagination={false}
+                                    scroll={{ x: 'max-content' }}
+                                    className="shadow-sm bg-white rounded-lg"
+                                />
+                            </div>
                         </div>
+                        <div className="block sm:hidden">
+                            <div className="grid grid-cols-1 gap-4">
+                                {Bookcase?.map(book => (
+                                    <div
+                                        key={book._id}
+                                        className="bg-white rounded-lg shadow p-4 border border-gray-200"
+                                    >
+                                        <div className="w-full h-[170px] relative rounded-md overflow-hidden mb-3 mx-auto">
+                                            <img
+                                                src={book.hinhAnh || "https://placehold.co/120x170?text=No+Image"}
+                                                className="absolute inset-0 w-full h-full object-cover blur-lg scale-110 opacity-70"
+                                            />
+                                            <img
+                                                src={book.hinhAnh || "https://placehold.co/120x170?text=No+Image"}
+                                                className="absolute inset-0 w-full h-full object-contain z-10"
+                                            />
+                                        </div>
 
+                                        <h2 className="text-base font-bold text-blue-800 mb-2">
+                                            {book.tenSach}
+                                        </h2>
+
+                                        <p className="text-gray-600 text-sm mb-3">
+                                            <span className="font-medium">Tác giả:</span>{" "}
+                                            {book.maTacGia?.map(a => a.tenTacGia).join(", ") || "Chưa cập nhật"}
+                                        </p>
+
+                                        <div className="mb-3 flex items-center gap-3">
+                                            <span className="text-gray-500 text-sm">Số lượng mượn:</span>
+                                            <InputNumber
+                                                min={1}
+                                                max={book.soLuong}
+                                                value={book.soLuongMuon || 1}
+                                                onChange={(val) =>
+                                                    updateSoLuongMuon(book._id, val, book.soLuong)
+                                                }
+                                            />
+                                        </div>
+
+                                        <div className="flex justify-end">
+                                            <Button
+                                                danger
+                                                type="primary"
+                                                icon={<DeleteOutlined />}
+                                                onClick={() => removeFromBookcase(book._id)}
+                                            >
+                                                Xóa
+                                            </Button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                         <div className="w-full lg:w-80 flex-shrink-0">
                             <div className="bg-white p-6 rounded-lg shadow-sm sticky top-24">
                                 <h4 className="font-bold text-lg mb-4 border-b pb-2">Thông tin mượn</h4>

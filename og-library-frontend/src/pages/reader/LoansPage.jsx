@@ -27,12 +27,14 @@ dayjs.extend(duration);
 dayjs.extend(relativeTime);
 import {Link, useLocation} from 'react-router-dom';
 import axios from '../../services/axios.customize';
+import {usePage} from "../../context/NavContext.jsx";
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
 const { Title } = Typography;
 
 const LoansPage = () => {
+    const { setActivePage } = usePage();
     const [loans, setLoans] = useState([]);
     const [loading, setLoading] = useState(false);
     const [expandedData, setExpandedData] = useState({});
@@ -45,6 +47,11 @@ const LoansPage = () => {
     const [current, setCurrent] = useState(1);
     const [pageSize, setPageSize] = useState(5);
     const [total, setTotal] = useState(0);
+    const [mobileDetails, setMobileDetails] = useState({});
+
+    useEffect(() => {
+        setActivePage('');
+    }, [setActivePage]);
 
     useEffect(() => {
         const hash = window.location.hash;
@@ -62,6 +69,33 @@ const LoansPage = () => {
     useEffect(() => {
         fetchMyPenalty();
     }, []);
+
+    useEffect(() => {
+        if (!loans.length) return;
+
+        const fetchAll = async () => {
+            try {
+                const results = await Promise.all(
+                    loans.map(async (item) => {
+                        const res = await axios.get(`/muon-tra/${item._id}/details`);
+                        return { id: item._id, data: res};
+                    })
+                );
+
+                const map = {};
+                results.forEach(r => { map[r.id] = r.data });
+
+                setMobileDetails(map);
+                console.log(mobileDetails);
+            } catch (error) {
+                console.error("Error fetching loan details:", error);
+            }
+        };
+
+        fetchAll();
+    }, [loans]);
+
+
 
     const fetchMyLoans = async () => {
         setLoading(true);
@@ -247,7 +281,12 @@ const LoansPage = () => {
                 dataIndex: 'ngayHenTra',
                 render: (date, detailRecord) => {
                     if (!date) return <span className="text-gray-400">--</span>;
-                    const isOverdue = detailRecord.tinhTrang === 0 && dayjs().isAfter(dayjs(date));
+                    const parentStatus = detailRecord.maMuonTra?.trangThai;
+                    const isBorrowing = parentStatus === 2;
+                    const notReturned = detailRecord.tinhTrang === 0;
+                    const timePassed = dayjs().isAfter(dayjs(date));
+
+                    const isOverdue = isBorrowing && notReturned && timePassed;
 
                     return (
                         <span className={isOverdue ? "text-red-600 font-bold flex items-center gap-1" : ""}>
@@ -407,7 +446,7 @@ const LoansPage = () => {
             title: 'Ngày thanh toán',
             key: 'ngayThanhToan',
             align: 'center',
-            width: 50,
+            width: 150,
             render: (_, record) => {
                 if (record.trangThai) {
                     return (
@@ -443,7 +482,8 @@ const LoansPage = () => {
                     </Button>
                 )
             )
-        }    ];
+        }
+    ];
 
     return (
         <div ref={topRef}>
@@ -465,8 +505,11 @@ const LoansPage = () => {
                     </div>
                 } key="1">
                     <div className="bg-gray-50" style={{ height: 'calc(100vh - 100px)', display: 'flex', flexDirection: 'column' }}>
-                        <Content className="max-w-6xl mx-auto px-4 py-8 w-full">
-                            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100" style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+                        <Content className="max-w-8xl mx-auto px-4 py-8 w-full">
+                            <div
+                                className="hidden sm:flex bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex-col overflow-hidden"
+                                style={{ flex: 1 }}
+                            >
                                 <Table
                                     className="components-table-demo-nested"
                                     columns={columns}
@@ -475,25 +518,164 @@ const LoansPage = () => {
                                     rowKey="_id"
                                     loading={loading}
                                     pagination={false}
-                                    scroll={{
-                                        x: 1000,
-                                        y: 'calc(100vh - 280px)'
-                                    }}
+                                    scroll={{ x: 1000, y: 'calc(100vh - 280px)' }}
                                 />
+                            </div>
+
+                            <div className="block sm:hidden space-y-4 overflow-y-auto max-h-[calc(100vh-240px)]">
+                                {loans.map((item, index) => {
+                                    const STT = (current - 1) * pageSize + index + 1;
+
+                                    const mapStatus = {
+                                        0: { color: 'orange', text: '⏳ Chờ duyệt' },
+                                        1: { color: 'blue', text: '📦 Chờ lấy sách' },
+                                        2: { color: 'geekblue', text: '📖 Đang mượn' },
+                                        3: { color: 'green', text: '✅ Hoàn tất' },
+                                        4: { color: 'red', text: '❌ Đã hủy' },
+                                    };
+                                    const st = mapStatus[item.trangThai] || { text: 'Unknown', color: 'default' };
+
+                                    const nested = mobileDetails[item._id] || [];
+
+                                    return (
+                                        <div
+                                            key={item._id}
+                                            className="bg-white p-4 rounded-xl shadow-sm border border-gray-200 mb-4 overflow-hidden"
+                                        >
+
+                                            <div className="flex justify-between items-center mb-2">
+                                                <span className="text-lg font-bold">{STT}</span>
+                                                <Tag color="purple">#{item._id.slice(-6).toUpperCase()}</Tag>
+                                            </div>
+
+                                            <div className="mb-2 flex">
+                                                <span className="font-medium whitespace-nowrap mr-2">Ngày đăng ký: </span>
+                                                <p> {dayjs(item.ngayDangKy).format('DD/MM/YYYY HH:mm')}</p>
+
+                                            </div>
+
+                                            <div className="mb-2 flex">
+                                                <span className="font-medium whitespace-nowrap mr-2">Ngày mượn: </span>
+                                                <p>{item.ngayMuon ? dayjs(item.ngayMuon).format('DD/MM/YYYY') : '-'}</p>
+                                            </div>
+
+                                            <div className="mb-2 flex">
+                                                <span className="font-medium whitespace-nowrap mr-2">
+                                                    Ghi chú:
+                                                </span>
+                                                <p className="text-gray-800 break-words whitespace-normal flex-1 min-w-0">
+                                                    {item.ghiChu || "Không có"}
+                                                </p>
+                                            </div>
+
+                                            <div className="mt-2">
+                                                <Tag color={st.color}>{st.text}</Tag>
+                                            </div>
+
+                                            <div className="mt-3">
+                                                {item.trangThai === 0 ? (
+                                                    <Popconfirm
+                                                        title="Hủy yêu cầu mượn sách?"
+                                                        description="Bạn có chắc chắn muốn hủy đơn này không?"
+                                                        onConfirm={() => handleCancelLoan(item._id)}
+                                                        okText="Đồng ý"
+                                                        cancelText="Không"
+                                                        placement="topRight"
+                                                    >
+                                                        <Button danger size="small" icon={<CloseCircleOutlined />}>
+                                                            Hủy đơn
+                                                        </Button>
+                                                    </Popconfirm>
+                                                ) : (
+                                                    <Button disabled size="small" icon={<CloseCircleOutlined />}>
+                                                        Hủy đơn
+                                                    </Button>
+                                                )}
+                                            </div>
+                                            {nested.length > 0 && (
+                                                <div className="mt-4 border-t pt-3">
+                                                    <p className="font-semibold text-gray-800 mb-2">Danh sách sách</p>
+
+                                                    {nested.map((detail) => {
+                                                        const book = detail.maSach;
+                                                        const isOverdue =
+                                                            detail.tinhTrang === 0 &&
+                                                            detail.ngayHenTra &&
+                                                            dayjs().isAfter(dayjs(detail.ngayHenTra));
+
+                                                        return (
+                                                            <div
+                                                                key={detail._id}
+                                                                className="p-3 bg-gray-50 rounded-lg border mb-2"
+                                                            >
+                                                                <div className="flex gap-3 items-center">
+                                                                    <img
+                                                                        src={book?.hinhAnh || "https://placehold.co/40x60"}
+                                                                        className="w-12 h-16 object-cover rounded border"
+                                                                    />
+                                                                    <div className="flex-1">
+                                                                        <p className="font-medium text-blue-800">
+                                                                            {book?.tenSach}
+                                                                        </p>
+
+                                                                        <p className="text-xs">
+                                                                            <span className="font-medium">Hạn trả:</span>{' '}
+                                                                            {detail.ngayHenTra ? (
+                                                                                <span className={isOverdue ? 'text-red-600 font-bold' : ''}>
+                                                                                    {dayjs(detail.ngayHenTra).format('DD/MM/YYYY')}
+                                                                                    {isOverdue && (
+                                                                                        <Tooltip title="Bạn đã quá hạn trả!">
+                                                                                            <ClockCircleOutlined className="ml-1" />
+                                                                                        </Tooltip>
+                                                                                    )}
+                                                                                </span>
+                                                                            ) : (
+                                                                                '--'
+                                                                            )}
+                                                                        </p>
+                                                                        <p className="text-xs">
+                                                                            <span className="font-medium">Ngày trả:</span>{' '}
+                                                                            {detail.ngayTra ? dayjs(detail.ngayTra).format('DD/MM/YYYY') : '-'}
+                                                                        </p>
+
+                                                                        <p className="text-xs mt-1">
+                                                                            {detail.tinhTrang === 1 ? (
+                                                                                <Tag color="green">Đã trả</Tag>
+                                                                            ) : detail.tinhTrang === 2 ? (
+                                                                                <Tag color="volcano">Mất/Hỏng</Tag>
+                                                                            ) : (
+                                                                                <Tag color="geekblue">Đang giữ</Tag>
+                                                                            )}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                            )}
+                                        </div>
+                                    );
+                                })}
                             </div>
                             <div style={{
                                 marginTop: 16,
                                 display: 'flex',
                                 justifyContent: 'flex-end',
-                                flexShrink: 0
+                                flexShrink: 0,
                             }}>
                                 <Pagination
+                                    style={{ display: "flex", flexWrap: "nowrap" }}
                                     current={current}
                                     total={total}
                                     pageSize={pageSize}
                                     showSizeChanger
                                     pageSizeOptions={['5', '10', '20', '50']}
-                                    showTotal={(total, range) => `${range[0]}-${range[1]} của ${total} phiếu`}
+                                    showTotal={(total, range) => (
+                                        <span className="hidden sm:inline">
+                                            {`${range[0]}-${range[1]} của ${total} phiếu`}
+                                        </span>
+                                    )}
                                     onChange={(page, pageSize) => {
                                         setCurrent(page);
                                         setPageSize(pageSize);
@@ -504,7 +686,6 @@ const LoansPage = () => {
                                     }}
                                 />
                             </div>
-
                         </Content>
                     </div>
                 </TabPane>
@@ -513,8 +694,8 @@ const LoansPage = () => {
                         <span className="text-sm font-medium">Phiếu phạt</span>
                     </div>
                 } key="2">
-                    <Layout className="min-h-screen bg-gray-50">
-                        <Content className="max-w-6xl mx-auto px-4 py-8 w-full">
+                    <Layout className="min-h-screen" style={{ backgroundColor: "transparent" }}>
+                        <Content className="max-w-8xl mx-auto px-4 py-8 w-full">
                             <div className="mb-6">
                                 {totalDebt > 0 ? (
                                     <Alert
@@ -544,19 +725,104 @@ const LoansPage = () => {
 
                             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                                 <Title level={4} className="mb-4">Chi tiết các phiếu phạt</Title>
-                                <div className="overflow-x-auto">
+                                <div className="hidden md:block">
                                     <Table
                                         columns={columnsPenalty}
                                         dataSource={list}
                                         rowKey="_id"
                                         loading={loading}
                                         pagination={false}
-                                        scroll={{ x: 'max-content' }}
                                         locale={{ emptyText: <Empty description="Không có dữ liệu vi phạm" /> }}
                                     />
                                 </div>
-                            </div>
+                                <div className="block md:hidden space-y-4">
+                                    {list.map((item, index) => {
+                                        const deadline = dayjs(item.ngayLap).add(7, 'day');
+                                        const now = dayjs();
+                                        const isOverdue = now.isAfter(deadline);
+                                        const diffMs = Math.abs(now.diff(deadline));
+                                        const duration = dayjs.duration(diffMs);
+                                        const days = Math.ceil(duration.asDays());
 
+                                        return (
+                                            <div key={item._id} className="bg-white shadow rounded-lg p-4 border">
+                                                <div className="flex justify-between items-center mb-2">
+                                                    <span className="font-bold">STT: {index + 1}</span>
+                                                    <Tag color="purple" className="cursor-pointer">
+                                                        {item.maMuonTra?._id ? `#${item.maMuonTra._id.slice(-6).toUpperCase()}` : 'Chưa có'}
+                                                    </Tag>
+                                                </div>
+
+                                                <div className="flex items-center gap-2 mb-2">
+                                                    <img src={item.maSach?.hinhAnh} alt="" className="w-12 h-16 object-cover rounded border" />
+                                                    <span className="font-medium text-blue-800">{item.maSach?.tenSach}</span>
+                                                </div>
+
+                                                <div className="text-gray-600 mb-2">
+                                                    <span>Lý do phạt: {item.lyDo}</span>
+                                                </div>
+
+                                                <div className="mb-2 flex items-center gap-2">
+                                                    <span className="font-medium">Ngày lập: {dayjs(item.ngayLap).format('DD/MM/YYYY')}</span>
+                                                    <div className="text-xs opacity-75">{dayjs(item.ngayLap).format('HH:mm')}</div>
+                                                </div>
+
+                                                <div className="mb-2 flex items-center gap-2">
+                                                    <span className="font-medium">Số tiền:</span>
+                                                    <b className="text-red-600">
+                                                        {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.soTien)}
+                                                    </b>
+                                                </div>
+
+                                                <div className="mb-2">
+                                                    {item.trangThai ? (
+                                                        <Tag icon={<CheckCircleOutlined />} color="success">
+                                                            ĐÃ THANH TOÁN
+                                                        </Tag>
+                                                    ) : (
+                                                        <Tooltip
+                                                            title={
+                                                                isOverdue
+                                                                    ? `Hạn chót: ${deadline.format('DD/MM/YYYY')} (Trễ ${days} ngày)`
+                                                                    : `Còn ${days} ngày nữa là đến hạn`
+                                                            }
+                                                        >
+                                                            <div className={`flex flex-col gap-1 ${isOverdue ? 'text-red-600' : ''}`}>
+                                                                <Tag icon={<ExclamationCircleOutlined />} color={isOverdue ? 'red' : 'volcano'}>
+                                                                    {isOverdue ? `Quá hạn ${days} ngày` : 'CHƯA THANH TOÁN'}
+                                                                </Tag>
+                                                                {!isOverdue && (
+                                                                    <div className="text-[12px]">
+                                                                        Hạn còn {days} ngày ({deadline.format('DD/MM/YYYY')})
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        </Tooltip>
+                                                    )}
+                                                </div>
+
+                                                <div className="mb-2">
+                                                    <span className="font-medium">
+                                                        Ngày thanh toán:{' '}
+                                                        {item.trangThai ? dayjs(item.updatedAt).format('DD/MM/YYYY HH:mm') : '--'}
+                                                    </span>
+                                                </div>
+
+                                                <Button
+                                                    type="primary"
+                                                    className="bg-blue-600 w-full"
+                                                    size="small"
+                                                    disabled={item.trangThai}
+                                                    onClick={() => handlePayment(item)}
+                                                >
+                                                    Thanh toán VNPay
+                                                </Button>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+
+                            </div>
                         </Content>
                     </Layout>
                 </TabPane>

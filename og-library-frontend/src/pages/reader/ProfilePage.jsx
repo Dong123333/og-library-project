@@ -11,10 +11,12 @@ import dayjs from 'dayjs';
 import {useAuth} from "../../context/AuthContext.jsx";
 import axios from '../../services/axios.customize';
 import {useNavigate} from "react-router-dom";
+import {usePage} from "../../context/NavContext.jsx";
 
 const { Content } = Layout;
 
 const ProfilePage = () => {
+    const { setActivePage } = usePage();
     const { user, setUser } = useAuth();
     const [loading, setLoading] = useState(false);
     const [dataLoading, setDataLoading] = useState(true);
@@ -23,6 +25,10 @@ const ProfilePage = () => {
 
     const [formInfo] = Form.useForm();
     const [formPass] = Form.useForm();
+
+    useEffect(() => {
+        setActivePage('');
+    }, [setActivePage]);
 
     useEffect(() => {
         const fetchFullProfile = async () => {

@@ -57,7 +57,7 @@ const Header = () => {
                         type={activePage === 'home' ? 'primary' : 'text'}
                         icon={<HomeOutlined />}
                         onClick={handleClickHome}
-                        className={activePage === 'home' ? 'bg-blue-100 text-blue-700 font-semibold border-none' : 'text-gray-600'}
+                        className={` ${ activePage === 'home' ? 'bg-blue-100 text-blue-700 font-semibold border-none' : 'text-gray-600' } focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 `}
                     >
                         Trang chủ
                     </Button>
@@ -65,7 +65,7 @@ const Header = () => {
                         type={activePage === 'library' ? 'primary' : 'text'}
                         icon={<BookOutlined />}
                         onClick={handleClickLib}
-                        className={activePage === 'library' ? 'bg-blue-100 text-blue-700 font-semibold border-none' : 'text-gray-600'}
+                        className={` ${ activePage === 'library' ? 'bg-blue-100 text-blue-700 font-semibold border-none' : 'text-gray-600' } focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 `}
                     >
                         Thư viện sách
                     </Button>
@@ -76,7 +76,7 @@ const Header = () => {
                 {isAuthenticated && (
                     <Badge count={Bookcase.length} showZero>
                         <Button
-                            icon={<ShoppingCartOutlined style={{ fontSize: '24px' }} />}
+                            icon={<ShoppingCartOutlined style={{ fontSize: '24px', outline: "none" }} />}
                             type="text"
                             onClick={() => navigate('/bookcase')}
                         />

@@ -277,26 +277,29 @@ const LibraryPage = () => {
                                 )}
                             </div>
                         </Spin>
-                        <div className="flex justify-center mt-10">
-                            <Pagination
-                                current={current}
-                                pageSize={pageSize}
-                                total={total}
-                                showSizeChanger
-                                pageSizeOptions={['8', '16', '32', '64']}
-                                onChange={(p, s) => {
-                                    setCurrent(p);
-                                    setPageSize(s);
-                                    if (topRef.current) {
-                                        topRef.current.scrollIntoView({
-                                            behavior: 'smooth',
-                                            block: 'start'
-                                        });
-                                    }
-                                }}
-                            />
-                        </div>
+                        <div className="flex justify-center mt-10 w-full">
+                            <div style={{ display: "flex", flexWrap: "nowrap", transform: "scale(0.8)", transformOrigin: "center" }}>
+                                <Pagination
+                                    style={{ display: "flex", flexWrap: "nowrap" }}
+                                    current={current}
+                                    pageSize={pageSize}
+                                    total={total}
+                                    showSizeChanger
+                                    pageSizeOptions={['8', '16', '32', '64']}
+                                    onChange={(p, s) => {
+                                        setCurrent(p);
+                                        setPageSize(s);
+                                        if (topRef.current) {
+                                            topRef.current.scrollIntoView({
+                                                behavior: 'smooth',
+                                                block: 'start'
+                                            });
+                                        }
+                                    }}
+                                />
+                            </div>
 
+                        </div>
                     </div>
                 </div>
             </Layout>

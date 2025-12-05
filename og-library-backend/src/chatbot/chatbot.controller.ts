@@ -8,7 +8,11 @@ export class ChatbotController {
 
   @Post()
   @Public()
-  async chat(@Body('message') message: string) {
-    return this.chatbotService.chatWithAi(message);
+  async chat(
+    @Body('message') message: string,
+    @Body('history')
+    history: { role: 'user' | 'model'; parts: { text: string }[] }[],
+  ) {
+    return this.chatbotService.chatWithAi(message, history);
   }
 }

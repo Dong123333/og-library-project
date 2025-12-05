@@ -342,7 +342,12 @@ const LoanManage = () => {
                 dataIndex: 'ngayHenTra',
                 render: (date, detailRecord) => {
                     if (!date) return <span className="text-gray-400">--</span>;
-                    const isOverdue = detailRecord.tinhTrang === 0 && dayjs().isAfter(dayjs(date));
+                    const parentStatus = detailRecord.maMuonTra?.trangThai;
+                    const isBorrowing = parentStatus === 2;
+                    const notReturned = detailRecord.tinhTrang === 0;
+                    const timePassed = dayjs().isAfter(dayjs(date));
+
+                    const isOverdue = isBorrowing && notReturned && timePassed;
                     return (
                         <span className={isOverdue ? "text-red-600 font-bold flex items-center gap-1" : ""}>
                             {dayjs(date).format('DD/MM/YYYY')}

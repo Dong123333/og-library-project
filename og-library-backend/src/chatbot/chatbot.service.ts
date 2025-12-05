@@ -28,7 +28,10 @@ export class ChatbotService {
     this.model = this.genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
   }
 
-  async chatWithAi(message: string) {
+  async chatWithAi(
+    message: string,
+    history: { role: 'user' | 'model'; parts: { text: string }[] }[],
+  ) {
     const LIBRARY_SYSTEM_PROMPT = `
     VAI TRÒ:
     Bạn là "Olivery" - Trợ lý ảo AI chuyên nghiệp của Thư viện Olive Gallery.
@@ -202,20 +205,33 @@ export class ChatbotService {
           .join('\n');
       }
 
-      const finalPrompt = `
-            ${LIBRARY_SYSTEM_PROMPT}
+      const geminiHistory = (history || []).map((msg) => ({
+        role: (msg.role as string) === 'ai' ? 'model' : 'user',
+        parts: msg.parts || [{ text: (msg as any).text }],
+      }));
 
-            --- KẾT QUẢ TÌM KIẾM THEO CÂU HỎI (SEARCH) ---
-            "${bookContext}"
+      const chatSession = this.model.startChat({
+        history: geminiHistory,
+        systemInstruction: {
+          role: 'system',
+          parts: [{ text: LIBRARY_SYSTEM_PROMPT }],
+        },
+      });
 
-            --- TOP SÁCH ĐƯỢC MƯỢN NHIỀU NHẤT (TRENDING) ---
-            "${trendingContext}"
+      const messageWithContext = `
+        [DỮ LIỆU HỆ THỐNG VỪA TRA CỨU]:
+        "${bookContext}"
 
-            --- CÂU HỎI CỦA ĐỘC GIẢ ---
-            "${message}"
-        `;
+        [SÁCH HOT]:
+        "${trendingContext}"
 
-      const result = await this.model.generateContent(finalPrompt);
+        [CÂU HỎI CỦA NGƯỜI DÙNG]:
+        "${message}"
+        
+        Hãy trả lời câu hỏi trên dựa vào dữ liệu hệ thống và quy định.
+      `;
+
+      const result = await chatSession.sendMessage(messageWithContext);
       return { reply: result.response.text() };
     } catch (error) {
       console.error('❌ Lỗi Chatbot:', error);
