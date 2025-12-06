@@ -7,10 +7,16 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
+  Request,
 } from '@nestjs/common';
 import { NguoiDungService } from './nguoi-dung.service';
 import { CreateNguoiDungDto } from './dto/create-nguoi-dung.dto';
-import { UpdateNguoiDungDto } from './dto/update-nguoi-dung.dto';
+import {
+  UpdateProfileDto,
+  UpdateUserByAdminDto,
+} from './dto/update-nguoi-dung.dto';
+import { JwtAuthGuard } from '../../auth/passport/jwt-auth.guard';
 
 @Controller('nguoi-dung')
 export class NguoiDungController {
@@ -39,12 +45,19 @@ export class NguoiDungController {
     return this.nguoiDungService.findOne(id);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Patch('profile')
+  updateProfile(@Request() req, @Body() updateProfileDto: UpdateProfileDto) {
+    return this.nguoiDungService.updateProfile(req.user._id, updateProfileDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
-  update(
+  updateUserByAdmin(
     @Param('id') id: string,
-    @Body() updateNguoiDungDto: UpdateNguoiDungDto,
+    @Body() updateUserByAdminDto: UpdateUserByAdminDto,
   ) {
-    return this.nguoiDungService.update(id, updateNguoiDungDto);
+    return this.nguoiDungService.updateUserByAdmin(id, updateUserByAdminDto);
   }
 
   @Delete(':id')

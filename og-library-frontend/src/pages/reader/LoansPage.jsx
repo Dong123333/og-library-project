@@ -277,6 +277,12 @@ const LoansPage = () => {
                 )
             },
             {
+                title: 'Số lượng',
+                align: 'center',
+                width: 90,
+                render: (_, detail) =>  <span>{detail.soLuongMuon}</span>
+            },
+            {
                 title: 'Hạn trả',
                 dataIndex: 'ngayHenTra',
                 render: (date, detailRecord) => {
@@ -613,9 +619,14 @@ const LoansPage = () => {
                                                                         src={book?.hinhAnh || "https://placehold.co/40x60"}
                                                                         className="w-12 h-16 object-cover rounded border"
                                                                     />
-                                                                    <div className="flex-1">
+                                                                    <div className="flex-1 flex flex-col justify-center gap-1.5">
                                                                         <p className="font-medium text-blue-800">
                                                                             {book?.tenSach}
+                                                                        </p>
+
+                                                                        <p className="text-xs">
+                                                                            <span className="font-medium mr-1">Số lượng:</span>
+                                                                            {detail?.soLuongMuon}
                                                                         </p>
 
                                                                         <p className="text-xs">

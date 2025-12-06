@@ -106,9 +106,39 @@ const BookcasePage = () => {
             render: (val, record) => (
                 <InputNumber
                     min={1}
+                    precision={0}
                     max={record.soLuong}
                     value={val || 1}
+                    inputMode="numeric"
                     onChange={(value) => updateSoLuongMuon(record._id, value, record.soLuong)}
+                    onKeyDown={(e) => {
+                        const allowedKeys = [
+                            "Backspace", "Delete", "Tab", "ArrowLeft", "ArrowRight"
+                        ];
+
+                        const maxValue = Math.min(record?.soLuong, 10);
+                        if (!/[0-9]/.test(e.key) && !allowedKeys.includes(e.key)) {
+                            e.preventDefault();
+                            return;
+                        }
+
+                        const inputValue = e.target.value;
+                        const nextValue = Number(inputValue + e.key);
+
+                        if (/[0-9]/.test(e.key) && nextValue > maxValue) {
+                            e.preventDefault();
+                        }
+                    }}
+
+                    parser={(value) => {
+                        if (!value) return null;
+                        const num = value.replace(/\D/g, "");
+                        if (!num) return null;
+                        const maxValue = Math.min(record?.soLuong, 10);
+                        return Math.min(Number(num), maxValue);
+                    }}
+
+                    formatter={(value) => value}
                 />
             )
         },
@@ -184,11 +214,41 @@ const BookcasePage = () => {
                                             <span className="text-gray-500 text-sm">Số lượng mượn:</span>
                                             <InputNumber
                                                 min={1}
+                                                precision={0}
                                                 max={book.soLuong}
                                                 value={book.soLuongMuon || 1}
+                                                inputMode="numeric"
                                                 onChange={(val) =>
                                                     updateSoLuongMuon(book._id, val, book.soLuong)
                                                 }
+                                                onKeyDown={(e) => {
+                                                    const allowedKeys = [
+                                                        "Backspace", "Delete", "Tab", "ArrowLeft", "ArrowRight"
+                                                    ];
+
+                                                    const maxValue = Math.min(book?.soLuong, 10);
+                                                    if (!/[0-9]/.test(e.key) && !allowedKeys.includes(e.key)) {
+                                                        e.preventDefault();
+                                                        return;
+                                                    }
+
+                                                    const inputValue = e.target.value;
+                                                    const nextValue = Number(inputValue + e.key);
+
+                                                    if (/[0-9]/.test(e.key) && nextValue > maxValue) {
+                                                        e.preventDefault();
+                                                    }
+                                                }}
+
+                                                parser={(value) => {
+                                                    if (!value) return null;
+                                                    const num = value.replace(/\D/g, "");
+                                                    if (!num) return null;
+                                                    const maxValue = Math.min(book?.soLuong, 10);
+                                                    return Math.min(Number(num), maxValue);
+                                                }}
+
+                                                formatter={(value) => value}
                                             />
                                         </div>
 

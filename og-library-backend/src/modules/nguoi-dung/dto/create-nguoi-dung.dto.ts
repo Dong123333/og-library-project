@@ -1,4 +1,4 @@
-import { IsBoolean, IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
 import { VaiTro } from '../../vai-tro/schemas/vai-tro.schema';
 
 export class CreateNguoiDungDto {

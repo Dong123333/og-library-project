@@ -58,12 +58,14 @@ const ProfilePage = () => {
     const handleUpdateInfo = async (values) => {
         setLoading(true);
         try {
+            const { email, ...dataToSend } = values;
+
             const payload = {
-                ...values,
+                ...dataToSend,
                 ngaySinh: values.ngaySinh ? values.ngaySinh.toISOString() : null
             };
 
-            const res = await axios.patch(`/nguoi-dung/${user._id}`, payload);
+            const res = await axios.patch('/nguoi-dung/profile', payload);
 
             if (res) {
                 messageApi.success("Cập nhật hồ sơ thành công!");
@@ -72,7 +74,6 @@ const ProfilePage = () => {
                     ...payload,
                     hoVaTen: values.hoVaTen
                 };
-
                 setUser(newUserParams);
             }
         } catch (error) {

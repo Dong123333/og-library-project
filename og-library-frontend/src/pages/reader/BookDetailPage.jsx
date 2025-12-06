@@ -418,6 +418,35 @@ const BookDetailPage = () => {
                             style={{ width: '100%' }}
                             size="large"
                             onChange={handleQuantityChange}
+                            inputMode="numeric"
+                            onKeyDown={(e) => {
+                                const allowedKeys = [
+                                    "Backspace", "Delete", "Tab", "ArrowLeft", "ArrowRight"
+                                ];
+
+                                const maxValue = Math.min(book?.soLuong, 10);
+                                if (!/[0-9]/.test(e.key) && !allowedKeys.includes(e.key)) {
+                                    e.preventDefault();
+                                    return;
+                                }
+
+                                const inputValue = e.target.value;
+                                const nextValue = Number(inputValue + e.key);
+
+                                if (/[0-9]/.test(e.key) && nextValue > maxValue) {
+                                    e.preventDefault();
+                                }
+                            }}
+
+                            parser={(value) => {
+                                if (!value) return null;
+                                const num = value.replace(/\D/g, "");
+                                if (!num) return null;
+                                const maxValue = Math.min(book?.soLuong, 10);
+                                return Math.min(Number(num), maxValue);
+                            }}
+
+                            formatter={(value) => value}
                         />
                     </Form.Item>
                     <Form.Item

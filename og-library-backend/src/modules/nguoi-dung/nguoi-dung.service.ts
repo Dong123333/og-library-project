@@ -5,7 +5,10 @@ import {
   OnModuleInit,
 } from '@nestjs/common';
 import { CreateNguoiDungDto } from './dto/create-nguoi-dung.dto';
-import { UpdateNguoiDungDto } from './dto/update-nguoi-dung.dto';
+import {
+  UpdateProfileDto,
+  UpdateUserByAdminDto,
+} from './dto/update-nguoi-dung.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { NguoiDung, TrangThaiNguoiDung } from './schemas/nguoi-dung.schema';
 import mongoose, { Model } from 'mongoose';
@@ -166,15 +169,26 @@ export class NguoiDungService implements OnModuleInit {
     return await this.nguoiDungModel.findOne({ email }).populate('maVaiTro');
   }
 
-  async update(id: string, updateNguoiDungDto: UpdateNguoiDungDto) {
-    if (updateNguoiDungDto.matKhau) {
-      const newPassword = await hashPasswordHelper(updateNguoiDungDto.matKhau);
-      updateNguoiDungDto.matKhau = newPassword;
-    } else {
-      delete updateNguoiDungDto.matKhau;
-    }
+  async updateProfile(id: string, updateProfileDto: UpdateProfileDto) {
     return await this.nguoiDungModel
-      .findByIdAndUpdate(id, updateNguoiDungDto, { new: true })
+      .findByIdAndUpdate(id, updateProfileDto, { new: true })
+      .select('-matKhau');
+  }
+
+  async updateUserByAdmin(
+    id: string,
+    updateUserByAdminDto: UpdateUserByAdminDto,
+  ) {
+    if (updateUserByAdminDto.matKhau) {
+      updateUserByAdminDto.matKhau = await hashPasswordHelper(
+        updateUserByAdminDto.matKhau,
+      );
+    } else {
+      delete updateUserByAdminDto.matKhau;
+    }
+
+    return await this.nguoiDungModel
+      .findByIdAndUpdate(id, updateUserByAdminDto, { new: true })
       .select('-matKhau');
   }
 
