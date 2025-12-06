@@ -7,7 +7,7 @@ const AuthLayout = ({ children, title, subtitle, titleFooter, actionFooter, link
             <div className="bg-white w-full max-w-5xl h-[600px] rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row m-4">
                 <div className="w-full md:w-1/2 relative hidden md:block">
                     <img
-                        src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=1000&auto=format&fit=crop"
+                        src="https://res.cloudinary.com/dzc5ukalj/image/upload/v1764591248/sach2_cgg0tb.avif"
                         alt="Library"
                         className="absolute inset-0 w-full h-full object-cover"
                     />
@@ -21,11 +21,6 @@ const AuthLayout = ({ children, title, subtitle, titleFooter, actionFooter, link
                             <p className="mt-4 text-gray-300 text-lg max-w-xs">
                                 Hệ thống thư viện số hiện đại dành riêng cho tất cả mọi độc giả.
                             </p>
-                        </div>
-                        <div className="flex gap-2">
-                            <div className="w-12 h-1 bg-white rounded-full"></div>
-                            <div className="w-3 h-1 bg-gray-500 rounded-full"></div>
-                            <div className="w-3 h-1 bg-gray-500 rounded-full"></div>
                         </div>
                     </div>
                 </div>

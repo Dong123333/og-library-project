@@ -64,7 +64,7 @@ const Chatbot = () => {
     return (
         <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
             {isOpen ? (
-                <div className="w-80 h-96 flex flex-col rounded-t-xl rounded-b-xl overflow-hidden shadow-[0_12px_30px_rgba(0,0,0,0.25)] bg-white/95 backdrop-blur-sm">
+                <div className="w-screen h-screen fixed bottom-0 right-0 md:w-80 md:h-96 md:relative flex flex-col rounded-none md:rounded-t-xl md:rounded-b-xl overflow-hidden shadow-[0_12px_30px_rgba(0,0,0,0.25)] bg-white/95 backdrop-blur-sm">
                     <div className="flex items-center justify-between bg-blue-600 px-4 py-3 shadow-inner">
                         <div className="flex items-center gap-2">
                             <Avatar icon={<RobotOutlined />} style={{ backgroundColor: '#22c55e', color: '#fff', boxShadow: '0 2px 6px rgba(0,0,0,0.2)' }}  />
