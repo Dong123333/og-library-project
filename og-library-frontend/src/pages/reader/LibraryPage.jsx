@@ -13,12 +13,19 @@ import {
     Button,
     Modal,
     Form,
-    InputNumber, DatePicker, Alert, message
+    InputNumber, DatePicker, Alert, message, Menu, ConfigProvider, Avatar, Tooltip
 } from 'antd';
 import axios from "../../services/axios.customize";
-import {ArrowRightOutlined, SearchOutlined} from "@ant-design/icons";
+import {
+    AppstoreOutlined,
+    ArrowRightOutlined,
+    BookOutlined, CompassFilled,
+    FilterOutlined, HeartOutlined, ReadFilled,
+    SearchOutlined,
+    ThunderboltFilled
+} from "@ant-design/icons";
 import {usePage} from "../../context/NavContext.jsx";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import useDebounce from "../../hooks/UseDebounce.jsx";
 import bookDonation from "../../assets/images/book-donation.png";
 import dayjs from "dayjs";
@@ -26,7 +33,7 @@ import {useAuth} from "../../context/AuthContext.jsx";
 import FadeInImage from "../../components/FadeInImage.jsx";
 
 const { Meta } = Card;
-
+const { Sider, Content } = Layout;
 
 const LibraryPage = () => {
     const [books, setBooks] = useState([]);
@@ -44,10 +51,10 @@ const LibraryPage = () => {
     const [pageSize, setPageSize] = useState(16);
     const [total, setTotal] = useState(0);
 
-    const [searchTerm, setSearchTerm] = useState("");
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchTerm, setSearchTerm] = useState(() => searchParams.get('tenSach') || '');
     const [filterCategory, setFilterCategory] = useState(null);
     const debouncedSearchTerm = useDebounce(searchTerm, 500);
-    const topRef = useRef(null);
     const [messageApi, contextHolder] = message.useMessage();
 
     useEffect(() => {
@@ -55,12 +62,28 @@ const LibraryPage = () => {
     }, [current, pageSize, debouncedSearchTerm, filterCategory]);
 
     useEffect(() => {
+        if (debouncedSearchTerm) {
+            setSearchParams({ tenSach: debouncedSearchTerm });
+        } else {
+            searchParams.delete('tenSach');
+            setSearchParams(searchParams);
+        }
+    }, [debouncedSearchTerm, setSearchParams]);
+
+    useEffect(() => {
         setActivePage("library");
     }, [setActivePage]);
+
     const handleClick = () => {
         setActivePage('home')
         navigate('/')
     }
+
+    const scrollToTop = () => {
+        document
+            .getElementById('page-container')
+            ?.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -77,7 +100,7 @@ const LibraryPage = () => {
         let query = `page=${current}&limit=${pageSize}`;
 
         if (debouncedSearchTerm) {
-            query += `&tenSach=${debouncedSearchTerm}`;
+            query += `&tenSach=${encodeURIComponent(debouncedSearchTerm)}`;
         }
         if (filterCategory && filterCategory !== 'All') {
             query += `&maDanhMuc=${filterCategory}`;
@@ -156,43 +179,83 @@ const LibraryPage = () => {
     };
 
     return (
-        <div ref={topRef} className="scroll-mt-0">
+        <ConfigProvider
+            theme={{
+                token: {
+                    colorPrimary: '#4F46E5',
+                    borderRadius: 12,
+                    fontFamily: "'Inter', sans-serif",
+                },
+            }}
+        >
             {contextHolder}
-            <Layout className="min-h-screen" style={{ backgroundColor: "transparent"}}>
-                <div className="animate-fade-in">
-                    <div className="flex items-center gap-2 mb-6 text-gray-500 cursor-pointer hover:text-blue-600 w-fit" onClick={handleClick}>
-                        <ArrowRightOutlined className="rotate-180" /> Quay lại
+            <div className="min-h-screen bg-[#F3F4F6] font-sans text-slate-800 flex flex-col">
+                <div className="flex flex-1 max-w-[1920px] mx-auto w-full">
+                    <div className="hidden lg:block w-80 relative flex-shrink-0">
+                        <div className="sticky top-24 h-[calc(100vh-120px)] p-6 bg-white/80 backdrop-blur-xl border border-white/60 shadow-lg shadow-indigo-100/50 flex flex-col z-10 rounded-2xl overflow-hidden">
+                            <div onClick={handleClick} className="mb-6 flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer border border-slate-200 text-slate-600 transition-all duration-200 hover:bg-white hover:text-indigo-600 hover:shadow-md active:scale-95 group">
+                                <ArrowRightOutlined className="rotate-180 text-slate-400 transition-transform duration-200 group-hover:-translate-x-1 group-hover:text-indigo-500" />
+                                <span className="font-medium">Quay lại</span>
+                            </div>
+
+                            <div className="flex-1 overflow-y-auto pr-2 space-y-1 custom-scrollbar">
+                                <p className="px-4 text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Khám phá</p>
+                                <div
+                                    onClick={() => { setFilterCategory(null); setCurrent(1); }}
+                                    className={`flex items-center gap-3 px-4 py-3.5 rounded-xl cursor-pointer transition-all duration-300 group ${filterCategory === null ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200 scale-105' : 'hover:bg-white hover:shadow-sm text-slate-600'}`}
+                                >
+                                    <CompassFilled className={filterCategory === null ? "text-white" : "text-slate-400 group-hover:text-indigo-500"} />
+                                    <span className="font-medium">Tất cả sách</span>
+                                </div>
+
+                                <p className="px-4 text-xs font-bold text-slate-400 uppercase tracking-wider mt-6 mb-2">Danh mục</p>
+                                {categories.map(c => (
+                                    <div
+                                        key={c._id}
+                                        onClick={() => { setFilterCategory(c._id); setCurrent(1); scrollToTop(); }}
+                                        className={`flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer transition-all duration-200 group ${filterCategory === c._id ? 'bg-white text-indigo-600 shadow-md font-bold border-l-4 border-indigo-600' : 'hover:bg-white/60 hover:text-slate-900 text-slate-500'}`}
+                                    >
+                                        <ReadFilled className={filterCategory === c._id ? "text-indigo-600" : "text-slate-300 group-hover:text-indigo-400"} />
+                                        <span className="truncate">{c.tenDanhMuc}</span>
+                                        {filterCategory === c._id && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-indigo-500"></div>}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
 
-                    <div className="bg-white rounded-xl shadow-md p-6 min-h-[600px]">
-                        <div className="flex flex-col md:flex-row gap-4 mb-8 mt-4">
-                            <Input
-                                size="large"
-                                placeholder="Nhập tên sách..."
-                                prefix={<SearchOutlined />}
-                                className="flex-grow"
-                                value={searchTerm}
-                                onChange={(e) => {
-                                    setSearchTerm(e.target.value);
-                                    setCurrent(1);
-                                }}
-                            />
-                            <Select
-                                defaultValue="All"
-                                style={{ width: 200 }}
-                                size="large"
-                                onChange={(val) => {
-                                    setFilterCategory(val);
-                                    setCurrent(1);
-                                }}
-                            >
-                                <Select.Option value="All">-- Tất cả --</Select.Option>
-                                {categories.map(c => (
-                                    <Select.Option key={c._id} value={c._id}>{c.tenDanhMuc}</Select.Option>
-                                ))}
-                            </Select>
+                    <div className="flex-1 min-w-0 p-4 md:p-8 lg:p-10">
+                        <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 mb-10">
+                            <div>
+                                <p className="text-slate-500 text-lg">Chào độc giả, hôm nay bạn muốn đắm mình vào thế giới nào?</p>
+                            </div>
+
+                            <div className="relative w-full xl:w-[500px]">
+                                <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none z-10">
+                                    <SearchOutlined className="text-slate-400 text-xl group-focus-within:text-indigo-500 transition-colors" />
+                                </div>
+
+                                <Input
+                                    size="large"
+                                    placeholder="Tìm kiếm tác phẩm, tác giả..."
+                                    value={searchTerm}
+                                    onChange={(e) => { setSearchTerm(e.target.value); setCurrent(1); }}
+                                    styles={{
+                                        input: {
+                                            paddingLeft: 48,
+                                            paddingRight: 110,
+                                        },
+                                    }}
+                                    className="rounded-full border-0 bg-white shadow-sm hover:shadow-md focus:shadow-lg transition-all text-base placeholder:text-slate-400"
+                                />
+
+                                <div className="absolute right-3 top-1/2 -translate-y-1/2 bg-indigo-50 text-indigo-600 px-3 py-1 rounded-full text-xs font-bold border border-indigo-100 pointer-events-none">
+                                    {total} SÁCH
+                                </div>
+                            </div>
                         </div>
-                        <Spin spinning={loading} tip="Đang tải dữ liệu...">
+
+                        <Spin spinning={loading} tip="Đang tải...">
                             <div className="min-h-[400px]">
                                 {books.length > 0 ? (
                                     <Row gutter={[24, 24]}>
@@ -200,51 +263,59 @@ const LibraryPage = () => {
                                             <Col xs={24} sm={12} md={8} lg={6} key={book._id}>
                                                 <Card
                                                     hoverable
-                                                    className="h-full flex flex-col rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+                                                    className="h-full flex flex-col rounded-xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+                                                    bodyStyle={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '12px' }} // Padding nhỏ hơn chút cho gọn
                                                     onClick={() => navigate(`/library/${book._id}`)}
                                                     cover={
-                                                        <div className="h-64 p-4 relative group bg-white flex justify-center items-center border-b border-gray-100">
-                                                            <FadeInImage
-                                                                src={book.hinhAnh}
-                                                                alt={book.tenSach}
-                                                                className="w-full h-full"
-                                                            />
-                                                            <div className="absolute inset-0 bg-black/20 hidden group-hover:flex items-center justify-center transition-all">
-                                                                <Button type="primary" shape="round" onClick={() => navigate(`/library/${book._id}`)}>
+                                                        <div className="h-56 p-2 relative bg-white flex justify-center items-center border-b border-gray-50 overflow-hidden">
+                                                            <div className="w-full h-full transition-transform duration-500 group-hover:scale-105">
+                                                                <FadeInImage
+                                                                    src={book.hinhAnh}
+                                                                    alt={book.tenSach}
+                                                                    className="w-full h-full object-contain"
+                                                                />
+                                                            </div>
+
+                                                            <div className="absolute inset-0 bg-black/10 hidden group-hover:flex items-center justify-center transition-all z-10 backdrop-blur-[1px]">
+                                                                <Button type="primary" shape="round" size="small">
                                                                     Xem chi tiết
                                                                 </Button>
                                                             </div>
                                                         </div>
                                                     }
                                                 >
-                                                    <div className="flex flex-col h-full justify-between">
-                                                        <div>
-                                                            <div className="flex justify-between items-start mb-3">
-                                                                <Tag color="blue">{book.maDanhMuc?.tenDanhMuc || 'Khác'}</Tag>
-                                                                {book.soLuong > 0
-                                                                    ? <div></div>
-                                                                    : <Tag color="error">Tạm hết</Tag>
-                                                                }
-                                                            </div>
-                                                            <Meta
-                                                                title={
-                                                                    <div className="text-lg font-bold text-gray-800 truncate" title={book.tenSach}>
-                                                                        {book.tenSach}
-                                                                    </div>
-                                                                }
-                                                                description={
-                                                                    <div className="text-gray-500">
-                                                                        <span className="block truncate">
-                                                                        ✍️ {book.maTacGia?.map(tg => tg.tenTacGia).join(', ') || 'Chưa cập nhật'}
-                                                                    </span>
-                                                                    </div>
-                                                                }
-                                                            />
+                                                    <div className="flex flex-col h-full">
+                                                        <div className="mb-2">
+                                                            <span className="text-[10px] font-bold text-blue-500 bg-blue-50 px-2 py-0.5 rounded uppercase tracking-wider">
+                                                                {book.maDanhMuc?.tenDanhMuc || 'Khác'}
+                                                            </span>
                                                         </div>
+
+                                                        <div className="mb-1">
+                                                            <h3
+                                                                className="text-base font-bold text-gray-800 leading-snug group-hover:text-blue-600 transition-colors"
+                                                                style={{
+                                                                    display: '-webkit-box',
+                                                                    WebkitLineClamp: 2,
+                                                                    WebkitBoxOrient: 'vertical',
+                                                                    overflow: 'hidden',
+                                                                    lineHeight: '1.25rem',
+                                                                    maxHeight: '2.5rem',
+                                                                }}
+                                                                title={book.tenSach}
+                                                            >
+                                                                {book.tenSach}
+                                                            </h3>
+                                                        </div>
+
+                                                        <div className="text-gray-400 text-xs mb-3 truncate">
+                                                            {book.maTacGia?.map(tg => tg.tenTacGia).join(', ') || 'Chưa cập nhật'}
+                                                        </div>
+
                                                         <Button
                                                             type="primary"
                                                             size="large"
-                                                            className="flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 h-14 text-lg font-bold shadow-lg shadow-orange-200 mt-4"
+                                                            className="mt-auto flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 h-12 text-lg font-bold shadow-md shadow-orange-200 border-none transition-all hover:scale-[1.02]"
                                                             loading={loadingBookId === book._id}
                                                             disabled={book.soLuong === 0}
                                                             onClick={(e) => {
@@ -253,30 +324,39 @@ const LibraryPage = () => {
                                                             }}
                                                         >
                                                             {loadingBookId !== book._id && (
-                                                                    <img
-                                                                        style={{
-                                                                            filter: 'invert(100%)',
-                                                                            width: '24px',
-                                                                            height: '24px',
-                                                                            objectFit: 'contain'
-                                                                        }}
-                                                                        src={bookDonation}
-                                                                        alt=""
-                                                                    />
+                                                                <img
+                                                                    style={{
+                                                                        filter: 'invert(100%)',
+                                                                        width: '24px',
+                                                                        height: '24px',
+                                                                        objectFit: 'contain'
+                                                                    }}
+                                                                    src={bookDonation}
+                                                                    alt=""
+                                                                />
                                                             )}
                                                             <span>Mượn Ngay</span>
                                                         </Button>
                                                     </div>
-
                                                 </Card>
                                             </Col>
                                         ))}
                                     </Row>
                                 ) : (
-                                    <Empty description="Không tìm thấy sách phù hợp" />
+                                    <div className="h-[60vh] flex flex-col items-center justify-center text-center">
+                                        <div className="w-64 h-64 bg-slate-100 rounded-full flex items-center justify-center mb-6 animate-pulse">
+                                            <SearchOutlined className="text-6xl text-slate-300" />
+                                        </div>
+                                        <h3 className="text-xl font-bold text-slate-700 mb-2">Không tìm thấy sách nào</h3>
+                                        <p className="text-slate-500">Thử tìm với từ khóa khác hoặc xóa bộ lọc xem sao nhé.</p>
+                                        <Button type="primary" size="large" className="mt-6 bg-indigo-600" onClick={() => {setFilterCategory(null); setSearchTerm("");}}>
+                                            Xem tất cả sách
+                                        </Button>
+                                    </div>
                                 )}
                             </div>
                         </Spin>
+
                         <div className="flex justify-center mt-10 w-full">
                             <div style={{ display: "flex", flexWrap: "nowrap", transform: "scale(0.8)", transformOrigin: "center" }}>
                                 <Pagination
@@ -289,133 +369,128 @@ const LibraryPage = () => {
                                     onChange={(p, s) => {
                                         setCurrent(p);
                                         setPageSize(s);
-                                        if (topRef.current) {
-                                            topRef.current.scrollIntoView({
-                                                behavior: 'smooth',
-                                                block: 'start'
-                                            });
-                                        }
+                                        scrollToTop();
                                     }}
                                 />
                             </div>
-
                         </div>
                     </div>
                 </div>
-            </Layout>
-            <Modal
-                title={
-                    <div className="flex items-center gap-2 w-full">
-                        <img style={{width: '24px', height: '24px' }} src={bookDonation} alt=""/>
-                        <span className="flex-shrink-0 whitespace-nowrap font-medium">Mượn nhanh: </span>
-                        <span className="text-blue-700 truncate">{selectedBook?.tenSach}</span>
-                    </div>
-                }
-                open={isBorrowModalOpen}
-                onCancel={() => setIsBorrowModalOpen(false)}
-                cancelText="Thoát"
-                onOk={() => form.submit()}
-                okText="Xác nhận mượn"
-                centered
-                width={500}
-            >
-                <Form form={form} layout="vertical" onFinish={handleConfirmBorrow}>
-                    <Form.Item
-                        name="soLuongMuon"
-                        label={`Số lượng (Tồn kho: ${selectedBook?.soLuong})`}
-                        rules={[{ required: true, message: 'Nhập số lượng' }]}
-                    >
-                        <InputNumber
-                            min={1}
-                            precision={0}
-                            max={Math.min(selectedBook?.soLuong, 10)}
-                            style={{ width: '100%' }}
-                            size="large"
-                            inputMode="numeric"
-                            onChange={handleQuantityChange}
-                            onKeyDown={(e) => {
-                                const allowedKeys = [
-                                    "Backspace", "Delete", "Tab", "ArrowLeft", "ArrowRight"
-                                ];
 
-                                const maxValue = Math.min(selectedBook?.soLuong, 10);
-                                if (!/[0-9]/.test(e.key) && !allowedKeys.includes(e.key)) {
-                                    e.preventDefault();
-                                    return;
-                                }
+                <Modal
+                    title={
+                        <div className="flex items-center gap-2 w-full">
+                            <img style={{width: '24px', height: '24px' }} src={bookDonation} alt=""/>
+                            <span className="flex-shrink-0 whitespace-nowrap font-medium">Mượn nhanh: </span>
+                            <span className="text-blue-700 truncate">{selectedBook?.tenSach}</span>
+                        </div>
+                    }
+                    open={isBorrowModalOpen}
+                    onCancel={() => setIsBorrowModalOpen(false)}
+                    cancelText="Thoát"
+                    onOk={() => form.submit()}
+                    okText="Xác nhận mượn"
+                    centered
+                    width={500}
+                >
+                    <Form form={form} layout="vertical" onFinish={handleConfirmBorrow}>
+                        <Form.Item
+                            name="soLuongMuon"
+                            label={`Số lượng (Tồn kho: ${selectedBook?.soLuong})`}
+                            rules={[{ required: true, message: 'Nhập số lượng' }]}
+                        >
+                            <InputNumber
+                                min={1}
+                                precision={0}
+                                max={Math.min(selectedBook?.soLuong, 10)}
+                                style={{ width: '100%' }}
+                                size="large"
+                                inputMode="numeric"
+                                onChange={handleQuantityChange}
+                                onKeyDown={(e) => {
+                                    const allowedKeys = [
+                                        "Backspace", "Delete", "Tab", "ArrowLeft", "ArrowRight"
+                                    ];
 
-                                const inputValue = e.target.value;
-                                const nextValue = Number(inputValue + e.key);
+                                    const maxValue = Math.min(selectedBook?.soLuong, 10);
+                                    if (!/[0-9]/.test(e.key) && !allowedKeys.includes(e.key)) {
+                                        e.preventDefault();
+                                        return;
+                                    }
 
-                                if (/[0-9]/.test(e.key) && nextValue > maxValue) {
-                                    e.preventDefault();
-                                }
-                            }}
+                                    const inputValue = e.target.value;
+                                    const nextValue = Number(inputValue + e.key);
 
-                            parser={(value) => {
-                                if (!value) return null;
-                                const num = value.replace(/\D/g, "");
-                                if (!num) return null;
-                                const maxValue = Math.min(selectedBook?.soLuong, 10);
-                                return Math.min(Number(num), maxValue);
-                            }}
+                                    if (/[0-9]/.test(e.key) && nextValue > maxValue) {
+                                        e.preventDefault();
+                                    }
+                                }}
 
-                            formatter={(value) => value}
-                        />
-                    </Form.Item>
-                    <Form.Item
-                        noStyle
-                        dependencies={['soLuongMuon']}
-                    >
-                        {({ getFieldValue }) => {
-                            const currentQty = getFieldValue('soLuongMuon') || 1;
-                            const maxDays = currentQty <= 5 ? 30 : 7;
-                            return (
-                                <div>
-                                    <Form.Item
-                                        name="ngayHenTra"
-                                        label="Ngày hẹn trả"
-                                        rules={[{ required: true, message: 'Vui lòng chọn ngày trả' }]}
-                                        extra={
-                                            <div style={{ marginTop: 8, color: "#999" }}>
-                                                Ngày trả được gợi ý tự động, bạn có thể điều chỉnh.
-                                            </div>
-                                        }
-                                    >
-                                        <DatePicker
-                                            format="DD/MM/YYYY"
-                                            style={{ width: '100%' }}
-                                            size="large"
-                                            allowClear={false}
-                                            disabledDate={(current) => {
-                                                const isPast = current && current < dayjs().startOf('day');
-                                                const isTooFar = current && current > dayjs().add(maxDays, 'day').endOf('day');
-                                                return isPast || isTooFar;
-                                            }}
+                                parser={(value) => {
+                                    if (!value) return null;
+                                    const num = value.replace(/\D/g, "");
+                                    if (!num) return null;
+                                    const maxValue = Math.min(selectedBook?.soLuong, 10);
+                                    return Math.min(Number(num), maxValue);
+                                }}
+
+                                formatter={(value) => value}
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            noStyle
+                            dependencies={['soLuongMuon']}
+                        >
+                            {({ getFieldValue }) => {
+                                const currentQty = getFieldValue('soLuongMuon') || 1;
+                                const maxDays = currentQty <= 5 ? 30 : 7;
+                                return (
+                                    <div>
+                                        <Form.Item
+                                            name="ngayHenTra"
+                                            label="Ngày hẹn trả"
+                                            rules={[{ required: true, message: 'Vui lòng chọn ngày trả' }]}
+                                            extra={
+                                                <div style={{ marginTop: 8, color: "#999" }}>
+                                                    Ngày trả được gợi ý tự động, bạn có thể điều chỉnh.
+                                                </div>
+                                            }
+                                        >
+                                            <DatePicker
+                                                format="DD/MM/YYYY"
+                                                style={{ width: '100%' }}
+                                                size="large"
+                                                allowClear={false}
+                                                disabledDate={(current) => {
+                                                    const isPast = current && current < dayjs().startOf('day');
+                                                    const isTooFar = current && current > dayjs().add(maxDays, 'day').endOf('day');
+                                                    return isPast || isTooFar;
+                                                }}
+                                            />
+                                        </Form.Item>
+                                        <Alert
+                                            message="Quy định mượn sách"
+                                            description={
+                                                <ul className="list-disc pl-4 text-xs text-gray-600 mt-1">
+                                                    <li>Mượn <b>{currentQty}</b> cuốn, hạn trả tối đa là <b>{maxDays} ngày</b></li>
+                                                </ul>
+                                            }
+                                            type="info"
+                                            showIcon
+                                            className="mb-4"
                                         />
-                                    </Form.Item>
-                                    <Alert
-                                        message="Quy định mượn sách"
-                                        description={
-                                            <ul className="list-disc pl-4 text-xs text-gray-600 mt-1">
-                                                <li>Mượn <b>{currentQty}</b> cuốn, hạn trả tối đa là <b>{maxDays} ngày</b></li>
-                                            </ul>
-                                        }
-                                        type="info"
-                                        showIcon
-                                        className="mb-4"
-                                    />
-                                </div>
-                            );
-                        }}
-                    </Form.Item>
+                                    </div>
+                                );
+                            }}
+                        </Form.Item>
 
-                    <Form.Item name="ghiChu" style={{ paddingTop: '12px'}} label="Ghi chú cho thủ thư">
-                        <Input.TextArea rows={2} placeholder="VD: Em sẽ đến lấy vào chiều mai..." />
-                    </Form.Item>
-                </Form>
-            </Modal>
-        </div>
+                        <Form.Item name="ghiChu" style={{ paddingTop: '12px'}} label="Ghi chú cho thủ thư">
+                            <Input.TextArea rows={2} placeholder="VD: Em sẽ đến lấy vào chiều mai..." />
+                        </Form.Item>
+                    </Form>
+                </Modal>
+            </div>
+        </ConfigProvider>
     );
 };
 

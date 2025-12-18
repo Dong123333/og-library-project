@@ -171,45 +171,45 @@ export class ChatbotService {
         intent.keywords &&
         intent.keywords.length > 0
       ) {
-        const regexList = intent.keywords.map(k => ({ $regex: k, $options: 'i' }));
-
-// 2. Query tìm ID của các bảng vệ tinh (Dùng $or)
+        const regexList = intent.keywords.map((k) => ({
+          $regex: k,
+          $options: 'i',
+        }));
         const [cats, auths, pubs] = await Promise.all([
-          // A. Tìm Danh mục (Dùng $or để tìm tên nào khớp với regex cũng được)
-          this.danhMucModel.find({
-            $or: regexList.map(r => ({ tenDanhMuc: r }))
-          }).select('_id'),
+          this.danhMucModel
+            .find({
+              $or: regexList.map((r) => ({ tenDanhMuc: r })),
+            })
+            .select('_id'),
 
-          // B. Tìm Tác giả (Tìm cả tên và bút danh)
-          this.tacGiaModel.find({
-            $or: [
-              ...regexList.map(r => ({ tenTacGia: r })),
-              ...regexList.map(r => ({ butDanh: r }))
-            ]
-          }).select('_id'),
+          this.tacGiaModel
+            .find({
+              $or: [
+                ...regexList.map((r) => ({ tenTacGia: r })),
+                ...regexList.map((r) => ({ butDanh: r })),
+              ],
+            })
+            .select('_id'),
 
-          // C. Tìm NXB
-          this.nhaXuatBanModel.find({
-            $or: regexList.map(r => ({ tenNhaXuatBan: r }))
-          }).select('_id')
+          this.nhaXuatBanModel
+            .find({
+              $or: regexList.map((r) => ({ tenNhaXuatBan: r })),
+            })
+            .select('_id'),
         ]);
 
-// 3. Query Bảng Sách (Trùm cuối)
-        const books = await this.sachModel.find({
-          $or: [
-            // A. Tên sách khớp với bất kỳ từ khóa nào
-            ...regexList.map(r => ({ tenSach: r })),
+        const books = await this.sachModel
+          .find({
+            $or: [
+              ...regexList.map((r) => ({ tenSach: r })),
 
-            // B. Hoặc thuộc Danh mục tìm thấy
-            { maDanhMuc: { $in: cats.map(c => c._id) } },
+              { maDanhMuc: { $in: cats.map((c) => c._id) } },
 
-            // C. Hoặc của Tác giả tìm thấy
-            { maTacGia: { $in: auths.map(a => a._id) } },
+              { maTacGia: { $in: auths.map((a) => a._id) } },
 
-            // D. Hoặc của NXB tìm thấy
-            { maNhaXuatBan: { $in: pubs.map(p => p._id) } }
-          ]
-        })
+              { maNhaXuatBan: { $in: pubs.map((p) => p._id) } },
+            ],
+          })
           .select(
             'tenSach soLuong giaTien namXuatBan maTacGia maDanhMuc maNhaXuatBan',
           )
@@ -222,7 +222,6 @@ export class ChatbotService {
         if (books.length > 0) {
           bookContext = 'DỮ LIỆU SÁCH TÌM ĐƯỢC TỪ DATABASE:\n';
           books.forEach((b: any) => {
-            // Xử lý dữ liệu hiển thị (như code cũ của bạn)
             const danhMuc = b.maDanhMuc?.tenDanhMuc || 'N/A';
             const nxb = b.maNhaXuatBan?.tenNhaXuatBan || 'N/A';
             const price = b.giaTien ? b.giaTien.toLocaleString('vi-VN') : '0';
@@ -232,7 +231,7 @@ export class ChatbotService {
               tacGia = b.maTacGia.map((a: any) => a.tenTacGia).join(', ');
             }
 
-            bookContext += `- Tên: "${b.tenSach}", Tác giả: ${tacGia}, Thể loại: ${danhMuc}, NXB: ${nxb}, Kho: ${b.soLuong}, Giá: ${price}đ\n`;
+            bookContext += `- Tên: "${b.tenSach}", Tác giả: ${tacGia}, Thể loại: ${danhMuc}, NXB: ${nxb}, Năm XB: ${b.namXuatBan}, Kho: ${b.soLuong}, Giá: ${price}đ\n`;
           });
         } else {
           bookContext = `Hệ thống đã tìm kiếm các từ khóa: [${intent.keywords.join(', ')}] nhưng KHÔNG thấy sách nào khớp.`;

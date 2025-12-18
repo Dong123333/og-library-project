@@ -5,8 +5,8 @@ import {
 } from '@nestjs/common';
 import { CreateMuonTraDto, ReturnBookDto } from './dto/create-muon-tra.dto';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
-import { Connection, Model } from 'mongoose';
-import { MuonTra } from './schemas/muon-tra.schema';
+import { Connection, Model, Types } from 'mongoose';
+import { MuonTra, TrangThaiPhieu } from './schemas/muon-tra.schema';
 import { ChiTietMuonTra } from '../chi-tiet-muon-tra/schemas/chi-tiet-muon-tra.schema';
 import { Sach } from '../sach/schemas/sach.schema';
 import { PhieuPhatService } from '../phieu-phat/phieu-phat.service';
@@ -78,6 +78,7 @@ export class MuonTraService {
       ghiChu: ghiChu,
       trangThai: 0,
       ngayDangKy: new Date(),
+      ngayMuon: null,
     });
 
     for (const item of items) {
@@ -136,6 +137,11 @@ export class MuonTraService {
       ngayMuon: ngayMuon,
     });
 
+    await this.chiTietMuonTraModel.updateMany(
+      { maMuonTra: id },
+      { tinhTrang: 1 },
+    );
+
     return { message: 'Đã giao sách cho khách' };
   }
 
@@ -172,7 +178,7 @@ export class MuonTraService {
       detail.soLuongDaTra = currentPaid + soLuongTra;
       detail.ngayTra = new Date();
       if (detail.soLuongDaTra === totalBorrow) {
-        detail.tinhTrang = 1;
+        detail.tinhTrang = 2;
       }
       await detail.save();
 
@@ -199,7 +205,7 @@ export class MuonTraService {
 
       const pending = await this.chiTietMuonTraModel.countDocuments({
         maMuonTra: parentId,
-        tinhTrang: 0,
+        tinhTrang: 1,
       });
 
       if (pending === 0) {
@@ -273,6 +279,11 @@ export class MuonTraService {
 
       const details = await this.chiTietMuonTraModel.find({ maMuonTra: id });
 
+      await this.chiTietMuonTraModel.updateMany(
+        { maMuonTra: id },
+        { tinhTrang: 3 },
+      );
+
       for (const detail of details) {
         await this.sachModel.findByIdAndUpdate(detail.maSach, {
           $inc: { soLuong: +detail.soLuongMuon },
@@ -291,6 +302,14 @@ export class MuonTraService {
     delete filter.limit;
     delete filter.current;
     delete filter.pageSize;
+
+    if (
+      filter.trangThai !== undefined &&
+      filter.trangThai !== null &&
+      filter.trangThai !== ''
+    ) {
+      filter.trangThai = Number(filter.trangThai);
+    }
 
     const keyword = filter.keyword;
     delete filter.keyword;
@@ -398,12 +417,241 @@ export class MuonTraService {
       .find({ _id: { $in: bookIds } })
       .populate('maTacGia', 'tenTacGia')
       .populate('maDanhMuc', 'tenDanhMuc')
+      .lean()
       .exec();
 
-    const sortedBooks = bookIds
-      .map((id) => books.find((b) => b._id.toString() === id.toString()))
-      .filter((b) => b);
+    const result = topBooks
+      .map((t) => {
+        const bookInfo = books.find(
+          (b) => b._id.toString() === t._id.toString(),
+        );
 
-    return sortedBooks;
+        if (bookInfo) {
+          return {
+            ...bookInfo,
+            totalBorrowed: t.totalBorrowed,
+          };
+        }
+        return null;
+      })
+      .filter((b) => b !== null);
+
+    return result;
+  }
+
+  async getSmartRecommendedBooks(userId: string, limit = 6) {
+    const userObjectId = new Types.ObjectId(userId);
+
+    const borrowedHistory = await this.muonTraModel.aggregate([
+      { $match: { maNguoiDung: userObjectId } },
+      {
+        $lookup: {
+          from: 'chitietmuontras',
+          localField: '_id',
+          foreignField: 'maMuonTra',
+          as: 'details',
+        },
+      },
+      { $unwind: '$details' },
+      {
+        $group: {
+          _id: null,
+          borrowedBookIds: { $addToSet: '$details.maSach' },
+        },
+      },
+    ]);
+
+    const excludeIds =
+      borrowedHistory.length > 0 ? borrowedHistory[0].borrowedBookIds : [];
+
+    const favoriteCategory = await this.muonTraModel.aggregate([
+      { $match: { maNguoiDung: userObjectId } },
+      {
+        $lookup: {
+          from: 'chitietmuontras',
+          localField: '_id',
+          foreignField: 'maMuonTra',
+          as: 'details',
+        },
+      },
+      { $unwind: '$details' },
+      {
+        $lookup: {
+          from: 'saches',
+          localField: 'details.maSach',
+          foreignField: '_id',
+          as: 'bookInfo',
+        },
+      },
+      { $unwind: '$bookInfo' },
+      {
+        $group: {
+          _id: '$bookInfo.maDanhMuc',
+          count: { $sum: '$details.soLuongMuon' },
+        },
+      },
+      { $sort: { count: -1 } },
+      { $limit: 1 },
+    ]);
+
+    let recommendedBooks: any[] = [];
+
+    if (favoriteCategory.length > 0) {
+      const topCategoryId = favoriteCategory[0]._id;
+      recommendedBooks = await this.sachModel
+        .find({
+          maDanhMuc: topCategoryId,
+          _id: { $nin: excludeIds },
+          soLuong: { $gt: 0 },
+        })
+        .sort({ createdAt: -1 })
+        .limit(limit)
+        .populate('maTacGia', 'tenTacGia')
+        .populate('maDanhMuc', 'tenDanhMuc')
+        .lean()
+        .exec();
+    }
+
+    if (recommendedBooks.length === 0) {
+      const topBooksExclude = await this.chiTietMuonTraModel.aggregate([
+        {
+          $match: {
+            maSach: { $nin: excludeIds },
+          },
+        },
+        {
+          $group: {
+            _id: '$maSach',
+            totalBorrowed: { $sum: '$soLuongMuon' },
+          },
+        },
+        { $sort: { totalBorrowed: -1 } },
+        { $limit: limit },
+      ]);
+
+      if (topBooksExclude.length === 0) {
+        return [];
+      }
+
+      const bookIds = topBooksExclude.map((t) => t._id);
+      const booksInfo = await this.sachModel
+        .find({ _id: { $in: bookIds } })
+        .populate('maTacGia', 'tenTacGia')
+        .populate('maDanhMuc', 'tenDanhMuc')
+        .lean()
+        .exec();
+
+      recommendedBooks = topBooksExclude
+        .map((t) => {
+          const book = booksInfo.find(
+            (b) => b._id.toString() === t._id.toString(),
+          );
+          return book ? { ...book, totalBorrowed: t.totalBorrowed } : null;
+        })
+        .filter((b) => b);
+    }
+
+    return recommendedBooks;
+  }
+
+  async getTopReadersThisMonth(limit = 5) {
+    const now = new Date();
+    const displayMonth = now.getMonth() + 1;
+    const displayYear = now.getFullYear();
+
+    const filterMonth = displayMonth - 1;
+    const startOfMonth = new Date(displayYear, filterMonth, 1);
+    const endOfMonth = new Date(
+      displayYear,
+      filterMonth + 1,
+      0,
+      23,
+      59,
+      59,
+      999,
+    );
+
+    return this.muonTraModel.aggregate([
+      {
+        $match: {
+          ngayMuon: {
+            $gte: startOfMonth,
+            $lte: endOfMonth,
+          },
+          trangThai: 3,
+        },
+      },
+
+      {
+        $lookup: {
+          from: 'chitietmuontras',
+          localField: '_id',
+          foreignField: 'maMuonTra',
+          as: 'details',
+        },
+      },
+      { $unwind: '$details' },
+
+      {
+        $group: {
+          _id: '$maNguoiDung',
+          totalBorrowed: { $sum: '$details.soLuongMuon' },
+        },
+      },
+      { $sort: { totalBorrowed: -1 } },
+      { $limit: limit },
+
+      {
+        $lookup: {
+          from: 'nguoidungs',
+          localField: '_id',
+          foreignField: '_id',
+          as: 'userInfo',
+        },
+      },
+      { $unwind: '$userInfo' },
+
+      {
+        $project: {
+          _id: 1,
+          totalBorrowed: 1,
+          hoTen: '$userInfo.hoVaTen',
+          email: '$userInfo.email',
+          thang: { $literal: displayMonth },
+          nam: { $literal: displayYear },
+        },
+      },
+    ]);
+  }
+
+  async getStatistics() {
+    const startOfDay = new Date();
+    startOfDay.setHours(0, 0, 0, 0);
+    const endOfDay = new Date();
+    endOfDay.setHours(23, 59, 59, 999);
+
+    const [total, today, pending, overdue] = await Promise.all([
+      this.muonTraModel.countDocuments(),
+
+      this.muonTraModel.countDocuments({
+        createdAt: { $gte: startOfDay, $lte: endOfDay },
+      }),
+
+      this.muonTraModel.countDocuments({
+        trangThai: TrangThaiPhieu.CHO_DUYET,
+      }),
+
+      this.chiTietMuonTraModel.countDocuments({
+        tinhTrang: 1,
+        ngayHenTra: { $lt: new Date() },
+      }),
+    ]);
+
+    return {
+      total,
+      today,
+      pending,
+      overdue,
+    };
   }
 }

@@ -12,17 +12,18 @@ import {
     Popconfirm,
     Space,
     Select,
-    Pagination
+    Pagination, Row, Col, Badge, Card, Tabs
 } from 'antd';
 import {
     CheckCircleOutlined,
     CarOutlined,
     ExclamationCircleOutlined,
-    ClockCircleOutlined, CloseCircleOutlined, SearchOutlined
+    ClockCircleOutlined, CloseCircleOutlined, SearchOutlined, FileTextOutlined, CalendarOutlined
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import axios from '../../services/axios.customize';
 import useDebounce from "../../hooks/UseDebounce.jsx";
+import StatCard from "../../components/StatCard.jsx";
 
 const LoanManage = () => {
     const [loans, setLoans] = useState([]);
@@ -41,8 +42,18 @@ const LoanManage = () => {
     const [current, setCurrent] = useState(1);
     const [pageSize, setPageSize] = useState(5);
     const [total, setTotal] = useState(0);
+    const [activeTab, setActiveTab] = useState('all');
+    const [stats, setStats] = useState({
+        total: 0,
+        today: 0,
+        pending: 0,
+        overdue: 0
+    });
 
-    useEffect(() => { fetchLoans(); }, [current, pageSize, debouncedSearchTerm]);
+    useEffect(() => {
+        fetchLoans();
+        fetchStats();
+    }, [current, pageSize, debouncedSearchTerm, activeTab]);
 
     const fetchLoans = async () => {
         setLoading(true);
@@ -51,6 +62,10 @@ const LoanManage = () => {
         if (debouncedSearchTerm) {
             query += `&keyword=${debouncedSearchTerm}`;
         }
+        if (activeTab === 'pending') query += `&trangThai=0`;
+        if (activeTab === 'ready') query += `&trangThai=1`;
+        if (activeTab === 'borrowing') query += `&trangThai=2`;
+        if (activeTab === 'completed') query += `&trangThai=3`;
         try {
             const res = await axios.get(`/muon-tra?${query}`);
             if (res && res.result) {
@@ -61,6 +76,23 @@ const LoanManage = () => {
             messageApi.error("Lỗi tải danh sách");
         }
         setLoading(false);
+    };
+
+    const fetchStats = async () => {
+        try {
+            const res = await axios.get('/muon-tra/stats');
+
+            if (res) {
+                setStats({
+                    total: res.total,
+                    today: res.today,
+                    pending: res.pending,
+                    overdue: res.overdue
+                });
+            }
+        } catch (e) {
+            console.error("Lỗi tải thống kê", e);
+        }
     };
 
     const refreshExpandedRow = async (loanId) => {
@@ -344,7 +376,7 @@ const LoanManage = () => {
                     if (!date) return <span className="text-gray-400">--</span>;
                     const parentStatus = detailRecord.maMuonTra?.trangThai;
                     const isBorrowing = parentStatus === 2;
-                    const notReturned = detailRecord.tinhTrang === 0;
+                    const notReturned = detailRecord.tinhTrang === 1;
                     const timePassed = dayjs().isAfter(dayjs(date));
 
                     const isOverdue = isBorrowing && notReturned && timePassed;
@@ -387,7 +419,7 @@ const LoanManage = () => {
                     if (parentStatus === 0) return <Tag color="orange" style={{borderStyle:'dashed'}}>Chờ duyệt</Tag>;
                     if (parentStatus === 1) return <Tag color="blue" style={{borderStyle:'dashed'}}>Chờ lấy</Tag>;
 
-                    if (detailStatus === 1) return <Tag color="green">Đã trả đủ</Tag>;
+                    if (detailStatus === 2) return <Tag color="green">Đã trả đủ</Tag>;
                     return <Tag color="geekblue">Đang giữ</Tag>;
                 }
             },
@@ -399,9 +431,9 @@ const LoanManage = () => {
                     const conNo = tong - daTra;
                     const isCancelOrPending = record.trangThai === 4 || record.trangThai === 0 || record.trangThai === 1;
                     if (conNo > 0 && !isCancelOrPending) {
-                        let buttonText = "Trả sách";
+                        let buttonText = "Xác nhận trả";
                          if (daTra > 0) {
-                            buttonText = `Trả tiếp (${conNo})`;
+                            buttonText = `Xác nhận trả tiếp (${conNo})`;
                         }
                         return (
                             <Button
@@ -438,21 +470,89 @@ const LoanManage = () => {
             paddingBottom: 0
         }}>
             {contextHolder}
-            <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold mb-4">Quản lý Mượn Trả</h2>
-                <div className="flex gap-2 w-[300px]">
+            {/*<div className="flex justify-between items-center mb-4">*/}
+            {/*    <h2 className="text-2xl font-bold mb-4">Quản lý Mượn Trả</h2>*/}
+            {/*    <div className="flex gap-2 w-[300px]">*/}
+            {/*        <Input*/}
+            {/*            size="large"*/}
+            {/*            placeholder="Nhập mã phiếu hoặc người mượn..."*/}
+            {/*            prefix={<SearchOutlined />}*/}
+            {/*            className="flex-grow"*/}
+            {/*            value={searchTerm}*/}
+            {/*            onChange={(e) => {*/}
+            {/*                setSearchTerm(e.target.value);*/}
+            {/*            }}*/}
+            {/*        />*/}
+            {/*    </div>*/}
+            {/*</div>*/}
+            <div style={{ flexShrink: 0 }}>
+                <div className="flex justify-between items-end mb-4">
+                    <div>
+                        <h2 className="text-2xl font-bold text-gray-800 m-0">Quản lý Mượn Trả</h2>
+                        <span className="text-gray-500 text-sm">Theo dõi và xử lý các yêu cầu mượn sách</span>
+                    </div>
+                </div>
+
+                <Row gutter={16}>
+                    <Col span={6}><StatCard title="Tổng phiếu" value={stats.total} icon={<FileTextOutlined/>} color="#1890ff" /></Col>
+                    <Col span={6}><StatCard title="Hôm nay" value={stats.today} icon={<CalendarOutlined/>} color="#52c41a" /></Col>
+                    <Col span={6}><StatCard title="Chờ duyệt" value={stats.pending} icon={<ClockCircleOutlined/>} color="#faad14" /></Col>
+                    <Col span={6}><StatCard title="Quá hạn" value={stats.overdue} icon={<ExclamationCircleOutlined/>} color="#ff4d4f" /></Col>
+                </Row>
+            </div>
+
+            <Card bordered={false} className="shadow-sm" bodyStyle={{ padding: '12px 24px' }} style={{ flexShrink: 0 }}>
+                <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <Tabs
+                        activeKey={activeTab}
+                        onChange={(key) => { setActiveTab(key); setCurrent(1); }}
+                        items={[
+                            { label: 'Tất cả', key: 'all' },
+                            { label: <Badge status="default" text="Chờ duyệt" />, key: 'pending' },
+                            { label: <Badge status="warning" text="Chờ lấy" />, key: 'ready' },
+                            { label: <Badge status="processing" text="Đang mượn" />, key: 'borrowing' },
+                            { label: <Badge status="success" text="Hoàn thành" />, key: 'completed' },
+                        ]}
+                        style={{ marginBottom: -16 }}
+                    />
+
                     <Input
                         size="large"
-                        placeholder="Nhập mã phiếu hoặc người mượn..."
-                        prefix={<SearchOutlined />}
-                        className="flex-grow"
-                        value={searchTerm}
+                        allowClear
+                        placeholder="Tìm mã phiếu, tên độc giả..."
+                        prefix={
+                            <SearchOutlined
+                                style={{
+                                    color: '#94a3b8',
+                                    fontSize: 16,
+                                }}
+                            />
+                        }
+                        style={{
+                            width: 340,
+                            borderRadius: 12,
+                            borderColor: '#e5e7eb',
+                            boxShadow: '0 1px 4px rgba(0,0,0,0.08)',
+                            transition: 'all 0.2s ease',
+                        }}
+                        onFocus={(e) => {
+                            e.target.parentElement.style.borderColor = '#3b82f6';
+                            e.target.parentElement.style.boxShadow =
+                                '0 0 0 2px rgba(59,130,246,0.15)';
+                        }}
+                        onBlur={(e) => {
+                            e.target.parentElement.style.borderColor = '#e5e7eb';
+                            e.target.parentElement.style.boxShadow =
+                                '0 1px 4px rgba(0,0,0,0.08)';
+                        }}
                         onChange={(e) => {
                             setSearchTerm(e.target.value);
+                            setCurrent(1);
                         }}
                     />
+
                 </div>
-            </div>
+            </Card>
             <div style={{ flex: 1, overflow: 'hidden' }}>
                 <Table
                     className="components-table-demo-nested"
@@ -464,12 +564,13 @@ const LoanManage = () => {
                     pagination={false}
                     scroll={{
                         x: 1000,
-                        y: 'calc(100vh - 300px)'
+                        y: 'calc(100vh - 483px)'
                     }}
                 />
             </div>
+
             <div style={{
-                marginTop: 16,
+                marginTop: 18,
                 display: 'flex',
                 justifyContent: 'flex-end',
                 flexShrink: 0
@@ -478,9 +579,7 @@ const LoanManage = () => {
                     current={current}
                     total={total}
                     pageSize={pageSize}
-                    showSizeChanger
                     pageSizeOptions={['5', '10', '20', '50']}
-                    showTotal={(total, range) => `${range[0]}-${range[1]} của ${total} phiếu`}
                     onChange={(page, pageSize) => {
                         setCurrent(page);
                         setPageSize(pageSize);

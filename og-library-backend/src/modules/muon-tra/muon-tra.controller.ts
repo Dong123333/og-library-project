@@ -12,6 +12,7 @@ import {
 import { MuonTraService } from './muon-tra.service';
 import { CreateMuonTraDto, ReturnBookDto } from './dto/create-muon-tra.dto';
 import { JwtAuthGuard } from '../../auth/passport/jwt-auth.guard';
+import { Public } from '../../decorator/customize';
 
 @Controller('muon-tra')
 export class MuonTraController {
@@ -71,5 +72,33 @@ export class MuonTraController {
   @Get(':id/details')
   getDetails(@Param('id') id: string) {
     return this.muonTraService.findDetails(id);
+  }
+
+  @Get('trending')
+  @Public()
+  getTrending() {
+    return this.muonTraService.getTrendingBooks(6);
+  }
+
+  @Get('recommended')
+  @UseGuards(JwtAuthGuard)
+  getRecommended(@Request() req) {
+    const userId = req.user?._id;
+    if (!userId) {
+      return this.muonTraService.getTrendingBooks();
+    }
+    return this.muonTraService.getSmartRecommendedBooks(userId);
+  }
+
+  @Get('top-readers')
+  @Public()
+  async getTopReaders(@Query('limit') limit: number) {
+    return this.muonTraService.getTopReadersThisMonth(limit || 5);
+  }
+
+  @Get('stats')
+  @UseGuards(JwtAuthGuard)
+  getStats() {
+    return this.muonTraService.getStatistics();
   }
 }

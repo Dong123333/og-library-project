@@ -289,7 +289,7 @@ const LoansPage = () => {
                     if (!date) return <span className="text-gray-400">--</span>;
                     const parentStatus = detailRecord.maMuonTra?.trangThai;
                     const isBorrowing = parentStatus === 2;
-                    const notReturned = detailRecord.tinhTrang === 0;
+                    const notReturned = detailRecord.tinhTrang === 1;
                     const timePassed = dayjs().isAfter(dayjs(date));
 
                     const isOverdue = isBorrowing && notReturned && timePassed;
@@ -313,7 +313,7 @@ const LoansPage = () => {
                 key: 'status_detail',
                 render: (detailStatus, record) => {
                     const parentStatus = record.maMuonTra?.trangThai;
-                    if (parentStatus === 4 || parentStatus === 5) {
+                    if (parentStatus === 4) {
                         return <Tag color="red">Đã hủy</Tag>;
                     }
                     if (parentStatus === 0) {
@@ -322,12 +322,10 @@ const LoansPage = () => {
                     if (parentStatus === 1) {
                         return <Tag color="blue" style={{ borderStyle: 'dashed' }}>📦 Chờ lấy sách</Tag>;
                     }
-                    if (detailStatus === 1) {
+                    if (detailStatus === 2) {
                         return <Tag color="green">✅ Đã trả</Tag>;
-                    } else if (detailStatus === 2) {
-                        return <Tag color="volcano">⚠️ Mất/Hỏng</Tag>;
-                    } else {
-                        return <Tag color="geekblue">📖 Đang giữ</Tag>;
+                    } else if (detailStatus === 1) {
+                        return <Tag color="volcano">📖 Đang giữ</Tag>;
                     }
                 }
             }
@@ -511,7 +509,7 @@ const LoansPage = () => {
                     </div>
                 } key="1">
                     <div className="bg-gray-50" style={{ height: 'calc(100vh - 100px)', display: 'flex', flexDirection: 'column' }}>
-                        <Content className="max-w-8xl mx-auto px-4 py-8 w-full">
+                        <Content className="max-w-9xl mx-auto px-4 py-8 w-full">
                             <div
                                 className="hidden sm:flex bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex-col overflow-hidden"
                                 style={{ flex: 1 }}
@@ -706,7 +704,7 @@ const LoansPage = () => {
                     </div>
                 } key="2">
                     <Layout className="min-h-screen" style={{ backgroundColor: "transparent" }}>
-                        <Content className="max-w-8xl mx-auto px-4 py-8 w-full">
+                        <Content className="max-w-9xl mx-auto px-4 py-8 w-full">
                             <div className="mb-6">
                                 {totalDebt > 0 ? (
                                     <Alert

@@ -184,7 +184,7 @@ export class SachService implements OnModuleInit {
     delete filter.current;
     delete filter.pageSize;
 
-    let keyword = filter.tenSach;
+    let keyword = filter.tenSach || filter.keyword;
 
     if (keyword) {
       if (Array.isArray(keyword)) {
@@ -194,7 +194,21 @@ export class SachService implements OnModuleInit {
       }
       const regexString = convertToRegex(keyword);
 
-      filter.tenSach = { $regex: regexString, $options: 'i' };
+      const authors = await this.tacGiaModel
+        .find({
+          tenTacGia: { $regex: regexString, $options: 'i' },
+        })
+        .select('_id');
+
+      const authorIds = authors.map((a) => a._id);
+
+      filter.$or = [
+        { tenSach: { $regex: regexString, $options: 'i' } },
+        { maTacGia: { $in: authorIds } },
+      ];
+
+      delete filter.tenSach;
+      delete filter.keyword;
     }
 
     if (!filter.maDanhMuc || filter.maDanhMuc === 'All') {

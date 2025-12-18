@@ -6,9 +6,10 @@ import { Sach } from '../../sach/schemas/sach.schema';
 export type ChiTietMuonTraDocument = HydratedDocument<ChiTietMuonTra>;
 
 export enum TrangThaiSach {
-  DANG_MUON = 0,
-  DA_TRA = 1,
-  MAT_OR_HONG = 2,
+  CHO_LAY = 0,
+  DANG_MUON = 1,
+  DA_TRA = 2,
+  DA_HUY = 3,
 }
 
 @Schema({ timestamps: true })
@@ -31,7 +32,7 @@ export class ChiTietMuonTra {
   @Prop()
   ngayTra: Date;
 
-  @Prop({ type: Number, enum: TrangThaiSach, default: TrangThaiSach.DANG_MUON })
+  @Prop({ type: Number, enum: TrangThaiSach, default: TrangThaiSach.CHO_LAY })
   tinhTrang: number;
 }
 

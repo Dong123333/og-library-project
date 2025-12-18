@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
     Layout,
     Row,
@@ -16,13 +16,22 @@ import {
     Input,
     Form, InputNumber, DatePicker
 } from 'antd';
-import {ShoppingCartOutlined, HomeOutlined, RightOutlined, LeftOutlined, HeartFilled} from '@ant-design/icons';
+import {
+    ShoppingCartOutlined,
+    HomeOutlined,
+    RightOutlined,
+    LeftOutlined,
+    HeartFilled,
+    LoadingOutlined
+} from '@ant-design/icons';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from "../../services/axios.customize";
 import {useAuth} from "../../context/AuthContext.jsx";
 import {useBookcase} from "../../context/BookcaseContext.jsx";
 import bookDonation from "../../assets/images/book-donation.png";
 import dayjs from "dayjs";
+import {flyToCart} from "../../utils/FlyToCart.jsx";
+import FadeInImage from "../../components/FadeInImage.jsx";
 
 const { Meta } = Card;
 
@@ -37,7 +46,7 @@ const BookDetailPage = () => {
     const [relatedBooks, setRelatedBooks] = useState([]);
     const [startIndex, setStartIndex] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState(4);
-    const topRef = useRef(null);
+    const imgRef = useRef(null);
     const [isBorrowModalOpen, setIsBorrowModalOpen] = useState(false);
     const [borrowLoading, setBorrowLoading] = useState(false);
     const [form] = Form.useForm();
@@ -45,30 +54,10 @@ const BookDetailPage = () => {
     const { isAuthenticated } = useAuth();
     const [messageApi, contextHolder] = message.useMessage();
 
-    useLayoutEffect(() => {
-        const forceScrollTop = () => {
-            window.scrollTo(0, 0);
-            document.documentElement.scrollTop = 0;
-            document.body.scrollTop = 0;
-            const allElements = document.querySelectorAll('*');
-            allElements.forEach((el) => {
-                if (el.scrollTop > 0) {
-                    el.scrollTop = 0;
-                }
-            });
-        };
-
-        forceScrollTop();
-        const timer = setTimeout(forceScrollTop, 50);
-        fetchBookDetail();
-
-        return () => clearTimeout(timer);
-    }, [id]);
-
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth < 768) {
-                setItemsPerPage(2);
+                setItemsPerPage(1);
             } else {
                 setItemsPerPage(4);
             }
@@ -78,6 +67,10 @@ const BookDetailPage = () => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
+    useEffect(() => {
+        fetchBookDetail();
+    }, [id]);
 
     const fetchBookDetail = async () => {
         try {
@@ -171,6 +164,7 @@ const BookDetailPage = () => {
             return;
         }
         addToBookcase(book);
+        flyToCart(imgRef.current);
     };
 
     const handleNext = () => {
@@ -188,11 +182,7 @@ const BookDetailPage = () => {
     return (
         <div>
             {contextHolder}
-            <Layout className="min-h-screen bg-gray-50 relative">
-                <div
-                    ref={topRef}
-                    style={{ position: 'absolute', top: 0, left: 0, width: 1, height: 1 }}
-                />
+            <Layout className="min-h-screen bg-gray-50 relative" style={{ backgroundColor: "transparent"}}>
                 <Content className="w-full">
                     <div className="flex items-center gap-2 text-sm text-gray-500 mb-6 flex-nowrap">
                         <Link to="/" className="flex items-center gap-1  transition-colors cursor-pointer whitespace-nowrap">
@@ -205,27 +195,38 @@ const BookDetailPage = () => {
                         </Link>
                         <span className="text-gray-400">/</span>
                         <span className="font-medium text-gray-800 truncate flex-1 min-w-0">
-                            {book?.tenSach || "Đang tải..."}
+                            {book?.tenSach}
                         </span>
                     </div>
 
-                    <Spin className="mt-6" spinning={loading} tip="Đang tải thông tin...">
-                        {book ? (
-                            <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm w-full">
-                                <Row gutter={[48, 32]}>
-                                    <Col xs={24} md={9} lg={8}>
-                                        <div className="border rounded-lg overflow-hidden shadow-md bg-white p-4 flex justify-center items-center w-full h-[500px]">
-                                            <Image
-                                                src={book.hinhAnh || "https://placehold.co/400x600?text=No+Image"}
-                                                alt={book.tenSach}
-                                                className="w-full h-full object-contain"
-                                                preview={{ mask: 'Phóng to' }}
-                                            />
-                                        </div>
-                                    </Col>
+                    {loading ? (
+                        <div className="flex flex-col items-center justify-center min-h-[70vh] gap-3">
+                            <div className="flex flex-col items-center gap-3">
+                                <Spin
+                                    className="custom-spin-indigo"
+                                />
+                                <span className="text-[#4F46E5] text-sm font-medium whitespace-nowrap">
+                                    Đang tải...
+                                </span>
+                            </div>
+                        </div>
+                    ) : book ? (
+                        <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm w-full">
+                            <Row gutter={[48, 32]}>
+                                <Col xs={24} md={9} lg={8}>
+                                    <div className="border rounded-lg overflow-hidden shadow-md bg-white p-4 flex justify-center items-center w-full h-[500px]">
+                                        <Image
+                                            ref={imgRef}
+                                            src={book.hinhAnh || "https://placehold.co/400x600?text=No+Image"}
+                                            alt={book.tenSach}
+                                            className="w-full h-full object-contain"
+                                            preview={{ mask: 'Phóng to' }}
+                                        />
+                                    </div>
+                                </Col>
 
-                                    <Col xs={24} md={15} lg={16}>
-                                        <div className="flex flex-col h-full">
+                                <Col xs={24} md={15} lg={16}>
+                                    <div className="flex flex-col h-full">
                                         <Title level={2} className="mb-2" style={{ color: '#1f2937' }}>
                                             {book.tenSach}
                                         </Title>
@@ -237,22 +238,22 @@ const BookDetailPage = () => {
                                                 </span>
                                             </span>
                                         </div>
-                                            <Divider style={{ marginTop: 6, marginBottom: 6}} />
+                                        <Divider style={{ marginTop: 6, marginBottom: 6}} />
 
-                                            <div className="mb-8">
-                                                <Text style={{ fontSize: '16px' }} type="secondary" className="block mb-2">Tình trạng sẵn có:</Text>
-                                                {book.soLuong > 0 ? (
-                                                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-600 rounded-lg text-green-700">
-                                                        <span className="w-3 h-3 bg-green-600 rounded-full animate-pulse font-bold"></span>
-                                                        Sẵn sàng cho mượn ({book.soLuong} bản)
-                                                    </div>
-                                                ) : (
-                                                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-50 border border-red-200 rounded-lg text-red-600 font-bold text-lg">
-                                                        <span className="w-3 h-3 bg-red-500 rounded-full"></span>
-                                                        Tạm hết hàng
-                                                    </div>
-                                                )}
-                                            </div>
+                                        <div className="mb-8">
+                                            <Text style={{ fontSize: '16px' }} type="secondary" className="block mb-2">Tình trạng sẵn có:</Text>
+                                            {book.soLuong > 0 ? (
+                                                <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-600 rounded-lg text-green-700">
+                                                    <span className="w-3 h-3 bg-green-600 rounded-full animate-pulse font-bold"></span>
+                                                    Sẵn sàng cho mượn ({book.soLuong} bản)
+                                                </div>
+                                            ) : (
+                                                <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-50 border border-red-200 rounded-lg text-red-600 font-bold text-lg">
+                                                    <span className="w-3 h-3 bg-red-500 rounded-full"></span>
+                                                    Tạm hết hàng
+                                                </div>
+                                            )}
+                                        </div>
                                         <div className="grid grid-cols-2 gap-4 mb-8 text-base">
                                             <div>
                                                 <Text type="secondary">Danh mục:</Text>
@@ -274,10 +275,10 @@ const BookDetailPage = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                            <div className="flex items-center gap-2 mb-8">
-                                                <span className="text-gray-500 text-[20px]">Giá tiền:</span>
-                                                <span className="text-red-600 font-semibold text-[20px]">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(book.giaTien || 0)}</span>
-                                            </div>
+                                        <div className="flex items-center gap-2 mb-8">
+                                            <span className="text-gray-500 text-[20px]">Giá tiền:</span>
+                                            <span className="text-red-600 font-semibold text-[20px]">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(book.giaTien || 0)}</span>
+                                        </div>
                                         <div className="flex gap-4 mt-auto mb-8">
                                             <Button
                                                 type="primary"
@@ -300,95 +301,104 @@ const BookDetailPage = () => {
                                                 <span>Mượn Ngay</span>
                                             </Button>
                                         </div>
-                                            </div>
-                                    </Col>
+                                    </div>
+                                </Col>
 
-                                </Row>
-                            </div>
-                        ) : (
-                            <div className="h-64 flex justify-center items-center">Không có dữ liệu</div>
-                        )}
-                    </Spin>
+                            </Row>
+                        </div>
+                    ) : (
+                        <div className="h-64 flex justify-center items-center">Không có dữ liệu</div>
+                    )}
                 </Content>
             </Layout>
-            <Divider style={{ margin: '50px 0' }} />
-            <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm w-full">
-                <div className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center text-red-500">
-                        <HeartFilled style={{ fontSize: '20px' }} />
-                    </div>
-                    <Title level={3} style={{ margin: 0, color: '#374151' }}>
-                        Có thể bạn sẽ thích
-                    </Title>
-                </div>
-                <div className="flex items-center gap-2 md:gap-4">
-                    <Button
-                        shape="circle"
-                        icon={<LeftOutlined />}
-                        size="large"
-                        onClick={handlePrev}
-                        disabled={startIndex === 0}
-                        className="z-10 -translate-y-1/2 shadow-md border-gray-200 text-gray-500 hover:text-blue-600 hover:border-blue-600 bg-white"
-                        style={{ display: relatedBooks.length <= 4 ? 'none' : 'flex' }}
-                    />
-                    <div className="flex-1 w-0">
-                        <Row gutter={[16, 16]}>
-                            {relatedBooks.slice(startIndex, startIndex + itemsPerPage).map((item) => (
-                                <Col xs={12} sm={12} md={8} lg={6} key={item._id}>
-                                    <Card
-                                        hoverable
-                                        className="shadow-sm hover:shadow-lg transition-all duration-300 border-gray-200"
-                                        style={{ borderRadius: 12, overflow: 'hidden', height: '100%', }}
-                                        onClick={() => navigate(`/library/${item._id}`)}
-                                        cover={
-                                            <div className="h-40 md:h-56 md:p-3 bg-[#f8f9fa] flex justify-center items-center relative overflow-hidden">
-                                                <img
-                                                    alt={item.tenSach}
-                                                    src={item.hinhAnh || "https://placehold.co/200x300?text=No+Image"}
-                                                    className="h-full w-full object-contain transition-transform duration-300 hover:scale-110 mix-blend-multiply"
-                                                />
-                                            </div>
-                                        }
-                                    >
-                                        <Meta
-                                            title={
-                                                <div
-                                                    className="text-sm md:text-base font-bold text-gray-800 truncate"
-                                                    title={item.tenSach}
-                                                >
-                                                    {item.tenSach}
-                                                </div>
-                                            }
-                                            description={
-                                                <div className="flex justify-between items-center mt-2">
-                                                <span className="text-xs bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded border border-blue-100">
-                                                Xem ngay
-                                            </span>
-                                                </div>
-                                            }
-                                        />
-                                    </Card>
-                                </Col>
-                            ))}
+            {!loading && (
+                <>
+                    <Divider style={{ margin: '50px 0' }} />
+                    <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm w-full">
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center text-red-500">
+                                <HeartFilled style={{ fontSize: '20px' }} />
+                            </div>
+                            <Title level={3} style={{ margin: 0, color: '#374151' }}>
+                                Có thể bạn sẽ thích
+                            </Title>
+                        </div>
+                        <div className="flex items-center gap-2 md:gap-4">
+                            <Button
+                                shape="circle"
+                                icon={<LeftOutlined />}
+                                size="large"
+                                onClick={handlePrev}
+                                disabled={startIndex === 0}
+                                className="z-10 -translate-y-1/2 shadow-md border-gray-200 text-gray-500 hover:text-blue-600 hover:border-blue-600 bg-white"
+                                style={{ display: relatedBooks.length <= 4 ? 'none' : 'flex' }}
+                            />
+                            <div className="flex-1 w-0">
+                                <Row gutter={[16, 16]}>
+                                    {relatedBooks.slice(startIndex, startIndex + itemsPerPage).map((item) => (
+                                        <Col xs={24} sm={12} md={8} lg={6} key={item._id}>
+                                            <Card
+                                                hoverable
+                                                className="shadow-sm hover:shadow-lg transition-all duration-300 border-gray-200"
+                                                style={{ borderRadius: 12, overflow: 'hidden', height: '100%', }}
+                                                onClick={() => navigate(`/library/${item._id}`)}
+                                                cover={
+                                                    <div className="h-48 md:h-56 md:p-3 bg-[#f8f9fa] flex justify-center items-center relative overflow-hidden">
+                                                        <FadeInImage
+                                                            alt={item.tenSach}
+                                                            src={item.hinhAnh || "https://placehold.co/200x300?text=No+Image"}
+                                                            className="h-full w-full object-contain transition-transform duration-300 hover:scale-110 mix-blend-multiply"
+                                                        />
+                                                    </div>
+                                                }
+                                            >
+                                                <Meta
+                                                    title={
+                                                        <div
+                                                            className="text-sm md:text-base font-bold text-gray-800 truncate"
+                                                            title={item.tenSach}
+                                                        >
+                                                            {item.tenSach}
+                                                        </div>
+                                                    }
+                                                    description={
+                                                        <div className="mt-2 space-y-1">
+                                                            <div className="text-gray-400 text-xs mb-3 truncate">
+                                                                {item.maTacGia?.map(tg => tg.tenTacGia).join(', ') || 'Chưa cập nhật'}
+                                                            </div>
+                                                            <div className="flex justify-between items-center mt-2">
+                                                            <span className="text-xs bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded border border-blue-100">
+                                                                Xem ngay
+                                                            </span>
+                                                            </div>
+                                                        </div>
 
-                            {relatedBooks.length === 0 && (
-                                <div className="w-full text-center text-gray-400 py-10 italic">
-                                    Chưa có sách tương tự để hiển thị.
-                                </div>
-                            )}
-                        </Row>
+                                                    }
+                                                />
+                                            </Card>
+                                        </Col>
+                                    ))}
+
+                                    {relatedBooks.length === 0 && (
+                                        <div className="w-full text-center text-gray-400 py-10 italic">
+                                            Chưa có sách tương tự để hiển thị.
+                                        </div>
+                                    )}
+                                </Row>
+                            </div>
+                            <Button
+                                shape="circle"
+                                icon={<RightOutlined />}
+                                size="large"
+                                onClick={handleNext}
+                                disabled={startIndex + itemsPerPage >= relatedBooks.length}
+                                className="shrink-0 shadow-md border-gray-200 text-gray-500 hover:text-blue-600 hover:border-blue-600 bg-white flex items-center justify-center"
+                                style={{ display: relatedBooks.length <= 4 ? 'none' : 'flex' }}
+                            />
+                        </div>
                     </div>
-                    <Button
-                        shape="circle"
-                        icon={<RightOutlined />}
-                        size="large"
-                        onClick={handleNext}
-                        disabled={startIndex + itemsPerPage >= relatedBooks.length}
-                        className="shrink-0 shadow-md border-gray-200 text-gray-500 hover:text-blue-600 hover:border-blue-600 bg-white flex items-center justify-center"
-                        style={{ display: relatedBooks.length <= 4 ? 'none' : 'flex' }}
-                    />
-                </div>
-            </div>
+                </>
+            )}
             <Modal
                 title={
                     <div className="flex items-center gap-2 w-full">

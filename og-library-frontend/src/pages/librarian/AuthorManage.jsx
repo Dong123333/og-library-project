@@ -219,12 +219,36 @@ const AuthorManage = () => {
 
                         <Col span={8}>
                             <Form.Item name="namSinh" label="Năm sinh">
-                                <Input placeholder="VD: 1920" maxLength={4} />
+                                <Input
+                                    placeholder="VD: 1920"
+                                    maxLength={4}
+                                    parser={(value) => value.replace(/[^\d]/g, '')}
+                                    onKeyDown={(e) => {
+                                        if (
+                                            !/[0-9]/.test(e.key) &&
+                                            !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)
+                                        ) {
+                                            e.preventDefault();
+                                        }
+                                    }}
+                                />
                             </Form.Item>
                         </Col>
                         <Col span={8}>
                             <Form.Item name="namMat" label="Năm mất">
-                                <Input placeholder="VD: 2000" maxLength={4} />
+                                <Input
+                                    placeholder="VD: 2000"
+                                    maxLength={4}
+                                    parser={(value) => value.replace(/[^\d]/g, '')}
+                                    onKeyDown={(e) => {
+                                        if (
+                                            !/[0-9]/.test(e.key) &&
+                                            !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)
+                                        ) {
+                                            e.preventDefault();
+                                        }
+                                    }}
+                                />
                             </Form.Item>
                         </Col>
                     </Row>

@@ -419,23 +419,24 @@ const BookManage = () => {
                                     </Form.Item>
                                 </Col>
                                 <Col span={12}>
-                                    <Form.Item name="namXuatBan" label="Năm xuất bản" rules={[
-                                        {
-                                            validator: (_, value) => {
-                                                if (typeof value !== 'number') {
-                                                    return Promise.reject(new Error('Năm xuất bản phải là số'));
-                                                }
-                                                if (!value || (value >= 1000 && value <= 9999)) {
-                                                    return Promise.resolve();
-                                                }
-                                                return Promise.reject(new Error('Năm xuất bản phải từ 1000 đến 9999'));
-                                            },
-                                        },
-                                    ]}>
+                                    <Form.Item
+                                        name="namXuatBan"
+                                        label="Năm xuất bản"
+                                        rules={[{ required: true, message: 'Vui lòng nhập năm xuất bản' }]}>
                                         <InputNumber
                                             placeholder="VD: 2024"
                                             style={{ width: '100%' }}
+                                            maxLength={4}
                                             controls={false}
+                                            parser={(value) => value.replace(/[^\d]/g, '')}
+                                            onKeyDown={(e) => {
+                                                if (
+                                                    !/[0-9]/.test(e.key) &&
+                                                    !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)
+                                                ) {
+                                                    e.preventDefault();
+                                                }
+                                            }}
                                         />
                                     </Form.Item>
                                 </Col>
@@ -448,7 +449,21 @@ const BookManage = () => {
                                         label="Số lượng"
                                         rules={[{ required: true, message: 'Nhập số lượng' }]}
                                     >
-                                        <InputNumber className="w-full" min={0} />
+                                        <InputNumber
+                                            className="w-full"
+                                            min={0}
+                                            step={1}
+                                            precision={0}
+                                            parser={(value) => value.replace(/[^\d]/g, '')}
+                                            onKeyDown={(e) => {
+                                                if (
+                                                    !/[0-9]/.test(e.key) &&
+                                                    !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)
+                                                ) {
+                                                    e.preventDefault();
+                                                }
+                                            }}
+                                        />
                                     </Form.Item>
                                 </Col>
                                 <Col span={12}>
@@ -464,6 +479,14 @@ const BookManage = () => {
                                             formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                             parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
                                             addonAfter="₫"
+                                            onKeyDown={(e) => {
+                                                if (
+                                                    !/[0-9]/.test(e.key) &&
+                                                    !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)
+                                                ) {
+                                                    e.preventDefault();
+                                                }
+                                            }}
                                         />
                                     </Form.Item>
                                 </Col>

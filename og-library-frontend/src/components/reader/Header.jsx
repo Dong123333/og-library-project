@@ -74,13 +74,16 @@ const Header = () => {
 
             <div className="flex items-center gap-6">
                 {isAuthenticated && (
-                    <Badge count={Bookcase.length} showZero>
-                        <Button
-                            icon={<ShoppingCartOutlined style={{ fontSize: '24px', outline: "none" }} />}
-                            type="text"
-                            onClick={() => navigate('/bookcase')}
-                        />
-                    </Badge>
+                    <div id="cart-icon" className="relative">
+                        <Badge count={Bookcase.length} showZero>
+                            <Button
+                                icon={<ShoppingCartOutlined style={{ fontSize: '24px', outline: "none" }} />}
+                                type="text"
+                                onClick={() => navigate('/bookcase')}
+                            />
+                        </Badge>
+                    </div>
+
                 )}
 
                 {!isAuthenticated ? ( <div className="flex gap-3">

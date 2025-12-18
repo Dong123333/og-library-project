@@ -8,7 +8,7 @@ const PaymentResult = () => {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <div className="max-w-4xl mx-auto p-10">
+            <div className="max-w-9xl mx-auto p-10">
                 <div className="bg-white p-8 rounded-xl shadow-sm">
                     {status === '1' ? (
                         <Result

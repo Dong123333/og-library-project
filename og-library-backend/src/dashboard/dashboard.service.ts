@@ -29,7 +29,7 @@ export class DashboardService {
         this.nguoiDungModel.countDocuments(readerFilter),
         this.muonTraModel.countDocuments({ trangThai: 2 }),
         this.chiTietMuonTraModel.countDocuments({
-          tinhTrang: 0,
+          tinhTrang: 1,
           ngayHenTra: { $lt: new Date() },
         }),
 
@@ -75,7 +75,7 @@ export class DashboardService {
       {
         $match: {
           ngayTra: { $gte: sevenDaysAgo },
-          tinhTrang: 1,
+          tinhTrang: 2,
         },
       },
       {

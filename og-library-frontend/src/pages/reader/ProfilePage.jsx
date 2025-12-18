@@ -97,11 +97,11 @@ const ProfilePage = () => {
     return (
         <Layout className="min-h-screen" style={{ backgroundColor: 'transparent'}}>
             {contextHolder}
-            <Content className="max-w-5xl mx-auto w-full">
+            <Content className="max-w-9xl mx-auto w-full">
                 <div className="flex items-center gap-2 mb-6 text-gray-500 cursor-pointer hover:text-blue-600 w-fit" onClick={() => navigate("/")}>
                     <ArrowRightOutlined className="rotate-180" /> Quay lại
                 </div>
-                <Spin spinning={dataLoading} tip="Đang tải hồ sơ...">
+                <Spin spinning={dataLoading} tip="Đang tải...">
                     <Row gutter={[24, 24]} align="stretch">
                         <Col xs={24} md={8}>
                             <Card className="h-full shadow-sm text-center border-t-4 border-t-blue-600 rounded-lg">
