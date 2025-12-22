@@ -109,6 +109,14 @@ export class AuthController {
     return res.send(html);
   }
 
+  @Get('data-deletion')
+  @Public()
+  getDataDeletionPage(@Res() res: express.Response) {
+    const html = this.authService.getDataDeletionPage();
+    res.header('Content-Type', 'text/html');
+    return res.send(html);
+  }
+
   @Post('facebook/data-deletion')
   @Public()
   handleDataDeletion(@Body() body: any) {

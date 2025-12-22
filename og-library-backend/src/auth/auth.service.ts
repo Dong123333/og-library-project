@@ -124,6 +124,59 @@ export class AuthService {
     `;
   }
 
+  getDataDeletionPage(): string {
+    return `
+    <!DOCTYPE html>
+      <html lang="vi">
+      <head>
+        <meta charset="UTF-8" />
+        <title>Xóa dữ liệu người dùng</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background: #f5f6f7;
+            padding: 40px;
+          }
+          .container {
+              max-width: 600px;
+              margin: auto;
+              background: #fff;
+              padding: 24px;
+              border-radius: 8px;
+              box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            }
+          h1 {
+            font-size: 20px;
+            margin-bottom: 16px;
+          }
+          p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1>Xóa dữ liệu người dùng</h1>
+        <p>
+        Nếu bạn đã đăng nhập bằng Facebook và muốn yêu cầu xóa dữ liệu
+        liên quan đến tài khoản của bạn trong hệ thống
+        <b>Olive Gallery</b>,
+        vui lòng gửi yêu cầu tới email:
+          </p>
+          <p><b>hobadong777@gmail.com</b></p>
+        <p>
+          Chúng tôi sẽ xử lý yêu cầu trong vòng
+        <b>7 ngày làm việc</b>.
+        </p>
+        </div>
+      </body>
+    </html>
+    `;
+  }
+
   handleFacebookDataDeletion(body: any) {
     const confirmation_code =
       'DEL-' + Math.random().toString(36).substring(2, 10).toUpperCase();
