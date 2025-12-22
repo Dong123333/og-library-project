@@ -44,6 +44,9 @@ const Header = () => {
         navigate(`/library`);
     };
 
+    const avatarSrc =
+        user?.hinhAnh && user.hinhAnh !== '' ? user.hinhAnh : undefined;
+
     return (
         <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm px-6 py-3 flex justify-between items-center border-b border-gray-100">
             <div className="flex items-center gap-8">
@@ -105,7 +108,7 @@ const Header = () => {
                         <NotificationBell />
                         <Dropdown overlay={userMenu} trigger={['click']} placement="bottomRight">
                             <Space className="cursor-pointer hover:bg-gray-100 p-2 rounded transition">
-                                <Avatar icon={<UserOutlined />} style={{ backgroundColor: '#1890ff' }} />
+                                <Avatar src={avatarSrc}  icon={avatarSrc === undefined ? <UserOutlined style={{ color: '#8a8d91' }} /> : undefined} style={{ backgroundColor: '#ffffff', border: '1px solid #b0b3b8', }} />
                                 <span className="hidden md:block font-medium text-gray-700">
                                     {user.hoVaTen}
                                 </span>

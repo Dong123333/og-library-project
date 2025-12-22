@@ -9,8 +9,9 @@ const defaultUser = {
     ngaySinh: "",
     soDienThoai: "",
     diaChi: "",
-    avatar: "",
-    maVaiTro: null
+    hinhAnh: "",
+    maVaiTro: null,
+    nguonDangNhap: null,
 };
 
 const AuthContext = createContext({

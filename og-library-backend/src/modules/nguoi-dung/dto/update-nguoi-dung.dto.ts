@@ -7,6 +7,9 @@ export class UpdateProfileDto {
   hoVaTen?: string;
 
   @IsOptional()
+  hinhAnh?: string;
+
+  @IsOptional()
   ngaySinh?: Date;
 
   @IsOptional()

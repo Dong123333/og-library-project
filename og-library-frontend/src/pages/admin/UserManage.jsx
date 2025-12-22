@@ -13,11 +13,21 @@ import {
     Select,
     DatePicker,
     Tag,
-    Pagination
+    Pagination, Menu
 } from 'antd';
-import {EditOutlined, DeleteOutlined, PlusOutlined, UserOutlined} from '@ant-design/icons';
+import {
+    EditOutlined,
+    DeleteOutlined,
+    PlusOutlined,
+    UserOutlined,
+    LockOutlined,
+    GoogleOutlined, FacebookFilled, FilterOutlined
+} from '@ant-design/icons';
 import dayjs from 'dayjs';
 import axios from "../../services/axios.customize";
+import email from "../../assets/images/email-authentication.png"
+import facebook from "../../assets/images/facebook.png"
+import google from "../../assets/images/google.png"
 
 const UserManage = () => {
     const [listUser, setListUser] = useState([]);
@@ -170,6 +180,7 @@ const UserManage = () => {
         {
             title: 'Trạng thái',
             dataIndex: 'trangThai',
+            width: 180,
             render: (status) => {
                 let color = 'default';
                 let text = '';
@@ -194,6 +205,55 @@ const UserManage = () => {
 
                 return <Tag color={color}>{text}</Tag>;
             }
+        },
+        {
+            title: 'Phương thức',
+            dataIndex: 'nguonDangNhap',
+            key: 'nguonDangNhap',
+            width: 140,
+            filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+                <div className="p-2 shadow-xl border border-gray-100 rounded-lg bg-white min-w-[150px]">
+                    <Menu
+                        selectable
+                        selectedKeys={selectedKeys}
+                        onSelect={({ key }) => {
+                            if (key === 'all') {
+                                clearFilters();
+                                confirm();
+                            } else {
+                                setSelectedKeys([key]);
+                                confirm();
+                            }
+                        }}
+                        items={[
+                            { key: 'all', label: 'Tất cả phương thức' },
+                            { type: 'divider' },
+                            { key: 'local', icon: <LockOutlined className="text-gray-400" />, label: 'Email/mật khẩu' },
+                            { key: 'google', icon: <GoogleOutlined className="text-red-500" />, label: 'Google' },
+                            { key: 'facebook', icon: <FacebookFilled className="text-blue-600" />, label: 'Facebook' },
+                        ]}
+                    />
+                </div>
+            ),
+            filterIcon: (filtered) => (
+                <FilterOutlined style={{ color: filtered ? '#1677ff' : undefined }} />
+            ),
+            onFilter: (value, record) => record.nguonDangNhap === value,
+            render: (method) => {
+                let icon = email;
+
+                if (method === 'google') {
+                    icon = google;
+                } else if (method === 'facebook') {
+                    icon = facebook;
+                }
+
+                return (
+                    <div className="flex justify-center">
+                        <img src={icon} style={{ width: 28, height: 28}} alt=""/>
+                    </div>
+                );
+            },
         },
         {
             title: 'Hành động',

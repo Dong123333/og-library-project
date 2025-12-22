@@ -21,6 +21,7 @@ import LibrarianLayout from "../layouts/librarian/index.jsx";
 import PenaltyManage from "../pages/librarian/PenaltyManage.jsx";
 import PaymentResult from "../pages/reader/PaymentResult.jsx";
 import ProfilePage from "../pages/reader/ProfilePage.jsx";
+import LoginSuccessPage from "../pages/auth/LoginSuccessPage.jsx";
 
 export const publicRoutes = [
     { path: "/", component: HomePage, layout: ReaderLayout },
@@ -31,6 +32,7 @@ export const publicRoutes = [
     { path: "/forgot-password", component: ForgotPasswordPage, layout: null },
     { path: "/verify/:id", component: VerifyAccountPage, layout: null },
     {path: "/change-password" , component: ChangePasswordPage, layout: null },
+    {path: "/login-success" , component: LoginSuccessPage, layout: null },
 ];
 
 export const privateRoutes = [

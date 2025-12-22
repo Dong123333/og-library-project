@@ -1,19 +1,27 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { message } from 'antd';
+import {useAuth} from "./AuthContext.jsx";
 
 const BookcaseContext = createContext();
 
 export const BookcaseWrapper = ({ children }) => {
+    const { user, isAuthenticated } = useAuth();
     const [Bookcase, setBookcase] = useState([]);
 
     useEffect(() => {
-        const stored = localStorage.getItem("bookcase");
-        if (stored) setBookcase(JSON.parse(stored));
-    }, []);
+        if (isAuthenticated && user?._id) {
+            const stored = localStorage.getItem(`bookcase_${user._id}`);
+            if (stored) setBookcase(JSON.parse(stored));
+        } else {
+            setBookcase([]);
+        }
+    }, [user?._id, isAuthenticated]);
 
     useEffect(() => {
-        localStorage.setItem("bookcase", JSON.stringify(Bookcase));
-    }, [Bookcase]);
+        if (isAuthenticated && user?._id) {
+            localStorage.setItem(`bookcase_${user._id}`, JSON.stringify(Bookcase));
+        }
+    }, [Bookcase, user?._id, isAuthenticated]);
 
     const addToBookcase = (book) => {
         const existingItem = Bookcase.find(item => item._id === book._id);
@@ -63,6 +71,9 @@ export const BookcaseWrapper = ({ children }) => {
 
     const clearBookcase = () => {
         setBookcase([]);
+        if (user?._id) {
+            localStorage.removeItem(`bookcase_${user._id}`);
+        }
     };
 
     return (

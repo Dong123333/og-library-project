@@ -16,6 +16,9 @@ export class NguoiDung {
   hoVaTen: string;
 
   @Prop()
+  hinhAnh: string;
+
+  @Prop()
   ngaySinh: Date;
 
   @Prop()
@@ -41,6 +44,15 @@ export class NguoiDung {
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'VaiTro' })
   maVaiTro: VaiTro;
+
+  @Prop()
+  maFacebook: string;
+
+  @Prop()
+  maGoogle: string;
+
+  @Prop({ default: 'local' })
+  nguonDangNhap: string;
 }
 
 export const NguoiDungSchema = SchemaFactory.createForClass(NguoiDung);

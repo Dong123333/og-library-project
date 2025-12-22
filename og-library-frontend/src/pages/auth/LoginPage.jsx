@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {Form, Input, Button, Checkbox, Divider, notification} from 'antd';
 import { LockOutlined, GoogleOutlined, FacebookFilled, MailOutlined } from '@ant-design/icons';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link, useNavigate, useSearchParams} from 'react-router-dom';
 import AuthLayout from "../../layouts/auth/index.jsx";
 import axios from "../../services/axios.customize";
 import VerifyAccountModal from "./VerifyAccountModal.jsx";
 import {useAuth} from "../../context/AuthContext.jsx";
+import google from "../../assets/images/google.png"
+import facebook from "../../assets/images/facebook.png"
 
 const LoginPage = () => {
     const [loading, setLoading] = useState(false);
@@ -16,6 +18,23 @@ const LoginPage = () => {
     const { loginContext } = useAuth();
     const [api, contextHolder] = notification.useNotification();
     const [form] = Form.useForm();
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    useEffect(() => {
+        const errorType = searchParams.get('error');
+        const provider = searchParams.get('provider');
+
+        if (errorType === 'social_conflict') {
+            const msg = `Email này đã được liên kết với tài khoản ${provider}. Vui lòng đăng nhập bằng phương thức đó.`;
+
+            api.error({
+                description: msg,
+                duration: 5
+            });
+
+            setSearchParams({});
+        }
+    }, [searchParams]);
 
     useEffect(() => {
         const savedEmail = localStorage.getItem('remembered_email');
@@ -80,6 +99,11 @@ const LoginPage = () => {
 
     };
 
+    const handleLogin = (provider) => {
+        const apiUrl = import.meta.env.VITE_BACK_END_API_URL;
+        window.location.href = `${apiUrl}/api/v1/auth/${provider}`;
+    };
+
     return (
         <AuthLayout
             title="Chào mừng trở lại! 👋"
@@ -139,6 +163,25 @@ const LoginPage = () => {
                     </Button>
                 </Form.Item>
             </Form>
+            <div className="mt-6">
+                <div className="flex items-center gap-3 mb-4">
+                    <div className="flex-1 h-px bg-gray-200" />
+                    <span className="text-sm text-gray-400">Hoặc đăng nhập bằng</span>
+                    <div className="flex-1 h-px bg-gray-200" />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <button onClick={() => handleLogin('google')} className="flex items-center justify-center gap-3 h-11 rounded-lg border border-gray-300 bg-white text-gray-700 font-medium hover:bg-gray-50 transition cursor-pointer">
+                        <img style={{ width: 18, height: 18 }} src={google}  alt='Google'/>
+                        Google
+                    </button>
+
+                    <button onClick={() => handleLogin('facebook')} className="flex items-center justify-center gap-3 h-11 rounded-lg border border-[#b0b3b8] bg-white text-gray-700 font-medium hover:bg-gray-50 transition cursor-pointer">
+                        <img style={{ width: 18, height: 18 }} src={facebook}  alt='Facebook'/>
+                        Facebook
+                    </button>
+                </div>
+            </div>
         </AuthLayout>
     );
 };

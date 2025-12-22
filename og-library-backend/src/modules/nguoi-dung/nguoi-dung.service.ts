@@ -1,8 +1,10 @@
 import {
   BadRequestException,
+  ConflictException,
   Injectable,
   InternalServerErrorException,
   OnModuleInit,
+  UploadedFile,
 } from '@nestjs/common';
 import { CreateNguoiDungDto } from './dto/create-nguoi-dung.dto';
 import {
@@ -24,6 +26,9 @@ import * as crypto from 'crypto';
 import dayjs from 'dayjs';
 import aqp from 'api-query-params';
 import { MailService } from '../../mail/mail.service';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
+import { CloudinaryService } from '../../cloudinary/cloudinary.service';
 
 @Injectable()
 export class NguoiDungService implements OnModuleInit {
@@ -31,6 +36,9 @@ export class NguoiDungService implements OnModuleInit {
     @InjectModel(NguoiDung.name) private nguoiDungModel: Model<NguoiDung>,
     @InjectModel(VaiTro.name) private vaiTroModel: Model<VaiTro>,
     private mailService: MailService,
+    private jwtService: JwtService,
+    private configService: ConfigService,
+    private readonly cloudinaryService: CloudinaryService,
   ) {}
 
   async onModuleInit() {
@@ -66,13 +74,13 @@ export class NguoiDungService implements OnModuleInit {
       {
         email: 'admin@olive.gallery.vn',
         hoVaTen: 'Quản trị viên',
-        password: 'admin123',
+        password: '123456',
         maVaiTro: 'VT003',
       },
       {
         email: 'librarian@olive.gallery.vn',
         hoVaTen: 'Thủ thư',
-        password: 'librarian123',
+        password: '123456',
         maVaiTro: 'VT002',
       },
     ];
@@ -86,10 +94,15 @@ export class NguoiDungService implements OnModuleInit {
           const hashedPassword = await hashPasswordHelper(user.password);
           await this.nguoiDungModel.create({
             hoVaTen: user.hoVaTen,
+            hinhAnh: '',
+            ngaySinh: null,
+            diaChi: '',
+            soDienThoai: '',
             email: user.email,
             matKhau: hashedPassword,
             trangThai: 1,
             maVaiTro: role._id,
+            nguonDangNhap: 'local',
           });
         }
       }
@@ -169,7 +182,15 @@ export class NguoiDungService implements OnModuleInit {
     return await this.nguoiDungModel.findOne({ email }).populate('maVaiTro');
   }
 
-  async updateProfile(id: string, updateProfileDto: UpdateProfileDto) {
+  async updateProfile(
+    id: string,
+    updateProfileDto: UpdateProfileDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    if (file) {
+      const result = await this.cloudinaryService.uploadImage(file);
+      updateProfileDto.hinhAnh = result.secure_url;
+    }
     return await this.nguoiDungModel
       .findByIdAndUpdate(id, updateProfileDto, { new: true })
       .select('-matKhau');
@@ -208,10 +229,18 @@ export class NguoiDungService implements OnModuleInit {
         'Lỗi hệ thống: Chưa cấu hình vai trò Reader',
       );
     }
-    const isExist = await this.isEmailExist(email);
+    const isExist = await this.nguoiDungModel.findOne({ email });
     if (isExist) {
-      throw new BadRequestException(
-        'Email đã tồn tại. Vui lòng sử dụng email khác',
+      if (
+        isExist.nguonDangNhap === 'facebook' ||
+        isExist.nguonDangNhap === 'google'
+      ) {
+        throw new ConflictException(
+          `Email này đã được sử dụng để đăng nhập bằng ${isExist.nguonDangNhap}.`,
+        );
+      }
+      throw new ConflictException(
+        'Email đã được đăng ký. Vui lòng sử dụng email khác',
       );
     }
     const hashPassword = await hashPasswordHelper(matKhau);
@@ -219,7 +248,8 @@ export class NguoiDungService implements OnModuleInit {
     const user = await this.nguoiDungModel.create({
       hoVaTen,
       email,
-      ngaySinh: '',
+      hinhAnh: '',
+      ngaySinh: null,
       soDienThoai: '',
       diaChi: '',
       matKhau: hashPassword,
@@ -227,6 +257,7 @@ export class NguoiDungService implements OnModuleInit {
       maOTP: maOTP,
       thoiHanOTP: dayjs().add(5, 'minutes'),
       maVaiTro: readerRole._id,
+      nguonDangNhap: 'local',
     });
 
     this.mailService.sendUserConfirmation(
@@ -271,6 +302,12 @@ export class NguoiDungService implements OnModuleInit {
       throw new BadRequestException('Tài khoản không tồn tại');
     }
 
+    if (user.nguonDangNhap !== 'local') {
+      throw new BadRequestException(
+        `Tài khoản của bạn liên kết với ${user.nguonDangNhap}. Vui lòng quản lý mật khẩu tại trang cá nhân của nhà cung cấp đó.`,
+      );
+    }
+
     if (user.trangThai) {
       throw new BadRequestException('Tài khoản này đã xác thực rồi!');
     }
@@ -299,6 +336,12 @@ export class NguoiDungService implements OnModuleInit {
     const user = await this.nguoiDungModel.findOne({ email });
     if (!user) {
       throw new BadRequestException('Tài khoản không tồn tại');
+    }
+
+    if (user.nguonDangNhap !== 'local') {
+      throw new BadRequestException(
+        `Tài khoản của bạn liên kết với ${user.nguonDangNhap}. Vui lòng quản lý mật khẩu tại trang cá nhân của nhà cung cấp đó.`,
+      );
     }
 
     const maOTP = crypto.randomInt(100000, 1000000).toString();
@@ -375,6 +418,12 @@ export class NguoiDungService implements OnModuleInit {
       throw new BadRequestException('Tài khoản không tồn tại');
     }
 
+    if (user.nguonDangNhap !== 'local') {
+      throw new BadRequestException(
+        `Tài khoản của bạn liên kết với ${user.nguonDangNhap}. Vui lòng quản lý mật khẩu tại trang cá nhân của nhà cung cấp đó.`,
+      );
+    }
+
     const isPassword = await comparePasswordHelper(
       changePasswordProfileAuthDto.matKhauCu,
       user.matKhau,
@@ -405,5 +454,122 @@ export class NguoiDungService implements OnModuleInit {
 
     await user.save();
     return user;
+  }
+
+  async validateSocialUser(profile: {
+    email: string;
+    hoVaTen: string;
+    hinhAnh?: string;
+    ma: string;
+    loai: 'google' | 'facebook';
+  }) {
+    const { email, hoVaTen, hinhAnh, ma, loai } = profile;
+    const maSocialKey = loai === 'google' ? 'maGoogle' : 'maFacebook';
+    const otherSocialKey = loai === 'google' ? 'maFacebook' : 'maGoogle';
+
+    let user: any = await this.nguoiDungModel.findOne({
+      $or: [{ email: email }, { [maSocialKey]: ma }],
+    });
+
+    if (user) {
+      if (user.nguonDangNhap !== loai) {
+        return {
+          status: 'CONFLICT',
+          provider: user.nguonDangNhap,
+        };
+      }
+      user = await this.nguoiDungModel
+        .findByIdAndUpdate(
+          user._id,
+          {
+            $set: {
+              [maSocialKey]: ma,
+              email: email,
+            },
+            $unset: { [otherSocialKey]: 1 },
+          },
+          { new: true },
+        )
+        .populate('maVaiTro')
+        .lean();
+    } else {
+      const role = await this.vaiTroModel.findOne({
+        maVaiTro: 'VT001',
+      });
+
+      user = await this.nguoiDungModel.create({
+        hoVaTen: hoVaTen,
+        hinhAnh: hinhAnh,
+        email: email,
+        ngaySinh: null,
+        diaChi: '',
+        soDienThoai: '',
+        matKhau: '',
+        maVaiTro: role?._id,
+        trangThai: 1,
+        [maSocialKey]: ma,
+        nguonDangNhap: loai,
+      });
+    }
+
+    if (!user) {
+      throw new InternalServerErrorException(
+        'Không thể xác thực hoặc tạo tài khoản người dùng',
+      );
+    }
+
+    const payload = {
+      email: user.email,
+      sub: user._id,
+      maVaiTro: user.maVaiTro,
+      hoVaTen: user.hoVaTen,
+    };
+
+    return { status: 'SUCCESS', access_token: this.jwtService.sign(payload) };
+  }
+
+  async validateFacebookUser(fbProfile: any) {
+    const { email, hoVaTen, maFacebook, hinhAnh } = fbProfile;
+
+    return this.validateSocialUser({
+      email: email,
+      hoVaTen: hoVaTen,
+      hinhAnh: hinhAnh,
+      ma: maFacebook,
+      loai: 'facebook',
+    });
+  }
+
+  async validateGoogleUser(googleProfile: any) {
+    const { email, hoVaTen, maGoogle, hinhAnh } = googleProfile;
+
+    return this.validateSocialUser({
+      email: email,
+      hoVaTen: hoVaTen,
+      hinhAnh: hinhAnh,
+      ma: maGoogle,
+      loai: 'google',
+    });
+  }
+
+  getRedirectUrl(status: string | undefined, data: any): string {
+    const frontendUrl = this.configService.get<string>('FRONTEND_URL');
+    const currentStatus = status || 'ERROR';
+
+    if (currentStatus === 'CONFLICT') {
+      const providerName =
+        data.provider === 'google'
+          ? 'Google'
+          : data.provider === 'facebook'
+            ? 'Facebook'
+            : 'Email/Mật khẩu';
+      return `${frontendUrl}/login?error=social_conflict&provider=${encodeURIComponent(providerName)}`;
+    }
+
+    if (currentStatus === 'SUCCESS' && data.access_token) {
+      return `${frontendUrl}/login-success?token=${data.access_token}`;
+    }
+
+    return `${frontendUrl}/login?error=unknown`;
   }
 }

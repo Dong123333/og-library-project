@@ -9,18 +9,29 @@ import {
     LoadingOutlined, ReloadOutlined
 } from '@ant-design/icons';
 import axios from '../services/axios.customize';
+import {useAuth} from "../context/AuthContext.jsx";
 
 const Chatbot = () => {
+    const { user, isAuthenticated } = useAuth();
     const [isOpen, setIsOpen] = useState(false);
-    const [messages, setMessages] = useState(() => {
-        const saved = localStorage.getItem('chat_history');
-        return saved ? JSON.parse(saved) : [
-            { role: 'ai', text: 'Xin chào! Tôi là trợ lý ảo Olivery. Tôi có thể giúp gì cho bạn?' }
-        ];
-    });
+    const [messages, setMessages] = useState([]);
     const [inputValue, setInputValue] = useState('');
     const [loading, setLoading] = useState(false);
     const messagesEndRef = useRef(null);
+
+    const chatKey = isAuthenticated && user?._id ? `chat_history_${user._id}` : 'chat_history_guest';
+    const prevChatKey = useRef(chatKey);
+
+    useEffect(() => {
+        const saved = localStorage.getItem(chatKey);
+        if (saved) {
+            setMessages(JSON.parse(saved));
+        } else {
+            setMessages([
+                { role: 'ai', text: `Xin chào bạn${isAuthenticated && user?.hoVaTen ? ' ' + user.hoVaTen : ''}! Tôi là trợ lý ảo Olivery. Tôi có thể giúp gì cho bạn?` }
+            ]);
+        }
+    }, [chatKey]);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -28,14 +39,20 @@ const Chatbot = () => {
     useEffect(scrollToBottom, [messages, isOpen]);
 
     useEffect(() => {
-        localStorage.setItem('chat_history', JSON.stringify(messages));
-    }, [messages]);
+        if (prevChatKey.current !== chatKey) {
+            prevChatKey.current = chatKey;
+            return;
+        }
+
+        localStorage.setItem(chatKey, JSON.stringify(messages));
+    }, [messages, chatKey]);
 
     const handleSend = async () => {
         if (!inputValue.trim()) return;
 
         const userMsg = inputValue;
-        setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
+        const nextMessages = [...messages, { role: 'user', text: userMsg }];
+        setMessages(nextMessages);
         setInputValue('');
         setLoading(true);
 
@@ -61,6 +78,21 @@ const Chatbot = () => {
         setLoading(false);
     };
 
+    const clearHistory = () => {
+        localStorage.removeItem(chatKey);
+        const resetMsg = [
+            {
+                role: 'ai',
+                text: `Xin chào bạn${isAuthenticated && user?.hoVaTen ? ' ' + user.hoVaTen : ''}! Tôi là trợ lý ảo Olivery. Tôi có thể giúp gì cho bạn?`,
+            }
+        ];
+        setMessages(resetMsg);
+        localStorage.setItem(chatKey, JSON.stringify(resetMsg));
+    };
+
+    const avatarSrc =
+        user?.hinhAnh && user.hinhAnh !== '' ? user.hinhAnh : undefined;
+
     return (
         <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
             {isOpen ? (
@@ -77,10 +109,7 @@ const Chatbot = () => {
                             <Button
                                 type="text"
                                 icon={<ReloadOutlined />}
-                                onClick={() => {
-                                    localStorage.removeItem('chat_history');
-                                    setMessages([{ role: 'ai', text: 'Xin chào! Tôi là trợ lý ảo Olivery.' }]);
-                                }}
+                                onClick={clearHistory}
                                 style={{
                                     color: "#fff",
                                     width: 28,
@@ -140,8 +169,9 @@ const Chatbot = () => {
                                 </div>
                                 {msg.role === "user" && (
                                     <Avatar
-                                        icon={<UserOutlined />}
-                                        style={{backgroundColor: '#9ca3af', color: '#ffffff', boxShadow: '0 4px 6px rgba(0,0,0,0.1)'}}
+                                        src={avatarSrc}
+                                        icon={avatarSrc === undefined ? <UserOutlined style={{ color: '#8a8d91' }} /> : undefined}
+                                        style={{backgroundColor: '#ffffff', border: '1px solid #b0b3b8',}}
                                         size="small"
                                     />
                                 )}
