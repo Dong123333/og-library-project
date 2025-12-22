@@ -33,6 +33,9 @@ const LoginPage = () => {
             });
 
             setSearchParams({});
+        } else if (errorType === 'access_denied') {
+            api.error("Bạn đã hủy yêu cầu đăng nhập");
+            setSearchParams({});
         }
     }, [searchParams]);
 
