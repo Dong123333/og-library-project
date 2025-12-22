@@ -129,7 +129,7 @@ export class AuthService {
       'DEL-' + Math.random().toString(36).substring(2, 10).toUpperCase();
 
     return {
-      url: 'https://shona-hydroelectric-thinkably.ngrok-free.dev/api/v1/auth/privacy-policy',
+      url: 'https://olive-gallery.onrender.com/api/v1/auth/privacy-policy',
       confirmation_code: confirmation_code,
     };
   }
