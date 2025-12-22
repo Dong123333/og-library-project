@@ -560,6 +560,10 @@ export class NguoiDungService implements OnModuleInit {
       return `${frontendUrl}/login?error=access_denied`;
     }
 
+    if (currentStatus === 'ERROR') {
+      return `${frontendUrl}/login?error=error`;
+    }
+
     if (currentStatus === 'CONFLICT') {
       const providerName =
         data.provider === 'google'

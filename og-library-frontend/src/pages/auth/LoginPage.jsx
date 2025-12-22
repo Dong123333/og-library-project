@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {Form, Input, Button, Checkbox, Divider, notification} from 'antd';
-import { LockOutlined, GoogleOutlined, FacebookFilled, MailOutlined } from '@ant-design/icons';
-import {Link, useNavigate, useSearchParams} from 'react-router-dom';
+import {Form, Input, Button, Checkbox, notification} from 'antd';
+import { LockOutlined, MailOutlined } from '@ant-design/icons';
+import {useNavigate, useSearchParams} from 'react-router-dom';
 import AuthLayout from "../../layouts/auth/index.jsx";
 import axios from "../../services/axios.customize";
 import VerifyAccountModal from "./VerifyAccountModal.jsx";
@@ -36,6 +36,12 @@ const LoginPage = () => {
         } else if (errorType === 'access_denied') {
             api.error({
                 description: 'Bạn đã hủy yêu cầu đăng nhập',
+                duration: 5
+            });
+            setSearchParams({});
+        } else if (errorType === 'error') {
+            api.error({
+                description: 'Lỗi đăng nhập',
                 duration: 5
             });
             setSearchParams({});

@@ -19,6 +19,7 @@ import {
 import { JwtAuthGuard } from './passport/jwt-auth.guard';
 import { AuthGuard } from '@nestjs/passport';
 import * as express from 'express';
+import { FacebookAuthGuard } from './passport/facebook-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -81,20 +82,27 @@ export class AuthController {
 
   @Get('facebook')
   @Public()
-  @UseGuards(AuthGuard('facebook'))
+  @UseGuards(FacebookAuthGuard)
   async facebookLogin() {}
 
   @Get('facebook/callback')
   @Public()
-  @UseGuards(AuthGuard('facebook'))
+  @UseGuards(FacebookAuthGuard)
   async facebookLoginRedirect(@Req() req, @Res() res: express.Response) {
-    if (req.query.error === 'access_denied') {
+    const isCancelled = !req.user || req.query.error === 'access_denied';
+
+    if (isCancelled) {
       const url = this.authService.getRedirectUrl('CANCELLED', null);
       return res.redirect(url);
     }
-    const result = await this.authService.validateFacebookUser(req.user);
-    const redirectUrl = this.authService.getRedirectUrl(result.status, result);
-    return res.redirect(redirectUrl);
+    try {
+      const result = await this.authService.validateFacebookUser(req.user);
+      const redirectUrl = this.authService.getRedirectUrl(result.status, result);
+      return res.redirect(redirectUrl);
+    } catch (error) {
+      const url = this.authService.getRedirectUrl('ERROR', null);
+      return res.redirect(url);
+    }
   }
 
   @Get('privacy-policy')
