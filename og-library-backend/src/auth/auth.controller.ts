@@ -88,6 +88,10 @@ export class AuthController {
   @Public()
   @UseGuards(AuthGuard('facebook'))
   async facebookLoginRedirect(@Req() req, @Res() res: express.Response) {
+    if (req.query.error === 'access_denied') {
+      const url = this.authService.getRedirectUrl('CANCELLED', null);
+      return res.redirect(url);
+    }
     const result = await this.authService.validateFacebookUser(req.user);
     const redirectUrl = this.authService.getRedirectUrl(result.status, result);
     return res.redirect(redirectUrl);

@@ -34,7 +34,10 @@ const LoginPage = () => {
 
             setSearchParams({});
         } else if (errorType === 'access_denied') {
-            api.error("Bạn đã hủy yêu cầu đăng nhập");
+            api.error({
+                description: 'Bạn đã hủy yêu cầu đăng nhập',
+                duration: 5
+            });
             setSearchParams({});
         }
     }, [searchParams]);

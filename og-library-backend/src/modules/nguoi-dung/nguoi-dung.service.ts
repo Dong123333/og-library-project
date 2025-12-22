@@ -556,6 +556,10 @@ export class NguoiDungService implements OnModuleInit {
     const frontendUrl = this.configService.get<string>('FRONTEND_URL');
     const currentStatus = status || 'ERROR';
 
+    if (currentStatus === 'CANCELLED') {
+      return `${frontendUrl}/login?error=access_denied`;
+    }
+
     if (currentStatus === 'CONFLICT') {
       const providerName =
         data.provider === 'google'
