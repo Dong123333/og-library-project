@@ -87,7 +87,8 @@ const BookcasePage = () => {
         {
             title: 'Tên sách',
             dataIndex: 'tenSach',
-            render: text => <span className="font-bold text-blue-800 text-base">{text}</span>
+            width: 250,
+            render: text => <span className="whitespace-normal break-words font-bold text-blue-800 text-base">{text}</span>
         },
         {
             title: 'Tác giả',
@@ -172,7 +173,7 @@ const BookcasePage = () => {
                 {Bookcase.length > 0 ? (
                     <div className="flex flex-col lg:flex-row gap-8">
                         <div className="hidden sm:block">
-                            <div className="w-full overflow-x-auto">
+                            <div className="w-[754px] overflow-x-auto">
                                 <Table
                                     dataSource={Bookcase}
                                     columns={columns}
