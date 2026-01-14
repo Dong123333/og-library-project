@@ -32,6 +32,9 @@ export class ChiTietMuonTra {
   @Prop()
   ngayTra: Date;
 
+  @Prop({ default: false })
+  giaHan: boolean;
+
   @Prop({ type: Number, enum: TrangThaiSach, default: TrangThaiSach.CHO_LAY })
   tinhTrang: number;
 }

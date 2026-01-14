@@ -51,3 +51,14 @@ export class ReturnBookDto {
   @IsString()
   lyDoPhat?: string;
 }
+
+export class GiaHanSachDto {
+  @IsNotEmpty()
+  maMuonTra: string;
+
+  @IsNotEmpty()
+  maSach: string;
+
+  @IsNotEmpty()
+  ngayHenTraMoi: string;
+}

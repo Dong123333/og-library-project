@@ -42,11 +42,14 @@ const VerifyAccountPage = () => {
             if (res) {
                 api.success({
                     message: "Xác thực thành công! 🎉",
-                    description: "Tài khoản của bạn đã được kích hoạt. Vui lòng đăng nhập."
+                    description: "Tài khoản của bạn đã được kích hoạt. Vui lòng đăng nhập.",
+                    duration: 2,
+                    onClose: () => {
+                        navigate('/login');
+                    }
                 });
                 form.resetFields();
                 localStorage.removeItem('remembered_email');
-                navigate('/login');
             }
         } catch (error) {
             api.error({

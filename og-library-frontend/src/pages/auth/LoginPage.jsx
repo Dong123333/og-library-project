@@ -80,17 +80,18 @@ const LoginPage = () => {
                 api.success({
                     message: "Đăng nhập thành công!",
                     description: "Đang chuyển trang...",
-                    duration: 2
+                    duration: 1,
+                    onClose: () => {
+                        const role = res.user.maVaiTro.maVaiTro;
+                        if (role === 'VT001') {
+                            navigate('/');
+                        } else if (role === 'VT002') {
+                            navigate('/librarian');
+                        } else if (role === 'VT003') {
+                            navigate('/admin');
+                        }
+                    }
                 });
-
-                const role = res.user.maVaiTro.maVaiTro;
-                if (role === 'VT001') {
-                    navigate('/');
-                } else if (role === 'VT002') {
-                    navigate('/librarian');
-                } else if (role === 'VT003') {
-                    navigate('/admin');
-                }
             }
         } catch (error) {
             api.error({

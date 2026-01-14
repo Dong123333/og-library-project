@@ -10,7 +10,11 @@ import {
   Query,
 } from '@nestjs/common';
 import { MuonTraService } from './muon-tra.service';
-import { CreateMuonTraDto, ReturnBookDto } from './dto/create-muon-tra.dto';
+import {
+  CreateMuonTraDto,
+  GiaHanSachDto,
+  ReturnBookDto,
+} from './dto/create-muon-tra.dto';
 import { JwtAuthGuard } from '../../auth/passport/jwt-auth.guard';
 import { Public } from '../../decorator/customize';
 
@@ -100,5 +104,10 @@ export class MuonTraController {
   @UseGuards(JwtAuthGuard)
   getStats() {
     return this.muonTraService.getStatistics();
+  }
+
+  @Patch('gia-han')
+  GiaHan(@Request() req, @Body() dto: GiaHanSachDto) {
+    return this.muonTraService.renewBook(req.user._id, dto);
   }
 }

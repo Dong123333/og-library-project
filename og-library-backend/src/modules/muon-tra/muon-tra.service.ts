@@ -3,7 +3,11 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateMuonTraDto, ReturnBookDto } from './dto/create-muon-tra.dto';
+import {
+  CreateMuonTraDto,
+  GiaHanSachDto,
+  ReturnBookDto,
+} from './dto/create-muon-tra.dto';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { Connection, Model, Types } from 'mongoose';
 import { MuonTra, TrangThaiPhieu } from './schemas/muon-tra.schema';
@@ -14,6 +18,7 @@ import { ThongBaoService } from '../thong-bao/thong-bao.service';
 import aqp from 'api-query-params';
 import { NguoiDung } from '../nguoi-dung/schemas/nguoi-dung.schema';
 import { convertToRegex } from '../../helpers/regex.util';
+import dayjs from 'dayjs';
 
 @Injectable()
 export class MuonTraService {
@@ -88,6 +93,7 @@ export class MuonTraService {
         soLuongMuon: item.soLuongMuon,
         tinhTrang: 0,
         ngayHenTra: requestDate,
+        giaHan: false,
       });
 
       await this.sachModel.findByIdAndUpdate(item.maSach, {
@@ -653,5 +659,47 @@ export class MuonTraService {
       pending,
       overdue,
     };
+  }
+
+  async renewBook(_id: string, dto: GiaHanSachDto) {
+    const { maMuonTra, maSach, ngayHenTraMoi } = dto;
+    const ngayMoi = dayjs(ngayHenTraMoi);
+
+    const phieuMuon = await this.muonTraModel.findOne({
+      _id: maMuonTra,
+      maNguoiDung: _id,
+    });
+
+    if (!phieuMuon) {
+      throw new NotFoundException('Không tìm thấy thông tin phiếu mượn');
+    }
+
+    if (phieuMuon.trangThai !== 2) {
+      throw new BadRequestException(
+        'Chỉ có thể gia hạn khi phiếu mượn đang ở trạng thái "Đang mượn"',
+      );
+    }
+
+    const chiTiet = await this.chiTietMuonTraModel.findOne({
+      maMuonTra,
+      maSach,
+    });
+
+    if (!chiTiet) {
+      throw new NotFoundException(
+        'Không tìm thấy sách này trong chi tiết phiếu mượn',
+      );
+    }
+
+    chiTiet.ngayHenTra = ngayMoi.toDate();
+    chiTiet.giaHan = true;
+    await chiTiet.save();
+    await this.thongBaoService.create({
+      loaiThongBao: 'LIBRARIAN',
+      tieuDe: 'Gia hạn mượn sách',
+      noiDung: 'Có độc giả vừa gia hạn mượn sách. Vui lòng kiểm tra.',
+      lienKet: '/librarian/loans',
+    });
+    return { message: 'Gia hạn thành công' };
   }
 }

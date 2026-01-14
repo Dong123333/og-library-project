@@ -11,14 +11,15 @@ import {
     Empty,
     Popconfirm,
     Button,
-    Pagination
+    Pagination, Modal, Row, Col, DatePicker
 } from 'antd';
 import {
     HomeOutlined,
     ClockCircleOutlined,
     InfoCircleOutlined,
     DollarCircleOutlined,
-    CheckCircleOutlined, CloseCircleOutlined, ExclamationCircleOutlined
+    CheckCircleOutlined, CloseCircleOutlined, ExclamationCircleOutlined, FieldTimeOutlined, ThunderboltOutlined,
+    CalendarOutlined
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
@@ -48,6 +49,12 @@ const LoansPage = () => {
     const [pageSize, setPageSize] = useState(5);
     const [total, setTotal] = useState(0);
     const [mobileDetails, setMobileDetails] = useState({});
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [selectedDetail, setSelectedDetail] = useState(null);
+    const [newDueDate, setNewDueDate] = useState(null);
+    const [submitting, setSubmitting] = useState(false);
+
+    const today = dayjs();
 
     useEffect(() => {
         setActivePage('');
@@ -86,7 +93,6 @@ const LoansPage = () => {
                 results.forEach(r => { map[r.id] = r.data });
 
                 setMobileDetails(map);
-                console.log(mobileDetails);
             } catch (error) {
                 console.error("Error fetching loan details:", error);
             }
@@ -121,6 +127,83 @@ const LoansPage = () => {
                 console.error(error);
             }
         }
+    };
+
+    const getLimitDays = (maMuonTra) => {
+        const details = expandedData[maMuonTra] || [];
+        const totalBooks = details.reduce((sum, d) => sum + d.soLuongMuon, 0);
+
+        if (totalBooks < 5) return 30;
+        if (totalBooks >= 5 && totalBooks < 10) return 7;
+    };
+
+    const showModal = (detail) => {
+        setSelectedDetail(detail);
+        setNewDueDate(null);
+        setIsModalVisible(true);
+    };
+
+    const handleConfirm = async () => {
+        if (!newDueDate) return messageApi.warning("Vui lòng chọn ngày trả mới!");
+
+        setSubmitting(true);
+        try {
+            const parentId = typeof selectedDetail.maMuonTra === 'object'
+                ? selectedDetail.maMuonTra._id
+                : selectedDetail.maMuonTra;
+
+            const payload = {
+                maMuonTra: parentId,
+                maSach: selectedDetail.maSach._id,
+                ngayHenTraMoi: newDueDate.toISOString()
+            };
+
+            await axios.patch('muon-tra/gia-han', payload);
+
+            const formattedNewDate = newDueDate.format('YYYY-MM-DD');
+            setExpandedData(prev => {
+                const nextData = { ...prev };
+                if (nextData[parentId]) {
+                    nextData[parentId] = nextData[parentId].map(item => {
+                        if (item._id === selectedDetail._id) {
+                            return {
+                                ...item,
+                                ngayHenTra: formattedNewDate,
+                                giaHan: true
+                            };
+                        }
+                        return item;
+                    });
+                }
+                return nextData;
+            });
+
+            setLoans(prevLoans => prevLoans.map(loan =>
+                loan._id === parentId
+                    ? { ...loan, lastUpdated: new Date().getTime() }
+                    : loan
+            ));
+
+            if (mobileDetails[parentId]) {
+                setMobileDetails(prev => ({
+                    ...prev,
+                    [parentId]: prev[parentId].map(d =>
+                        d._id === selectedDetail._id ? { ...d, ngayHenTra: formattedNewDate, giaHan: true } : d
+                    )
+                }));
+            }
+            messageApi.success("Gia hạn sách thành công!");
+            setIsModalVisible(false);
+        } catch (error) {
+            messageApi.error("Gia hạn thất bại, vui lòng thử lại.");
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+        messageApi.info("Đã hủy thao tác gia hạn.");
     };
 
     const fetchMyPenalty  = async () => {
@@ -328,6 +411,34 @@ const LoansPage = () => {
                         return <Tag color="volcano">📖 Đang giữ</Tag>;
                     }
                 }
+            },
+            {
+                title: 'Gia hạn',
+                key: 'action',
+                render: (_, record) => {
+                    const due = dayjs(record.ngayHenTra);
+                    const diffDays = due.diff(today, 'day');
+
+                    if (record.giaHan === true) {
+                        return <Tag color="success" icon={<CheckCircleOutlined />} className="border-0">Đã gia hạn</Tag>;
+                    }
+
+                    const isBeforeDeadline = diffDays >= 1;
+                    const isBorrowing = record.tinhTrang === 1;
+
+                    return (
+                        <Button
+                            size="small"
+                            type="primary"
+                            disabled={!isBorrowing || !isBeforeDeadline}
+                            icon={<FieldTimeOutlined />}
+                            onClick={() => showModal(record)}
+                            className="bg-blue-600 border-0 rounded-md shadow-sm"
+                        >
+                            Gia hạn
+                        </Button>
+                    );
+                }
             }
         ];
 
@@ -489,6 +600,11 @@ const LoansPage = () => {
         }
     ];
 
+    const parentLoan = selectedDetail ? loans.find(l => l.maMuonTra === selectedDetail.maMuonTra) : null;
+    const ngayMuonGoc = parentLoan ? dayjs(parentLoan.ngayMuon) : dayjs(today);
+    const limitDays = selectedDetail ? getLimitDays(selectedDetail.maMuonTra) : 0;
+    const absoluteDeadline = dayjs(ngayMuonGoc).add(limitDays, 'day');
+
     return (
         <div ref={topRef}>
             {contextHolder}
@@ -648,9 +764,9 @@ const LoansPage = () => {
                                                                         </p>
 
                                                                         <p className="text-xs mt-1">
-                                                                            {detail.tinhTrang === 1 ? (
+                                                                            {detail.tinhTrang === 2 ? (
                                                                                 <Tag color="green">Đã trả</Tag>
-                                                                            ) : detail.tinhTrang === 2 ? (
+                                                                            ) : detail.tinhTrang === 3 ? (
                                                                                 <Tag color="volcano">Mất/Hỏng</Tag>
                                                                             ) : (
                                                                                 <Tag color="geekblue">Đang giữ</Tag>
@@ -836,6 +952,70 @@ const LoansPage = () => {
                     </Layout>
                 </TabPane>
             </Tabs>
+            <Modal
+                title={<div className="flex items-center gap-2 font-bold"><ThunderboltOutlined className="text-yellow-500" /> Xác nhận gia hạn</div>}
+                open={isModalVisible}
+                onOk={handleConfirm}
+                onCancel={handleCancel}
+                confirmLoading={submitting}
+                okText="Xác nhận"
+                cancelText="Hủy bỏ"
+                okButtonProps={{ className: 'bg-blue-600 h-10 rounded-lg px-8 shadow-md' }}
+                cancelButtonProps={{ className: 'h-10 rounded-lg' }}
+                centered
+                width={500}
+            >
+                {selectedDetail && (
+                    <div className="py-4">
+                        <label className="block font-bold text-gray-700 flex items-center gap-2 mb-2">Tên sách:</label>
+                        <div className="mb-6 p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                            <div className="text-base font-bold text-gray-800 leading-tight">{selectedDetail.maSach?.tenSach}</div>
+                        </div>
+
+                        <Row gutter={16} className="mb-6">
+                            <Col span={12}>
+                                <div className="p-4 bg-white rounded-2xl border border-gray-100 shadow-sm text-center">
+                                    <div className="text-[10px] text-gray-400 font-bold uppercase mb-1">Hạn cũ</div>
+                                    <div className="font-bold text-gray-600">{dayjs(selectedDetail.ngayHenTra).format('DD/MM/YYYY')}</div>
+                                </div>
+                            </Col>
+                            <Col span={12}>
+                                <div className="p-4 bg-blue-50 rounded-2xl border border-blue-100 shadow-sm text-center">
+                                    <div className="text-[10px] text-blue-400 font-bold uppercase mb-1">Lượt mượn</div>
+                                    <div className="font-bold text-blue-600">{selectedDetail.soLuongMuon} cuốn</div>
+                                </div>
+                            </Col>
+                        </Row>
+
+                        <div className="space-y-4">
+                            <label className="block font-bold text-gray-700 flex items-center gap-2">
+                                <CalendarOutlined className="text-blue-500" /> Chọn ngày trả mới dự kiến:
+                            </label>
+                            <DatePicker
+                                className="w-full h-12 rounded-xl"
+                                format="DD/MM/YYYY"
+                                disabledDate={(currentDate) => {
+                                    const currentHenTra = dayjs(selectedDetail.ngayHenTra);
+                                    return (
+                                        currentDate && (
+                                            currentDate.isBefore(currentHenTra.add(1, 'day'), 'day') ||
+                                            currentDate.isAfter(absoluteDeadline, 'day')
+                                        )
+                                    );
+                                }}
+                                onChange={(date) => setNewDueDate(date)}
+                                placeholder="Chọn một ngày trong khoảng gia hạn"
+                            />
+                            <div className="text-[11px] text-blue-500/70 bg-blue-50 p-4 rounded-2xl border border-dashed border-blue-200 leading-relaxed">
+                                <InfoCircleOutlined className="mr-1" />
+                                Hạn mượn tối đa cho phiếu này (<b>{limitDays} ngày</b> tính từ ngày nhận sách) là ngày
+                                <b> {absoluteDeadline.format('DD/MM/YYYY')}</b>.
+                                Mọi yêu cầu gia hạn không được vượt quá mốc này.
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </Modal>
         </div>
 
     );

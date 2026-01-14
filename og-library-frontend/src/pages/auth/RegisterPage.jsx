@@ -24,9 +24,12 @@ const RegisterPage = () => {
             if (res) {
                 api.success({
                     message: "Đăng ký thành công!",
-                    description: "Đang chuyển trang..."
+                    description: "Đang chuyển trang...",
+                    duration: 1,
+                    onClose: () => {
+                        navigate(`/verify/${res._id}`, { state: { email: values.email } });
+                    }
                 });
-                navigate(`/verify/${res._id}`, { state: { email: values.email } });
             }
         } catch (error) {
             api.error({
