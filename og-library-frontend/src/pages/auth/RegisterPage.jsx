@@ -25,7 +25,7 @@ const RegisterPage = () => {
                 api.success({
                     message: "Đăng ký thành công!",
                     description: "Đang chuyển trang...",
-                    duration: 1,
+                    duration: 0.6,
                     onClose: () => {
                         navigate(`/verify/${res._id}`, { state: { email: values.email } });
                     }

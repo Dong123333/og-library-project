@@ -1,4 +1,3 @@
-import logo from "../../assets/images/logo.png";
 import {Avatar, Badge, Button, Dropdown, Menu, Space} from "antd";
 import {
     BookOutlined,
@@ -12,6 +11,7 @@ import {usePage} from "../../context/NavContext.jsx";
 import {useAuth} from "../../context/AuthContext.jsx";
 import {useBookcase} from "../../context/BookcaseContext.jsx";
 import NotificationBell from "../NotificationBell.jsx";
+import logo from "../../assets/images/logo.png";
 
 const Header = () => {
     const {activePage, setActivePage} = usePage();
@@ -44,8 +44,7 @@ const Header = () => {
         navigate(`/library`);
     };
 
-    const avatarSrc =
-        user?.hinhAnh && user.hinhAnh !== '' ? user.hinhAnh : undefined;
+    console.log(user.hinhAnh)
 
     return (
         <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm px-6 py-3 flex justify-between items-center border-b border-gray-100">
@@ -108,7 +107,7 @@ const Header = () => {
                         <NotificationBell />
                         <Dropdown overlay={userMenu} trigger={['click']} placement="bottomRight">
                             <Space className="cursor-pointer hover:bg-gray-100 p-2 rounded transition">
-                                <Avatar src={avatarSrc}  icon={avatarSrc === undefined ? <UserOutlined style={{ color: '#8a8d91' }} /> : undefined} style={{ backgroundColor: '#ffffff', border: '1px solid #b0b3b8', }} />
+                                <Avatar src={user.hinhAnh}  icon={!user.hinhAnh ? <UserOutlined style={{ color: '#8a8d91' }} /> : undefined} style={{ backgroundColor: '#ffffff', border: '1px solid #b0b3b8', }} />
                                 <span className="hidden md:block font-medium text-gray-700">
                                     {user.hoVaTen}
                                 </span>

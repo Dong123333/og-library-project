@@ -16,9 +16,13 @@ const ForgotPasswordPage = () => {
             await axios.post('auth/retry-password',{email: values.email});
             api.success({
                 message: "Đã gửi mã OTP! Vui lòng kiểm tra email.",
-                description: "Đang chuyển trang..."
+                description: "Đang chuyển trang...",
+                duration: 1,
+                onClose: () => {
+                    navigate('/change-password', { state: { userEmail: values.email } });
+                }
             });
-            navigate('/change-password', { state: { userEmail: values.email } });
+
         } catch (error) {
             api.error({
                 message: "Lỗi",

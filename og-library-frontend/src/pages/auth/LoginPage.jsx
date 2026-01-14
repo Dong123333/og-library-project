@@ -80,7 +80,7 @@ const LoginPage = () => {
                 api.success({
                     message: "Đăng nhập thành công!",
                     description: "Đang chuyển trang...",
-                    duration: 1,
+                    duration: 0.6,
                     onClose: () => {
                         const role = res.user.maVaiTro.maVaiTro;
                         if (role === 'VT001') {

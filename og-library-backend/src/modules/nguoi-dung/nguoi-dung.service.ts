@@ -94,7 +94,7 @@ export class NguoiDungService implements OnModuleInit {
           const hashedPassword = await hashPasswordHelper(user.password);
           await this.nguoiDungModel.create({
             hoVaTen: user.hoVaTen,
-            hinhAnh: '',
+            hinhAnh: null,
             ngaySinh: null,
             diaChi: '',
             soDienThoai: '',
@@ -248,7 +248,7 @@ export class NguoiDungService implements OnModuleInit {
     const user = await this.nguoiDungModel.create({
       hoVaTen,
       email,
-      hinhAnh: '',
+      hinhAnh: null,
       ngaySinh: null,
       soDienThoai: '',
       diaChi: '',

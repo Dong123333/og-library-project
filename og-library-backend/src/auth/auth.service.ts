@@ -48,6 +48,7 @@ export class AuthService {
         maVaiTro: {
           maVaiTro: roleCode,
         },
+        hinhAnh: user.hinhAnh,
       },
       access_token: this.jwtService.sign(payload),
     };

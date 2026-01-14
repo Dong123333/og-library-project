@@ -90,9 +90,6 @@ const Chatbot = () => {
         localStorage.setItem(chatKey, JSON.stringify(resetMsg));
     };
 
-    const avatarSrc =
-        user?.hinhAnh && user.hinhAnh !== '' ? user.hinhAnh : undefined;
-
     return (
         <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
             {isOpen ? (
@@ -169,8 +166,8 @@ const Chatbot = () => {
                                 </div>
                                 {msg.role === "user" && (
                                     <Avatar
-                                        src={avatarSrc}
-                                        icon={avatarSrc === undefined ? <UserOutlined style={{ color: '#8a8d91' }} /> : undefined}
+                                        src={user.hinhAnh}
+                                        icon={!user.hinhAnh ? <UserOutlined style={{ color: '#8a8d91' }} /> : undefined}
                                         style={{backgroundColor: '#ffffff', border: '1px solid #b0b3b8',}}
                                         size="small"
                                     />

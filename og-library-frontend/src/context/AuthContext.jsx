@@ -9,7 +9,7 @@ const defaultUser = {
     ngaySinh: "",
     soDienThoai: "",
     diaChi: "",
-    hinhAnh: "",
+    hinhAnh: null,
     maVaiTro: null,
     nguonDangNhap: null,
 };

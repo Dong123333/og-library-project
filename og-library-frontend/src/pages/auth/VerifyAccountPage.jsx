@@ -43,7 +43,7 @@ const VerifyAccountPage = () => {
                 api.success({
                     message: "Xác thực thành công! 🎉",
                     description: "Tài khoản của bạn đã được kích hoạt. Vui lòng đăng nhập.",
-                    duration: 2,
+                    duration: 1,
                     onClose: () => {
                         navigate('/login');
                     }

@@ -213,8 +213,6 @@ const ProfilePage = () => {
         }
     };
 
-    const avatarSrc = user?.hinhAnh && user.hinhAnh !== '' ? user.hinhAnh : undefined;
-
     const renderProviderIcon = () => {
         if (user.nguonDangNhap === 'google') return <Tooltip title="Đã liên kết Google"><img style={{ width: 18, height: 18 }} src={google} alt=""/></Tooltip>;
         if (user.nguonDangNhap === 'facebook') return <Tooltip title="Đã liên kết Facebook"><img style={{ width: 18, height: 18 }} src={facebook} alt=""/></Tooltip>;
@@ -240,8 +238,8 @@ const ProfilePage = () => {
                                         <div className="relative">
                                             <Avatar
                                                 size={120}
-                                                src={avatarSrc}
-                                                icon={avatarSrc === undefined ? <UserOutlined style={{ color: '#8a8d91' }} /> : undefined}
+                                                src={user.hinhAnh}
+                                                icon={!user.hinhAnh ? <UserOutlined style={{ color: '#8a8d91' }} /> : undefined}
                                                 className="border-4 border-white shadow-md"
                                                 style={{ backgroundColor: '#ffffff', border: '1px solid #b0b3b8' }}
                                             />

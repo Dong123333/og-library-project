@@ -23,9 +23,12 @@ const ChangePasswordPage = () => {
             });
             api.success({
                 message: "Đổi mật khẩu thành công!",
-                description: "Vui lòng đăng nhập lại."
+                description: "Vui lòng đăng nhập lại.",
+                duration: 0.6,
+                onClose: () => {
+                    window.location.href = "/login";
+                }
             });
-            window.location.href = "/login";
 
         } catch (error) {
             api.error({
